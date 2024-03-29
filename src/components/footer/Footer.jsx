@@ -42,7 +42,10 @@ export default function Footer() {
             <HiOutlineEnvelope className="text-gray-300" />
             <input type="email" className="grow" placeholder="Email" />
           </label>
-          <button type="submit" className="btn green-gradient rounded-l-none">
+          <button
+            type="submit"
+            className="btn green-gradient rounded-l-none border-0"
+          >
             Subscribe
           </button>
         </form>

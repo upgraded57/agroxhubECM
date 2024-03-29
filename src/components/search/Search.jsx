@@ -12,7 +12,7 @@ export default function Search() {
 
         <button
           type="submit"
-          className="btn px-5 md:px-8 rounded-l-none green-gradient"
+          className="btn px-5 md:px-8 rounded-l-none green-gradient border-0"
         >
           Search
         </button>

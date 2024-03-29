@@ -13,7 +13,7 @@ export default function BeASeller() {
         </div>
 
         <form className="w-full md:basis-1/2 flex flex-row md:flex-col gap-2 items-center md:items-start">
-          <label className="input flex items-center gap-2 w-full">
+          <label className="input flex items-center gap-2 w-full bg-white">
             <HiOutlineEnvelope className="text-gray-300" />
             <input type="email" className="grow" placeholder="Email" />
           </label>
