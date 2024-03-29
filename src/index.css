@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --light-grey-clr: #f5f5f5;
+  --light-green-clr: #36e18d;
+  --dark-green-clr: #22955c;
+  --orange-clr: #f6ad49;
+  --yellow-clr: #f6ad49;
+  --dark-orange-clr: #da6c33;
+  --black-clr: #47382a;
+  --red-clr: #d21010;
+  --grey-clr: #a5a5a5;
+  --dark-blue-clr: #040a3e;
+}
+
+body {
+  color: var(--black-clr);
+}
+
+.green-gradient {
+  background: linear-gradient(
+    45deg,
+    var(--light-green-clr),
+    var(--dark-green-clr)
+  );
+  color: white;
+}
+
+.h-300 {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.h-100 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.hero {
+  background-image: url("./assets/images/hero-bg.png"),
+    linear-gradient(45deg, #36e18d, #2cad6c);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 768px) {
+  .h-300 {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .h-100 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}

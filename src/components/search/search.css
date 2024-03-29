@@ -1,0 +1,11 @@
+.search-form > div button {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+}

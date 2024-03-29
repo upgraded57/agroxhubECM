@@ -1,0 +1,43 @@
+nav ul li a.active {
+  font-weight: 600;
+  color: var(--dark-green-clr);
+}
+
+@media screen and (max-width: 1024px) {
+  nav {
+    position: fixed;
+    top: 50px;
+    border-top: 1px solid lightgrey;
+    left: 0;
+    right: 0;
+    background: white;
+    width: 100vw;
+    height: calc(100dvh - 52px);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: 0.3s;
+    z-index: 1000;
+  }
+
+  nav.active {
+    transform: scaleX(1);
+  }
+
+  nav ul {
+    flex-direction: column;
+    padding-top: 20px;
+  }
+
+  nav ul li {
+    width: 100%;
+    display: flex;
+  }
+
+  nav ul li a {
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    font-weight: 600;
+    padding: 20px;
+  }
+}
