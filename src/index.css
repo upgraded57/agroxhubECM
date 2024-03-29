@@ -17,6 +17,7 @@
 
 body {
   color: var(--black-clr);
+  background: white;
 }
 
 .green-gradient {
