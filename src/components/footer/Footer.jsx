@@ -7,7 +7,7 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 export default function Footer() {
   return (
     <>
-      <div className="container max-w-screen-xl px-[4vw] mx-auto mb-12">
+      <div className="max-w-screen-xl px-[4vw] mx-auto mb-12">
         <div className="flex justify-between items-center mb-3">
           <h3 className="h-100">About AgroXhub</h3>
           <Link href="#" className="flex items-center gap-3">
@@ -52,7 +52,7 @@ export default function Footer() {
       </div>
 
       <footer className="bg-dark-green-clr py-8 px-[4vw] text-white">
-        <div className="flex flex-col gap-10 md:gap-0 md:flex-row md:justify-between md:items-start mx-auto container">
+        <div className="flex flex-col gap-10 md:gap-0 md:flex-row md:justify-between md:items-start mx-auto max-w-screen-2xl">
           <span className="max-w-[150px]">
             <p className="text-sm font-semibold mb-2">CONTACT US</p>
             <p className="text-sm mb-4">

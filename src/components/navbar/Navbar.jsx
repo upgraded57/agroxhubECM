@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <>
       <header className="w-full h-[50px] px-[4vw] lg:h-[70px] flex items-center shadow-md fixed bg-white z-50">
-        <div className="container mx-auto flex justify-between items-center w-full">
+        <div className="max-w-screen-2xl mx-auto flex justify-between items-center w-full">
           <NavLink to="/" className="md:basis-1/4">
             <img src={logo} alt="logo" className="w-[150px]" />
           </NavLink>
@@ -86,13 +86,6 @@ export default function Navbar() {
                 <IoClose />
               </div>
             </label>
-
-            {/* <span
-              className="flex items-center gap-2 cursor-pointer lg:hidden text-xl"
-              onClick={() => setNavOpen(!navOpen)}
-            >
-              {navOpen ? <IoClose /> : <HiBars3 />}
-            </span> */}
           </div>
         </div>
       </header>

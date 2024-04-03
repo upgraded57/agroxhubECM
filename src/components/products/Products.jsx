@@ -4,7 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function Products({ header }) {
   return (
-    <div className="container px-[4vw] mx-auto mb-12">
+    <div className="px-[4vw] max-w-screen-xl mx-auto mb-12">
       <div className="flex items-center justify-between">
         <h3 className=" h-100">{header}</h3>
         <Link href="#" className="flex items-center gap-3">

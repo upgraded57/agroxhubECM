@@ -2,8 +2,8 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 
 export default function BeASeller() {
   return (
-    <div className="mb-12 px-[4vw] bg-dark-orange-clr py-10">
-      <div className="container max-w-screen-lg mx-auto  flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 md:gap-10">
+    <div className="mb-12  bg-dark-orange-clr py-10">
+      <div className="max-w-screen-xl px-[4vw] mx-auto  flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 md:gap-10">
         <div className="w-full md:basis-1/2 text-center md:text-left text-white">
           <h3 className="h-300">Become a Seller</h3>
           <p className="md:text-lg">

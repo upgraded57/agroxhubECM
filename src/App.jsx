@@ -1,16 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/home/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { routes } from "./utils/Routes";
 
 function App() {
-  return (
-    <div className="text-black-clr">
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+  const router = createBrowserRouter(routes);
+  return <RouterProvider router={router} />;
 }
 
 export default App;
