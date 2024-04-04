@@ -32,7 +32,9 @@ export default function Navbar() {
                 <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <NavLink to="/products">Products</NavLink>
+                <NavLink to="/products" end>
+                  Products
+                </NavLink>
               </li>
               <li>
                 <NavLink to="/about">About</NavLink>

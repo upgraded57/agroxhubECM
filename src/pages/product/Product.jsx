@@ -5,8 +5,8 @@ import Footer from "./../../components/footer/Footer";
 import Search from "../../components/search/Search";
 import ProductDetail from "../../components/productdetail/ProductDetail";
 import AboutSeller from "../../components/aboutseller/AboutSeller";
-import Products from "./../../components/products/Products";
 import BeASeller from "./../../components/beaseller/BeASeller";
+import ProductsList from "./../../components/products/Products";
 
 export default function Product() {
   const { product_id } = useParams();
@@ -16,8 +16,8 @@ export default function Product() {
       <Search />
       <ProductDetail />
       <AboutSeller />
-      <Products header="More Products from Seller" />
-      <Products header="You may also like" />
+      <ProductsList header="More Products from Seller" />
+      <ProductsList header="You may also like" />
       <BeASeller />
       <Recent />
       <Footer />

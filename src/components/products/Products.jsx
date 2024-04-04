@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Product from "../product/Product";
 import { FaArrowRightLong } from "react-icons/fa6";
 
-export default function Products({ header }) {
+export default function ProductsList({ header }) {
   return (
     <div className="px-[4vw] max-w-screen-xl mx-auto mb-12">
       <div className="flex items-center justify-between">
