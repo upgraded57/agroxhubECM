@@ -7,6 +7,8 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import Product from "../../components/product/Product";
 import BeASeller from "./../../components/beaseller/BeASeller";
 import { useState } from "react";
+import Recent from "./../../components/recent/Recent";
+import Footer from "./../../components/footer/Footer";
 
 export default function Products() {
   const productsCount = [];
@@ -184,6 +186,8 @@ export default function Products() {
       </div>
 
       <BeASeller />
+      <Recent />
+      <Footer />
     </>
   );
 }
