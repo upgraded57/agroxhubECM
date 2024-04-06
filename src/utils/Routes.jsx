@@ -12,6 +12,11 @@ import Notifications from "../pages/user/Notifications";
 import Help from "../pages/user/Help";
 import Report from "../pages/user/Report";
 import Review from "./../pages/user/Review";
+import Analytics from "../pages/user/Analytics";
+import SellerProducts from "../pages/user/Products";
+import Finance from "../pages/user/Finance";
+import Followers from "../pages/user/Followers";
+import Promotions from "../pages/user/Promotions";
 
 export const routes = [
   {
@@ -110,11 +115,57 @@ export const routes = [
       </UserLayout>
     ),
   },
+
   {
     path: "user/review",
     element: (
       <UserLayout>
         <Review />
+      </UserLayout>
+    ),
+  },
+
+  {
+    path: "seller/analytics",
+    element: (
+      <UserLayout>
+        <Analytics />
+      </UserLayout>
+    ),
+  },
+
+  {
+    path: "seller/products",
+    element: (
+      <UserLayout>
+        <SellerProducts />
+      </UserLayout>
+    ),
+  },
+
+  {
+    path: "seller/finance",
+    element: (
+      <UserLayout>
+        <Finance />
+      </UserLayout>
+    ),
+  },
+
+  {
+    path: "seller/followers",
+    element: (
+      <UserLayout>
+        <Followers />
+      </UserLayout>
+    ),
+  },
+
+  {
+    path: "seller/promotions",
+    element: (
+      <UserLayout>
+        <Promotions />
       </UserLayout>
     ),
   },

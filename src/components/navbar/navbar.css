@@ -1,3 +1,4 @@
+.sidenav a.active,
 nav ul li a.active {
   font-weight: 600;
   color: var(--dark-green-clr);
