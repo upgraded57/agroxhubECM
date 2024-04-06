@@ -1,0 +1,7 @@
+.nav-lg a.active {
+  border-left: 5px solid var(--dark-green-clr);
+}
+
+.orderedProduct:last-child {
+  border-bottom: none;
+}

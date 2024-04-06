@@ -7,7 +7,7 @@ export default function Farmers() {
       <h3 className="text-xl text-black-clr font-semibold mb-2">
         Buy from Best Selling Farmers
       </h3>
-      <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
+      <div className="gridEl">
         <Farmer />
         <Farmer />
         <Farmer />

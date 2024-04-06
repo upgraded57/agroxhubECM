@@ -171,7 +171,7 @@ export default function Products() {
           {/* Products */}
           <div className="basis-19/25 w-full">
             <h3 className=" h-100">Most Purchased Products</h3>
-            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
+            <div className="gridEl">
               {productsCount.map((_, idx) => (
                 <Product key={idx} />
               ))}

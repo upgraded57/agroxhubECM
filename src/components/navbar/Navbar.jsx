@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo1.png";
 import "./navbar.css";
 
@@ -62,14 +62,20 @@ export default function Navbar() {
           </nav>
 
           <div className="flex items-center basis-1/4 justify-end gap-8 text-sm">
-            <span className="flex items-center gap-2">
+            <Link
+              to="/cart"
+              className="btn btn-ghost mx-0 p-0 hover:bg-transparent font-normal"
+            >
               <p className="hidden md:block">Cart</p>
               <IoCartOutline className="text-xl" />
-            </span>
-            <span className="flex items-center gap-2">
+            </Link>
+            <Link
+              to="/user/account"
+              className="btn btn-ghost mx-0 p-0 hover:bg-transparent font-normal"
+            >
               <p className="hidden md:block">User</p>
               <AiOutlineUser className="text-xl" />
-            </span>
+            </Link>
             <label className="swap swap-flip text-xl lg:hidden">
               {/* this hidden checkbox controls the state */}
               <input

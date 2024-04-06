@@ -15,6 +15,15 @@
   --dark-blue-clr: #040a3e;
 }
 
+@layer utilities {
+  .contEl {
+    @apply max-w-screen-xl px-[4vw] mx-auto;
+  }
+  .gridEl {
+    @apply w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center;
+  }
+}
+
 body {
   color: var(--black-clr);
   background: white;
@@ -27,6 +36,7 @@ body {
     var(--dark-green-clr)
   );
   color: white;
+  border: none !important;
 }
 
 .h-300 {

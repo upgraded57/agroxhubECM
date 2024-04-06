@@ -15,7 +15,7 @@ export default {
         "black-clr": "var(--black-clr)",
         "red-clr": "var(--red-clr)",
         "grey-clr": "var(--grey-clr)",
-        "dark-blue": "var(--dark-blue-clr)",
+        "dark-blue-clr": "var(--dark-blue-clr)",
         "yellow-clr": "var(--yellow-clr)",
       },
     },

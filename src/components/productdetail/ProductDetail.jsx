@@ -7,7 +7,7 @@ import {
 
 export default function ProductDetail() {
   return (
-    <div className="max-w-screen-xl px-[4vw] mx-auto mb-12">
+    <div className="contEl mb-12">
       <div className="flex gap-4 flex-col md:flex-row">
         <div className="flex flex-col gap-2 w-full basis-1/2">
           <div className="w-full aspect-[3/2] rounded-lg overflow-hidden">
