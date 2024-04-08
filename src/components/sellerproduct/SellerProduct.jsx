@@ -1,4 +1,3 @@
-import React from "react";
 import { FaStar, FaRegEye } from "react-icons/fa";
 import { BiEdit } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
@@ -40,12 +39,13 @@ export default function SellerProduct() {
         >
           <MdDeleteForever />
         </span>
-        <span
+        <Link
+          to="/seller/products/1234/analytics"
           className="tooltip tooltip-left rounded-md p-1 border-2 border-dark-blue-clr text-dark-blue-clr text-xl cursor-pointer hover:border-transparent hover:text-white hover:bg-dark-blue-clr"
           data-tip="View Product Analytics"
         >
           <BsGraphUp />
-        </span>
+        </Link>
       </div>
     </div>
   );

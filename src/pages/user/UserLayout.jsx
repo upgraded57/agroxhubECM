@@ -18,6 +18,13 @@ export default function UserLayout({ children }) {
     if (location.pathname.includes("help")) return "Help Center";
     if (location.pathname.includes("review")) return "Review / Suggestion";
     if (location.pathname.includes("report")) return "Report a Problem";
+    if (location.pathname.includes("seller/products/create"))
+      return "Create Product";
+    if (
+      location.pathname.includes("seller/products") &&
+      location.pathname.includes("/analytics")
+    )
+      return "product analytics";
     return location.pathname.split("/")[2] || "";
   };
   const currentPage = resolveLocation();

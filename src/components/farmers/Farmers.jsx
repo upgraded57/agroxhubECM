@@ -1,4 +1,3 @@
-import React from "react";
 import Farmer from "./Farmer";
 
 export default function Farmers() {

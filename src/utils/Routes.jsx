@@ -18,6 +18,9 @@ import Finance from "../pages/user/Finance";
 import Followers from "../pages/user/Followers";
 import Promotions from "../pages/user/Promotions";
 import EditProfile from "../pages/user/EditProfile";
+import ProductAnalytics from "../pages/user/ProductAnalytics";
+import CreateProduct from "../pages/user/CreateProduct";
+import Cart from "../pages/cart/Cart";
 
 export const routes = [
   {
@@ -158,6 +161,15 @@ export const routes = [
   },
 
   {
+    path: "seller/products/create",
+    element: (
+      <UserLayout>
+        <CreateProduct />
+      </UserLayout>
+    ),
+  },
+
+  {
     path: "seller/finance",
     element: (
       <UserLayout>
@@ -182,5 +194,19 @@ export const routes = [
         <Promotions />
       </UserLayout>
     ),
+  },
+
+  {
+    path: "seller/products/:product_id/analytics",
+    element: (
+      <UserLayout>
+        <ProductAnalytics />
+      </UserLayout>
+    ),
+  },
+
+  {
+    path: "cart",
+    element: <Cart />,
   },
 ];

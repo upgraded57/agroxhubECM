@@ -115,12 +115,14 @@ export default function EditProfile() {
         </label>
       </div>
 
-      <button
-        type="submit"
-        className="btn btn-outline border-orange-clr border-2 text-orange-clr hover:text-white hover:bg-orange-clr hover:border-orange-clr uppercase"
-      >
-        update account
-      </button>
+      <div className="flex justify-center items-center">
+        <button
+          type="submit"
+          className="btn btn-outline border-orange-clr border-2 text-orange-clr hover:text-white hover:bg-orange-clr hover:border-orange-clr uppercase"
+        >
+          update account
+        </button>
+      </div>
     </Form>
   );
 }
