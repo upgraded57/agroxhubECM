@@ -1,4 +1,5 @@
 import { BiEdit } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 export default function Account() {
   return (
@@ -25,10 +26,13 @@ export default function Account() {
 
       <div className="p-2 border-b flex justify-between items-center">
         <p className="font-semibold text-sm">GENERAL INFORMATION</p>
-        <div className="btn btn-ghost p-0 min-h-[max-content] h-[max-content] text-sm font-normal hover:bg-transparent">
+        <Link
+          to="edit"
+          className="btn btn-ghost p-0 min-h-[max-content] h-[max-content] text-sm font-normal hover:bg-transparent"
+        >
           EDIT
           <BiEdit />
-        </div>
+        </Link>
       </div>
 
       <div className="p-4">

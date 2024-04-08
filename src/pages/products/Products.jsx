@@ -177,7 +177,7 @@ export default function Products() {
               ))}
             </div>
             <div className="w-full flex justify-center mt-4">
-              <button className="btn btn-outline border-orange-clr text-orange-clr hover:text-white hover:bg-orange-clr hover:border-orange-clr">
+              <button className="btn btn-outline border-2 border-orange-clr text-orange-clr hover:text-white hover:bg-orange-clr hover:border-orange-clr">
                 Load More Products
               </button>
             </div>

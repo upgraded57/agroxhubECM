@@ -17,6 +17,7 @@ import SellerProducts from "../pages/user/Products";
 import Finance from "../pages/user/Finance";
 import Followers from "../pages/user/Followers";
 import Promotions from "../pages/user/Promotions";
+import EditProfile from "../pages/user/EditProfile";
 
 export const routes = [
   {
@@ -49,6 +50,19 @@ export const routes = [
     element: (
       <UserLayout>
         <Account />
+      </UserLayout>
+    ),
+    action: ({ request }) => {
+      // Call API to edit form here
+      return;
+    },
+  },
+
+  {
+    path: "user/account/edit",
+    element: (
+      <UserLayout>
+        <EditProfile />
       </UserLayout>
     ),
   },

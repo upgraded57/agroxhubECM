@@ -8,7 +8,8 @@ export default function UserLayout({ children }) {
   const location = useLocation();
 
   const resolveLocation = () => {
-    if (location.pathname.includes("account")) return "My Account";
+    if (location.pathname === "/user/account") return "My Account";
+    if (location.pathname.split("/")[3] === "edit") return "Edit Account";
     if (location.pathname.includes("orders")) return "Orders";
     if (location.pathname.includes("saved")) return "Saved Items";
     if (location.pathname.includes("recent")) return "Recent Items";
