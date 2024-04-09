@@ -51,9 +51,12 @@ export default function Orders() {
                 <button className="btn btn-sm bg-light-green-clr border-light-green-clr font-normal text-white hover:bg-dark-green-clr hover:border-dark-green-clr">
                   DELIVERED
                 </button>
-                <button className="btn btn-sm border-orange-clr border-2 btn-outline text-orange-clr font-normal hover:bg-orange-clr hover:text-white hover:border-transparent ">
+                <Link
+                  to="/user/orders/product/1234/review"
+                  className="btn btn-sm border-orange-clr border-2 btn-outline text-orange-clr font-normal hover:bg-orange-clr hover:text-white hover:border-transparent "
+                >
                   REVIEW
-                </button>
+                </Link>
               </div>
             </div>
           </div>

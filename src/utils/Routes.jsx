@@ -21,6 +21,7 @@ import EditProfile from "../pages/user/EditProfile";
 import ProductAnalytics from "../pages/user/ProductAnalytics";
 import CreateProduct from "../pages/user/CreateProduct";
 import Cart from "../pages/cart/Cart";
+import ProductReview from "../pages/user/ProductReview";
 
 export const routes = [
   {
@@ -138,6 +139,15 @@ export const routes = [
     element: (
       <UserLayout>
         <Review />
+      </UserLayout>
+    ),
+  },
+
+  {
+    path: "user/orders/product/:product_id/review",
+    element: (
+      <UserLayout>
+        <ProductReview />
       </UserLayout>
     ),
   },

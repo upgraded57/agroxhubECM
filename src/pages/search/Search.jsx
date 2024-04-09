@@ -170,7 +170,7 @@ export default function SearchPage() {
 
           {/* Products */}
           <div className="basis-19/25 w-full">
-            <h3 className=" h-100">Your Search - {q}</h3>
+            <h3 className="h-100">Search result for - {q}</h3>
             <div className="gridEl">
               {productsCount.map((_, idx) => (
                 <Product key={idx} />
