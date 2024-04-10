@@ -91,16 +91,17 @@ export default function ProductDetail() {
             50 Baskets max saleable in one order | 750 Baskets still in stock
           </p>
           <hr className="my-3" />
-          <div className="flex items-end gap-2">
+          {/* <div className="flex items-end gap-2">
             <p className="text-sm">Choose logistic service provider</p>
             <IoChevronDownOutline />
           </div>
-          <hr className="my-3" />
-          <p className="text-sm">
+          <hr className="my-3" /> */}
+
+          {/* <p className="text-sm">
             Deliver to - <b>Ajegunle Alakuko.</b>{" "}
             <span className="text-orange-clr">(Change delivery address)</span>
           </p>
-          <hr className="my-3" />
+          <hr className="my-3" /> */}
           <div className="flex items-center gap-2">
             <button className="btn green-gradient text-white">
               Add to Cart

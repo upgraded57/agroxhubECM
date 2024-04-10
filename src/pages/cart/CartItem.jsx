@@ -1,4 +1,3 @@
-import React from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 

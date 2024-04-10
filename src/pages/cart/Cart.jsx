@@ -3,8 +3,12 @@ import Recent from "./../../components/recent/Recent";
 import Footer from "./../../components/footer/Footer";
 import CartItem from "./CartItem";
 import { FaUps } from "react-icons/fa";
+import { useState } from "react";
+import DeliveryAddressModal from "../../components/deliveryAddressModal/DeliveryAddressModal";
 
 export default function Cart() {
+  const [deliveryModalSelectorActive, setDeliveryModalSelectorActive] =
+    useState(false);
   return (
     <>
       <Navbar />
@@ -46,7 +50,12 @@ export default function Cart() {
                 <p>
                   Deliver to - <b className="font-semibold">Ajegunle Alakuko</b>
                 </p>
-                <p className="text-orange-clr font-semibold">(Change)</p>
+                <p
+                  className="text-orange-clr font-semibold cursor-pointer hover:underline"
+                  onClick={() => setDeliveryModalSelectorActive(true)}
+                >
+                  (Change)
+                </p>
               </div>
 
               <div className="form-control pr-2">
@@ -202,6 +211,11 @@ export default function Cart() {
           </div>
         </div>
       </div>
+
+      {deliveryModalSelectorActive && (
+        <DeliveryAddressModal setState={setDeliveryModalSelectorActive} />
+      )}
+
       <Recent />
       <Footer />
     </>
