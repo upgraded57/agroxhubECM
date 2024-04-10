@@ -3,36 +3,12 @@ import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import { MdFilterList } from "react-icons/md";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { resolveLocation } from "../../utils/ResolveLocation";
 
 export default function UserLayout({ children }) {
   const location = useLocation();
 
-  const resolveLocation = () => {
-    if (location.pathname === "/user/account") return "My Account";
-    if (location.pathname.split("/")[3] === "edit") return "Edit Account";
-    if (location.pathname === "/user/orders") return "Orders";
-    if (location.pathname.includes("saved")) return "Saved Items";
-    if (location.pathname.includes("recent")) return "Recent Items";
-    if (location.pathname.includes("payment")) return "Payment Methods";
-    if (location.pathname.includes("notifications")) return "Notifications";
-    if (location.pathname.includes("help")) return "Help Center";
-    if (location.pathname.includes("user/review")) return "Review / Suggestion";
-    if (location.pathname.includes("report")) return "Report a Problem";
-    if (location.pathname.includes("seller/products/create"))
-      return "Create Product";
-    if (
-      location.pathname.includes("seller/products") &&
-      location.pathname.includes("/analytics")
-    )
-      return "product analytics";
-    if (
-      location.pathname.includes("user/orders") &&
-      location.pathname.includes("/review")
-    )
-      return "product review";
-    return location.pathname.split("/")[2] || "";
-  };
-  const currentPage = resolveLocation();
+  const currentPage = resolveLocation(location);
 
   return (
     <>

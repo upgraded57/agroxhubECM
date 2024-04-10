@@ -1,4 +1,5 @@
 import { FaStar } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 export default function ProductAnalytics() {
   return (
@@ -76,9 +77,12 @@ export default function ProductAnalytics() {
           </div>
           <hr className="my-3" />
 
-          <button className="btn border-2 border-orange-clr bg-white text-orange-clr hover:bg-orange-clr hover:text-white hover:border-orange-clr uppercase">
+          <Link
+            to="/seller/products/1234/promote"
+            className="btn border-2 border-orange-clr bg-white text-orange-clr hover:bg-orange-clr hover:text-white hover:border-orange-clr uppercase"
+          >
             Promote this product
-          </button>
+          </Link>
         </div>
       </div>
 

@@ -1,6 +1,7 @@
 import { SiMastercard, SiBankofamerica } from "react-icons/si";
 import { MdDeleteForever } from "react-icons/md";
 import { RiVisaLine } from "react-icons/ri";
+import { Link, useActionData } from "react-router-dom";
 
 export default function Payment() {
   return (
@@ -70,9 +71,12 @@ export default function Payment() {
       </div>
 
       <div className="w-full my-4 flex justify-center">
-        <button className="btn btn-outline border-2 border-orange-clr text-orange-clr uppercase hover:bg-orange-clr hover:text-white hover:border-orange-clr">
+        <Link
+          to="/user/payment/new"
+          className="btn btn-outline border-2 border-orange-clr text-orange-clr uppercase hover:bg-orange-clr hover:text-white hover:border-orange-clr"
+        >
           add new card
-        </button>
+        </Link>
       </div>
     </>
   );

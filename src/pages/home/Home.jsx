@@ -17,7 +17,7 @@ export default function Home() {
       <ProductsPicker />
       <ProductsList header="Most Purchased Products" />
       <ProductsList header="Crops and Produce" />
-      <Farmers />
+      <Farmers header="Buy From Best Selling Farmers" />
       <ProductsList header="Processed Foods" />
       <BeASeller />
       <Recent />

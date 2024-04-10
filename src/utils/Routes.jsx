@@ -22,6 +22,9 @@ import ProductAnalytics from "../pages/user/ProductAnalytics";
 import CreateProduct from "../pages/user/CreateProduct";
 import Cart from "../pages/cart/Cart";
 import ProductReview from "../pages/user/ProductReview";
+import PromoteProduct from "../pages/user/PromoteProduct";
+import Seller from "../pages/seller/Seller";
+import AddPaymentCard from "../pages/user/AddPaymentCard";
 
 export const routes = [
   {
@@ -103,6 +106,18 @@ export const routes = [
     element: (
       <UserLayout>
         <Payment />
+      </UserLayout>
+    ),
+    action: () => {
+      // call API to add new payment card here
+      return null;
+    },
+  },
+  {
+    path: "user/payment/new",
+    element: (
+      <UserLayout>
+        <AddPaymentCard />
       </UserLayout>
     ),
   },
@@ -216,7 +231,21 @@ export const routes = [
   },
 
   {
+    path: "seller/products/:product_id/promote",
+    element: (
+      <UserLayout>
+        <PromoteProduct />
+      </UserLayout>
+    ),
+  },
+
+  {
     path: "cart",
     element: <Cart />,
+  },
+
+  {
+    path: "seller/:seller_id",
+    element: <Seller />,
   },
 ];
