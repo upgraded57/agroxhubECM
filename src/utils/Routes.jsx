@@ -25,6 +25,7 @@ import ProductReview from "../pages/user/ProductReview";
 import PromoteProduct from "../pages/user/PromoteProduct";
 import Seller from "../pages/seller/Seller";
 import AddPaymentCard from "../pages/user/AddPaymentCard";
+import About from "../pages/about/About";
 
 export const routes = [
   {
@@ -35,6 +36,11 @@ export const routes = [
   {
     path: "products",
     element: <Products />,
+  },
+
+  {
+    path: "about",
+    element: <About />,
   },
 
   {
