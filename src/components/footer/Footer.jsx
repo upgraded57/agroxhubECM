@@ -3,30 +3,32 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo-white.png";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 
-export default function Footer() {
+export default function Footer({ noabout }) {
   return (
     <>
-      <div className="contEl my-12">
-        <div className="flex justify-between items-center mb-3">
-          <h3 className="h-100">About AgroXhub</h3>
-          <Link href="#" className="flex items-center gap-3">
-            <p className="text-sm">Learn More About Us</p>
-            <FaArrowRightLong className="text-dark-green-clr" />
-          </Link>
-        </div>
-        <p className="text-sm mb-3">
-          At Agroxhub, we believe in making agricultural transactions simple,
-          efficient, and rewarding for both farmers and buyers. Our platform is
-          designed with you in mind, providing a seamless experience that
-          connects quality products with eager buyers.
-        </p>
+      {!noabout && (
+        <div className="contEl my-12">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="h-100">About AgroXhub</h3>
+            <Link href="#" className="flex items-center gap-3">
+              <p className="text-sm">Learn More About Us</p>
+              <FaArrowRightLong className="text-dark-green-clr" />
+            </Link>
+          </div>
+          <p className="text-sm mb-3">
+            At Agroxhub, we believe in making agricultural transactions simple,
+            efficient, and rewarding for both farmers and buyers. Our platform
+            is designed with you in mind, providing a seamless experience that
+            connects quality products with eager buyers.
+          </p>
 
-        <p className="text-sm">
-          Our mission is to empower farmers and buyers by providing a platform
-          that fosters growth, convenience, and fair transactions. We aim to
-          create a community where agriculture thrives, and everyone benefits
-        </p>
-      </div>
+          <p className="text-sm">
+            Our mission is to empower farmers and buyers by providing a platform
+            that fosters growth, convenience, and fair transactions. We aim to
+            create a community where agriculture thrives, and everyone benefits
+          </p>
+        </div>
+      )}
 
       <div className="bg-dark-green-clr flex items-center justify-center py-8">
         <img src={logo} alt="logo" className="w-[150px] md:w-[200px]" />

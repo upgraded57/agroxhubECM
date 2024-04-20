@@ -4,11 +4,15 @@ import { HiOutlineArrowsRightLeft } from "react-icons/hi2";
 import { BsDatabaseCheck, BsTruck } from "react-icons/bs";
 import { MdCurrencyExchange } from "react-icons/md";
 import { TbMoneybag } from "react-icons/tb";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import faqImg from "../../assets/images/faqimg.png";
+import Footer from "./../../components/footer/Footer";
 
 export default function About() {
   return (
     <>
       <Navbar />
+      {/* Hero */}
       <div className="w-full h-[320px] relative overflow-hidden">
         <div className="relative w-full h-full overflow-hidden bg-[url('../../src/assets/images/aboutbg.png')] bg-[right_-100px_bottom] md:bg-right bg-cover"></div>
         <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-[#22955C] to-transparent md:bg-gradient-to-r"></div>
@@ -22,6 +26,7 @@ export default function About() {
         </div>
       </div>
 
+      {/* About */}
       <div className="contEl my-12">
         <h3 className="h-100 mb-3">About AgroXhub</h3>
         <p className="text-sm mb-3">
@@ -38,6 +43,7 @@ export default function About() {
         </p>
       </div>
 
+      {/* Mission */}
       <div className="contEl my-12">
         <h3 className="h-100 mb-3">Mission</h3>
         <p className="text-sm mb-3">
@@ -47,6 +53,7 @@ export default function About() {
         </p>
       </div>
 
+      {/* Vision */}
       <div className="contEl my-12">
         <h3 className="h-100 mb-3">
           Vision - Transforming Agriculture, One Transaction at a Time
@@ -59,6 +66,7 @@ export default function About() {
         </p>
       </div>
 
+      {/* Our Story */}
       <div className="contEl my-12">
         <h3 className="h-100 mb-3">Our Story - From Seed to Harvest</h3>
         <p className="text-sm mb-3">
@@ -70,6 +78,7 @@ export default function About() {
         </p>
       </div>
 
+      {/* Why choose Agroxhub */}
       <div className="contEl my-12">
         <h3 className="h-100 mb-3">Why Choose Agroxhub?</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
@@ -144,11 +153,12 @@ export default function About() {
         </div>
       </div>
 
+      {/* How it works */}
       <div className="contEl my-12">
-        <h3 className="h-100 mb-3">How it Works</h3>
+        <h3 className="h-100 mb-6">How it Works</h3>
 
         <div className="max-w-screen-md mx-auto">
-          <div className="flex flex-row-reverse justify-between items-center my-4 gap-5">
+          <div className="flex flex-row-reverse justify-between items-center my-12 gap-5">
             <div className="rounded-lg w-[170px] md:w-[280px] aspect-square overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -168,7 +178,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="flex  justify-between items-center my-4 gap-5">
+          <div className="flex  justify-between items-center my-12 gap-5">
             <div className="rounded-lg w-[170px] md:w-[280px] aspect-square overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1677751177812-eef0b47b888d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -188,7 +198,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="flex flex-row-reverse justify-between items-center my-4 gap-5">
+          <div className="flex flex-row-reverse justify-between items-center my-12 gap-5">
             <div className="rounded-lg w-[170px] md:w-[280px] aspect-square overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1577153651485-d6f478de99d2?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -208,7 +218,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="flex  justify-between items-center my-4 gap-5">
+          <div className="flex  justify-between items-center my-12 gap-5">
             <div className="rounded-lg w-[170px] md:w-[280px] aspect-square overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1598063414123-d8fd7fb018b2?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -230,6 +240,7 @@ export default function About() {
         </div>
       </div>
 
+      {/* join agroxhub */}
       <div className="contEl my-[100px]">
         <div className="flex justify-between items-center gap-4">
           <div className="md:basis-3/5">
@@ -267,6 +278,181 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      {/* Programs */}
+      <div className="mb-12 bg-light-grey-clr py-12 ">
+        <div className="contEl flex flex-col md:flex-row justify-between items-center gap-12">
+          <div className="basis-1/2 flex flex-col gap-3 items-center justify-center">
+            <h3 className="text-lg md:text-2xl uppercase font-bold">
+              AFFILIATE PROGRAM
+            </h3>
+            <div className="w-full max-h-[200px] rounded-lg overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Affilate Image"
+                className="w-full h-full object-cover "
+              />
+            </div>
+            <h3 className="text-lg md:text-2xl uppercase font-bold">
+              GROW WITH US, EARN WITH US
+            </h3>
+            <p className="text-sm text-center">
+              Join our affiliate program and become a Agroxhub advocate! Share
+              the benefits of our platform, and earn commissions for every
+              farmer or buyer who joins through your referral. Let's grow
+              together!
+            </p>
+            <button type="button" className="btn green-gradient uppercase">
+              get started
+            </button>
+          </div>
+
+          <div className="basis-1/2 flex flex-col gap-3 items-center justify-center">
+            <h3 className="text-lg md:text-2xl uppercase font-bold">
+              PARTNERSHIP
+            </h3>
+            <div className="w-full max-h-[200px] rounded-lg overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1521790797524-b2497295b8a0?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Affilate Image"
+                className="w-full h-full object-cover "
+              />
+            </div>
+            <h3 className="text-lg md:text-2xl uppercase font-bold">
+              CULTIVATING SUCCESS TOGETHER
+            </h3>
+            <p className="text-sm text-center">
+              We welcome partnerships with organizations that share our vision.
+              Whether you are a farm-related business, tech provider, or
+              community organization, let’s collaborate to cultivate success in
+              agriculture.
+            </p>
+            <button type="button" className="btn green-gradient uppercase">
+              get started
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ */}
+      <div className="my-12 contEl md:px-12 md:flex justify-around items-center gap-12">
+        <div className="basis-1/2">
+          <img
+            src={faqImg}
+            alt="Frequently asked questions"
+            className="hidden md:block mx-auto"
+          />
+        </div>
+
+        <div className="">
+          <h2 className="text-[18px] md:text-2xl uppercase font-semibold mb-6 text-dark-green-clr">
+            your questions, answered
+          </h2>
+
+          {/* Accordion */}
+          <div className="collapse ">
+            <input
+              type="radio"
+              name="faq"
+              className="min-h-[2rem]"
+              defaultChecked
+            />
+            <div className="collapse-title border-b py-0 px-1 min-h-0">
+              <p className="text-sm font-semibold">What is Agroxhub</p>
+            </div>
+            <div className="collapse-content py-0 pt-2 px-2">
+              <p className="text-sm">
+                Signing up as a buyer is quick and easy! Visit our website,
+                click on "Sign Up," and follow the simple registration process.
+              </p>
+            </div>
+          </div>
+
+          <div className="collapse ">
+            <input type="radio" name="faq" className="min-h-[2rem]" />
+            <div className="collapse-title border-b py-0 px-1 min-h-0">
+              <p className="text-sm font-semibold">
+                How do I Sign Up as a Buyer?
+              </p>
+            </div>
+            <div className="collapse-content py-0 pt-2 px-2">
+              <p className="text-sm">
+                Signing up as a buyer is quick and easy! Visit our website,
+                click on "Sign Up," and follow the simple registration process.
+              </p>
+            </div>
+          </div>
+
+          <div className="collapse ">
+            <input type="radio" name="faq" className="min-h-[2rem]" />
+            <div className="collapse-title border-b py-0 px-1 min-h-0">
+              <p className="text-sm font-semibold">Are Transactions Secure?</p>
+            </div>
+            <div className="collapse-content py-0 pt-2 px-2">
+              <p className="text-sm">
+                Signing up as a buyer is quick and easy! Visit our website,
+                click on "Sign Up," and follow the simple registration process.
+              </p>
+            </div>
+          </div>
+
+          <div className="collapse ">
+            <input type="radio" name="faq" className="min-h-[2rem]" />
+            <div className="collapse-title border-b py-0 px-1 min-h-0">
+              <p className="text-sm font-semibold">
+                How can I place an order on AgroXHub?
+              </p>
+            </div>
+            <div className="collapse-content py-0 pt-2 px-2">
+              <p className="text-sm">
+                Signing up as a buyer is quick and easy! Visit our website,
+                click on "Sign Up," and follow the simple registration process.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Contact */}
+      <div className="mt-12  bg-dark-orange-clr py-10">
+        <div className="contEl  flex flex-col md:flex-row items-center justify-center md:justify-between gap-10">
+          <div className="w-full md:basis-1/2 text-left text-white">
+            <h3 className="h-300">
+              Contact Us. <br />
+              Let's Connect
+            </h3>
+            <p className="text-sm md:text-lg">
+              Have questions or suggestions? We're here for you! <br /> &nbsp;{" "}
+              <br /> Join Agroxhub today and experience a new era in
+              agricultural transactions. Let's cultivate prosperity together!
+            </p>
+          </div>
+
+          <form className="w-full md:basis-1/2 flex flex-col gap-4 items-start">
+            <label htmlFor="name" className="w-full">
+              <p className="text-sm uppercase text-white">email</p>
+              <input type="text" id="name" className="input w-full" />
+            </label>
+            <label htmlFor="phone" className="w-full">
+              <p className="text-sm uppercase text-white">phone number</p>
+              <input type="text" id="phone" className="input w-full" />
+            </label>
+            <label htmlFor="address" className="w-full">
+              <p className="text-sm uppercase text-white">
+                address (your physical address)
+              </p>
+              <input type="text" id="address" className="input w-full" />
+            </label>
+            <button
+              type="submit"
+              className="btn green-gradient uppercase w-max"
+            >
+              contact us
+            </button>
+          </form>
+        </div>
+      </div>
+      <Footer noabout />
     </>
   );
 }

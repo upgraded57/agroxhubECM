@@ -67,7 +67,7 @@ export const routes = [
     ),
     action: ({ request }) => {
       // Call API to edit form here
-      return;
+      return null;
     },
   },
 
