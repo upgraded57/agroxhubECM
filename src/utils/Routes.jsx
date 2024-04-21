@@ -1,56 +1,81 @@
-import Product from "../pages/product/Product";
-import Products from "../pages/products/Products";
-import SearchPage from "../pages/search/Search";
-import Home from "./../pages/home/Home";
-import Account from "./../pages/user/Account";
-import UserLayout from "../pages/user/UserLayout";
-import Orders from "../pages/user/Orders";
-import Saved from "../pages/user/Saved";
-import Recent from "./../pages/user/Recent";
-import Payment from "../pages/user/Payment";
-import Notifications from "../pages/user/Notifications";
-import Help from "../pages/user/Help";
-import Report from "../pages/user/Report";
-import Review from "./../pages/user/Review";
-import Analytics from "../pages/user/Analytics";
-import SellerProducts from "../pages/user/Products";
-import Finance from "../pages/user/Finance";
-import Followers from "../pages/user/Followers";
-import Promotions from "../pages/user/Promotions";
-import EditProfile from "../pages/user/EditProfile";
-import ProductAnalytics from "../pages/user/ProductAnalytics";
-import CreateProduct from "../pages/user/CreateProduct";
-import Cart from "../pages/cart/Cart";
-import ProductReview from "../pages/user/ProductReview";
-import PromoteProduct from "../pages/user/PromoteProduct";
-import Seller from "../pages/seller/Seller";
-import AddPaymentCard from "../pages/user/AddPaymentCard";
-import About from "../pages/about/About";
+import React, { Suspense } from "react";
+import Loader from "../components/loader/Loader";
+
+const Home = React.lazy(() => import("./../pages/home/Home"));
+const Products = React.lazy(() => import("../pages/products/Products"));
+const SearchPage = React.lazy(() => import("../pages/search/Search"));
+const Product = React.lazy(() => import("../pages/product/Product"));
+const Account = React.lazy(() => import("./../pages/user/Account"));
+const UserLayout = React.lazy(() => import("../pages/user/UserLayout"));
+const Orders = React.lazy(() => import("../pages/user/Orders"));
+const Saved = React.lazy(() => import("../pages/user/Saved"));
+const Recent = React.lazy(() => import("./../pages/user/Recent"));
+const Payment = React.lazy(() => import("../pages/user/Payment"));
+const Notifications = React.lazy(() => import("../pages/user/Notifications"));
+const Help = React.lazy(() => import("../pages/user/Help"));
+const Report = React.lazy(() => import("../pages/user/Report"));
+const Review = React.lazy(() => import("./../pages/user/Review"));
+const Analytics = React.lazy(() => import("../pages/user/Analytics"));
+const SellerProducts = React.lazy(() => import("../pages/user/Products"));
+const Finance = React.lazy(() => import("../pages/user/Finance"));
+const Followers = React.lazy(() => import("../pages/user/Followers"));
+const Promotions = React.lazy(() => import("../pages/user/Promotions"));
+const EditProfile = React.lazy(() => import("../pages/user/EditProfile"));
+const ProductAnalytics = React.lazy(() =>
+  import("../pages/user/ProductAnalytics")
+);
+const CreateProduct = React.lazy(() => import("../pages/user/CreateProduct"));
+const Cart = React.lazy(() => import("../pages/cart/Cart"));
+const ProductReview = React.lazy(() => import("../pages/user/ProductReview"));
+const PromoteProduct = React.lazy(() => import("../pages/user/PromoteProduct"));
+const Seller = React.lazy(() => import("../pages/seller/Seller"));
+const AddPaymentCard = React.lazy(() => import("../pages/user/AddPaymentCard"));
+const About = React.lazy(() => import("../pages/about/About"));
 
 export const routes = [
   {
-    path: "/",
-    element: <Home />,
+    index,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Home />
+      </Suspense>
+    ),
   },
 
   {
     path: "products",
-    element: <Products />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Products />
+      </Suspense>
+    ),
   },
 
   {
     path: "about",
-    element: <About />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <About />
+      </Suspense>
+    ),
   },
 
   {
     path: "products/:product_id",
-    element: <Product />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Product />
+      </Suspense>
+    ),
   },
 
   {
     path: "search",
-    element: <SearchPage />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <SearchPage />
+      </Suspense>
+    ),
     loader: async ({ request }) => {
       let url = new URL(request.url);
       let searchTerm = url.searchParams.get("q");
@@ -61,9 +86,11 @@ export const routes = [
   {
     path: "user/account",
     element: (
-      <UserLayout>
-        <Account />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Account />
+        </UserLayout>
+      </Suspense>
     ),
     action: ({ request }) => {
       // Call API to edit form here
@@ -74,45 +101,55 @@ export const routes = [
   {
     path: "user/account/edit",
     element: (
-      <UserLayout>
-        <EditProfile />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <EditProfile />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/orders",
     element: (
-      <UserLayout>
-        <Orders />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Orders />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/saved",
     element: (
-      <UserLayout>
-        <Saved />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Saved />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/recent",
     element: (
-      <UserLayout>
-        <Recent />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Recent />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/payment",
     element: (
-      <UserLayout>
-        <Payment />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Payment />
+        </UserLayout>
+      </Suspense>
     ),
     action: () => {
       // call API to add new payment card here
@@ -122,136 +159,172 @@ export const routes = [
   {
     path: "user/payment/new",
     element: (
-      <UserLayout>
-        <AddPaymentCard />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <AddPaymentCard />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/notifications",
     element: (
-      <UserLayout>
-        <Notifications />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Notifications />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/help",
     element: (
-      <UserLayout>
-        <Help />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Help />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/report",
     element: (
-      <UserLayout>
-        <Report />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Report />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/review",
     element: (
-      <UserLayout>
-        <Review />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Review />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "user/orders/product/:product_id/review",
     element: (
-      <UserLayout>
-        <ProductReview />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <ProductReview />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "seller/analytics",
     element: (
-      <UserLayout>
-        <Analytics />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Analytics />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "seller/products",
     element: (
-      <UserLayout>
-        <SellerProducts />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <SellerProducts />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "seller/products/create",
     element: (
-      <UserLayout>
-        <CreateProduct />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <CreateProduct />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "seller/finance",
     element: (
-      <UserLayout>
-        <Finance />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Finance />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "seller/followers",
     element: (
-      <UserLayout>
-        <Followers />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Followers />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "seller/promotions",
     element: (
-      <UserLayout>
-        <Promotions />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <Promotions />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "seller/products/:product_id/analytics",
     element: (
-      <UserLayout>
-        <ProductAnalytics />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <ProductAnalytics />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "seller/products/:product_id/promote",
     element: (
-      <UserLayout>
-        <PromoteProduct />
-      </UserLayout>
+      <Suspense fallback={<Loader />}>
+        <UserLayout>
+          <PromoteProduct />
+        </UserLayout>
+      </Suspense>
     ),
   },
 
   {
     path: "cart",
-    element: <Cart />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Cart />
+      </Suspense>
+    ),
   },
 
   {
     path: "seller/:seller_id",
-    element: <Seller />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Seller />
+      </Suspense>
+    ),
   },
 ];
