@@ -31,10 +31,12 @@ const PromoteProduct = React.lazy(() => import("../pages/user/PromoteProduct"));
 const Seller = React.lazy(() => import("../pages/seller/Seller"));
 const AddPaymentCard = React.lazy(() => import("../pages/user/AddPaymentCard"));
 const About = React.lazy(() => import("../pages/about/About"));
+import Layout from "./../pages/affiliate/Layout";
+import AffiliateOverView from "./../pages/affiliate/overview.affiliate";
 
 export const routes = [
   {
-    index,
+    path: "/",
     element: (
       <Suspense fallback={<Loader />}>
         <Home />
@@ -326,5 +328,23 @@ export const routes = [
         <Seller />
       </Suspense>
     ),
+  },
+
+  // Affiliate
+  {
+    path: "a",
+    element: (
+      <Suspense>
+        <Layout>
+          <AffiliateOverView />
+        </Layout>
+      </Suspense>
+    ),
+    // children: [
+    //   {
+    //     path: "",
+    //     element: <Layout></Layout>,
+    //   },
+    // ],
   },
 ];
