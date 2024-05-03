@@ -10,6 +10,64 @@ export default function UserLayout({ children }) {
 
   const currentPage = resolveLocation(location);
 
+  const userLinks = [
+    {
+      path: "/user/account",
+      title: "My Account",
+    },
+    {
+      path: "/user/orders",
+      title: "Orders",
+    },
+    {
+      path: "/user/saved",
+      title: "Saved Items",
+    },
+    {
+      path: "/user/recent",
+      title: "Recent Items",
+    },
+    {
+      path: "/user/payment",
+      title: "Payment Methods",
+    },
+    {
+      path: "/user/notifications",
+      title: "Notifications",
+    },
+    {
+      path: "/user/help",
+      title: "Help Center",
+    },
+    {
+      path: "/user/review",
+      title: "Review / Suggestion",
+    },
+  ];
+
+  const sellerLinks = [
+    {
+      path: "/seller/analytics",
+      title: "Analytics",
+    },
+    {
+      path: "/seller/products",
+      title: "Products",
+    },
+    {
+      path: "/seller/finance",
+      title: "Finance",
+    },
+    {
+      path: "/seller/followers",
+      title: "Followers",
+    },
+    {
+      path: "/seller/promotions",
+      title: "Promotions",
+    },
+  ];
+
   return (
     <>
       <Navbar />
@@ -25,51 +83,23 @@ export default function UserLayout({ children }) {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <Link to="/user/account">My Account</Link>
-            </li>
-            <li>
-              <Link to="/user/orders">Orders</Link>
-            </li>
-            <li>
-              <Link to="/user/saved">Saved Items</Link>
-            </li>
-            <li>
-              <Link to="/user/recent">Recent Items</Link>
-            </li>
-            <li>
-              <Link to="/user/payment">Payment Methods</Link>
-            </li>
-            <li>
-              <Link to="/user/notifications">Notifications</Link>
-            </li>
-            <li>
-              <Link to="/user/help">Help Center</Link>
-            </li>
-            <li>
-              <Link to="/user/review">Review / Suggestion</Link>
-            </li>
-            <li>
-              <Link to="/user/report">Report a Problem</Link>
-            </li>
+            {userLinks.map((link, idx) => (
+              <li>
+                <NavLink key={idx} to={link.path}>
+                  {link.title}
+                </NavLink>
+              </li>
+            ))}
             <p className="text-sm font-semibold uppercase mt-5 mb-2 border-b">
               sellers
             </p>
-            <li>
-              <Link to="/seller/analytics">Analytics</Link>
-            </li>
-            <li>
-              <Link to="/seller/products">Products</Link>
-            </li>
-            <li>
-              <Link to="/seller/finance">Finance</Link>
-            </li>
-            <li>
-              <Link to="/seller/followers">Followers</Link>
-            </li>
-            <li>
-              <Link to="/seller/promotions">Promotions</Link>
-            </li>
+            {sellerLinks.map((link, idx) => (
+              <li>
+                <NavLink key={idx} to={link.path}>
+                  {link.title}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

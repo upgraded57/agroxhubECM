@@ -30,16 +30,10 @@ export default function About() {
       <div className="contEl my-12">
         <h3 className="h-100 mb-3">About AgroXhub</h3>
         <p className="text-sm mb-3">
-          At Agroxhub, we believe in making agricultural transactions simple,
-          efficient, and rewarding for both farmers and buyers. Our platform is
-          designed with you in mind, providing a seamless experience that
-          connects quality products with eager buyers.
-        </p>
-
-        <p className="text-sm">
-          Our mission is to empower farmers and buyers by providing a platform
-          that fosters growth, convenience, and fair transactions. We aim to
-          create a community where agriculture thrives, and everyone benefits
+          Agroxhub is your premier online marketplace solution designed
+          specifically for the agricultural sector. We connect farmers and
+          agribusinesses directly with buyers, providing a seamless platform to
+          showcase their products and reach a wider audience.
         </p>
       </div>
 
@@ -47,9 +41,10 @@ export default function About() {
       <div className="contEl my-12">
         <h3 className="h-100 mb-3">Mission</h3>
         <p className="text-sm mb-3">
-          Our mission is to empower farmers and buyers by providing a platform
-          that fosters growth, convenience, and fair transactions. We aim to
-          create a community where agriculture thrives and everyone benefits.
+          Our mission at Agroxhub is to revolutionize agricultural sales by
+          empowering farmers and agribusinesses with innovative tools and
+          resources. We are committed to simplifying the sales process,
+          increasing efficiency, and driving growth for our users.
         </p>
       </div>
 
@@ -59,10 +54,10 @@ export default function About() {
           Vision - Transforming Agriculture, One Transaction at a Time
         </h3>
         <p className="text-sm mb-3">
-          We envision a future where every farmer has the opportunity to reach a
-          global market effortlessly. Through Agroxhub, we aspire to be the
-          catalyst for positive change in the agricultural industry, promoting
-          sustainability and prosperity.
+          At Agroxhub, we envision a future where every agricultural producer
+          has the opportunity to thrive in a digital marketplace. We strive to
+          be the catalyst for positive change in the industry, fostering
+          connections and driving innovation across the agricultural ecosystem.
         </p>
       </div>
 

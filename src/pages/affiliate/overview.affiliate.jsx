@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import graphImg from "../../assets/images/graph.png";
+import TopSellingProducts from "./../../components/topSellingProducts/TopSellingProducts";
 
 export default function AffiliateOverView() {
   const cards = [
@@ -97,6 +98,7 @@ export default function AffiliateOverView() {
           </div>
         </div>
       </div>
+      <TopSellingProducts />
     </>
   );
 }

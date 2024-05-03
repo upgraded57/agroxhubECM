@@ -1,6 +1,7 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo1.png";
 import { AiOutlineEye } from "react-icons/ai";
+import { HiBars3 } from "react-icons/hi2";
 
 export default function Layout({ children }) {
   const links = [
@@ -10,6 +11,18 @@ export default function Layout({ children }) {
     { path: "/a/finance", text: "Finance", icon: <AiOutlineEye /> },
     { path: "/a/account", text: "Account", icon: <AiOutlineEye /> },
   ];
+
+  const location = useLocation();
+
+  const resolvePathName = () => {
+    let linkName;
+    links.map((link) => {
+      if (link.path === location.pathname) return (linkName = link.text);
+    });
+    return linkName;
+  };
+
+  const pathName = resolvePathName();
 
   return (
     <>
@@ -39,7 +52,12 @@ export default function Layout({ children }) {
         </aside>
         <div className="basis-1/1 w-full md:basis-3/4 lg:basis-5/6 overflow-hidden">
           <nav className="h-[50px] md:h-[70px] flex items-center justify-between w-full px-[4vw] md:px-3 bg-white">
-            <h3 className="text-2xl font-semibold">Overview</h3>
+            <Link to="/a" className="md:hidden">
+              <img src={logo} alt="Logo" className="h-[30px]" />
+            </Link>
+            <h3 className="hidden md:block text-2xl font-semibold">
+              {pathName}
+            </h3>
             <div className="flex items-center gap-3">
               <div className="avatar">
                 <div className="w-10 md:w-12 rounded-full">
@@ -52,9 +70,40 @@ export default function Layout({ children }) {
                 </p>
                 <p className="text-sm ">Affiliate Marketer</p>
               </span>
+
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost p-1 h-max min-h-max md:hidden"
+                >
+                  <HiBars3 className="text-2xl" />
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  {links.map((link) => (
+                    <li className="w-full my-1" key={link.path}>
+                      <NavLink
+                        to={link.path}
+                        className="flex items-center gap-2"
+                      >
+                        {link.icon}
+                        <p className="text-sm">{link.text}</p>
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </nav>
-          <main className="px-[4vw] md:px-3 xl:pr-[4vw]">{children}</main>
+          <main className="px-[4vw] md:px-3">
+            <h3 className="md:hidden text-2xl font-semibold mt-[4vw]">
+              {pathName}
+            </h3>
+            {children}
+          </main>
         </div>
       </div>
     </>

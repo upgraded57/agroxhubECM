@@ -10,22 +10,23 @@ export default function Footer({ noabout }) {
         <div className="contEl my-12">
           <div className="flex justify-between items-center mb-3">
             <h3 className="h-100">About AgroXhub</h3>
-            <Link href="#" className="flex items-center gap-3">
+            <Link to="/about" className="flex items-center gap-3">
               <p className="text-sm">Learn More About Us</p>
               <FaArrowRightLong className="text-dark-green-clr" />
             </Link>
           </div>
           <p className="text-sm mb-3">
-            At Agroxhub, we believe in making agricultural transactions simple,
-            efficient, and rewarding for both farmers and buyers. Our platform
-            is designed with you in mind, providing a seamless experience that
-            connects quality products with eager buyers.
+            Agroxhub is your premier online marketplace solution designed
+            specifically for the agricultural sector. We connect farmers and
+            agribusinesses directly with buyers, providing a seamless platform
+            to showcase their products and reach a wider audience.
           </p>
 
           <p className="text-sm">
-            Our mission is to empower farmers and buyers by providing a platform
-            that fosters growth, convenience, and fair transactions. We aim to
-            create a community where agriculture thrives, and everyone benefits
+            Our mission at Agroxhub is to revolutionize agricultural sales by
+            empowering farmers and agribusinesses with innovative tools and
+            resources. We are committed to simplifying the sales process,
+            increasing efficiency, and driving growth for our users.
           </p>
         </div>
       )}
