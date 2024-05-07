@@ -32,9 +32,23 @@ const Seller = React.lazy(() => import("../pages/seller/Seller"));
 const AddPaymentCard = React.lazy(() => import("../pages/user/AddPaymentCard"));
 const About = React.lazy(() => import("../pages/about/About"));
 import Layout from "./../pages/affiliate/Layout";
-import AffiliateOverView from "./../pages/affiliate/overview.affiliate";
+import AffiliateOverView from "./../pages/affiliate/Overview.affiliate";
+import AffiliateProducts from "./../pages/affiliate/Products.affiliate";
+import AffiliateLinks from "../pages/affiliate/Links.affiliate";
+import AffiliateFinance from "../pages/affiliate/Finance.affiliate";
+import AffiliateAccount from "../pages/affiliate/Account.affiliate";
+import Auth from "../pages/auth/Auth";
 
 export const routes = [
+  {
+    path: "/auth",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Auth />
+      </Suspense>
+    ),
+  },
+
   {
     path: "/",
     element: (
@@ -340,11 +354,45 @@ export const routes = [
         </Layout>
       </Suspense>
     ),
-    // children: [
-    //   {
-    //     path: "",
-    //     element: <Layout></Layout>,
-    //   },
-    // ],
+  },
+  {
+    path: "a/products",
+    element: (
+      <Suspense>
+        <Layout>
+          <AffiliateProducts />
+        </Layout>
+      </Suspense>
+    ),
+  },
+  {
+    path: "a/links",
+    element: (
+      <Suspense>
+        <Layout>
+          <AffiliateLinks />
+        </Layout>
+      </Suspense>
+    ),
+  },
+  {
+    path: "a/finance",
+    element: (
+      <Suspense>
+        <Layout>
+          <AffiliateFinance />
+        </Layout>
+      </Suspense>
+    ),
+  },
+  {
+    path: "a/account",
+    element: (
+      <Suspense>
+        <Layout>
+          <AffiliateAccount />
+        </Layout>
+      </Suspense>
+    ),
   },
 ];

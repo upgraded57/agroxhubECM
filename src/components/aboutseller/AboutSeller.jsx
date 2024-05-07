@@ -67,7 +67,10 @@ export default function AboutSeller() {
           </div>
         </div>
 
-        <Link to="#" className="w-full justify-end flex items-center gap-3">
+        <Link
+          to="/seller/1234"
+          className="w-full justify-end flex items-center gap-3"
+        >
           <p className="text-sm">View Seller's Profile</p>
           <FaArrowRightLong className="text-dark-green-clr" />
         </Link>

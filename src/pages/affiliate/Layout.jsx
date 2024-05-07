@@ -1,15 +1,18 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo1.png";
-import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineUser } from "react-icons/ai";
+import { GoDatabase } from "react-icons/go";
+import { IoIosLink } from "react-icons/io";
+import { PiCurrencyNgn } from "react-icons/pi";
 import { HiBars3 } from "react-icons/hi2";
 
 export default function Layout({ children }) {
   const links = [
     { path: "/a", text: "Overview", icon: <AiOutlineEye /> },
-    { path: "/a/products", text: "Products", icon: <AiOutlineEye /> },
-    { path: "/a/links", text: "Links", icon: <AiOutlineEye /> },
-    { path: "/a/finance", text: "Finance", icon: <AiOutlineEye /> },
-    { path: "/a/account", text: "Account", icon: <AiOutlineEye /> },
+    { path: "/a/products", text: "All Products", icon: <GoDatabase /> },
+    { path: "/a/links", text: "Links", icon: <IoIosLink /> },
+    { path: "/a/finance", text: "Finance", icon: <PiCurrencyNgn /> },
+    { path: "/a/account", text: "Account", icon: <AiOutlineUser /> },
   ];
 
   const location = useLocation();
@@ -27,7 +30,7 @@ export default function Layout({ children }) {
   return (
     <>
       <div className="flex items-start bg-light-grey-clr min-h-screen">
-        <aside className="hidden md:block md:basis-1/4 lg:basis-1/6 bg-white h-screen">
+        <aside className="hidden sticky top-0 md:block md:basis-1/4 lg:basis-1/6 bg-white h-screen">
           <div
             to="/"
             className="w-[140px] h-[70px] flex items-center justify-center mx-auto"
@@ -41,6 +44,7 @@ export default function Layout({ children }) {
               <li className="w-full mb-4" key={link.path}>
                 <NavLink
                   to={link.path}
+                  end
                   className="afflilate-links w-full nav-btn btn btn-ghost font-medium justify-start"
                 >
                   {link.icon}
@@ -61,7 +65,7 @@ export default function Layout({ children }) {
             <div className="flex items-center gap-3">
               <div className="avatar">
                 <div className="w-10 md:w-12 rounded-full">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  <img src="https://images.unsplash.com/photo-1569880153113-76e33fc52d5f?w=200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFybWVyfGVufDB8fDB8fHww" />
                 </div>
               </div>
               <span className="hidden md:block">
@@ -87,6 +91,7 @@ export default function Layout({ children }) {
                     <li className="w-full my-1" key={link.path}>
                       <NavLink
                         to={link.path}
+                        end
                         className="flex items-center gap-2"
                       >
                         {link.icon}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import graphImg from "../../assets/images/graph.png";
-import TopSellingProducts from "./../../components/topSellingProducts/TopSellingProducts";
+import TopSellingProducts from "../../components/topSellingProducts/TopSellingProducts";
 
 export default function AffiliateOverView() {
   const cards = [
@@ -56,7 +56,7 @@ export default function AffiliateOverView() {
         </div>
         <div className="basis-1/4">
           <div className="overflow-x-auto rounded-lg bg-white min-h-full">
-            <h3 className="text-lg font-semibold uppercase pt-3 px-5">
+            <h3 className="text-sm md:text-lg font-semibold uppercase pt-3 px-5">
               earnings
             </h3>
             <table className="table uppercase">
