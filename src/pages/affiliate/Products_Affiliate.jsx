@@ -1,5 +1,5 @@
 import React from "react";
-import TopSellingProducts from "./../../components/topSellingProducts/TopSellingProducts";
+import TopSellingProducts from "../../components/topSellingProducts/TopSellingProducts";
 import MostClickedProducts from "../../components/mostClickedProducts/MostClickedProducts";
 
 export default function AffiliateProducts() {
