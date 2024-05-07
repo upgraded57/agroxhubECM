@@ -32,11 +32,11 @@ const Seller = React.lazy(() => import("../pages/seller/Seller"));
 const AddPaymentCard = React.lazy(() => import("../pages/user/AddPaymentCard"));
 const About = React.lazy(() => import("../pages/about/About"));
 import Layout from "./../pages/affiliate/Layout";
-import AffiliateOverView from "./../pages/affiliate/Overview.affiliate";
-import AffiliateProducts from "./../pages/affiliate/Products.affiliate";
-import AffiliateLinks from "../pages/affiliate/Links.affiliate";
-import AffiliateFinance from "../pages/affiliate/Finance.affiliate";
-import AffiliateAccount from "../pages/affiliate/Account.affiliate";
+import AffiliateOverView from "./../pages/affiliate/Overview.affiliate.jsx";
+import AffiliateProducts from "./../pages/affiliate/Products.affiliate.jsx";
+import AffiliateLinks from "../pages/affiliate/Links.affiliate.jsx";
+import AffiliateFinance from "../pages/affiliate/Finance.affiliate.jsx";
+import AffiliateAccount from "../pages/affiliate/Account.affiliate.jsx";
 import Auth from "../pages/auth/Auth";
 
 export const routes = [
