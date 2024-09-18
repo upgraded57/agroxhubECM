@@ -77,4 +77,12 @@ body {
     font-size: 18px;
     font-weight: 600;
   }
+
+  .filters {
+    display: none;
+  }
+
+  .filters.active {
+    display: block;
+  }
 }

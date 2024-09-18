@@ -1,10 +1,12 @@
 import React, { Suspense } from "react";
 import Loader from "../components/loader/Loader";
 
+const HomeIndex = React.lazy(() => import("./../pages/home/Index"));
 const Home = React.lazy(() => import("./../pages/home/Home"));
 const Products = React.lazy(() => import("../pages/products/Products"));
 const SearchPage = React.lazy(() => import("../pages/search/Search"));
 const Product = React.lazy(() => import("../pages/product/Product"));
+const UserIndex = React.lazy(() => import("./../pages/user/Index"));
 const Account = React.lazy(() => import("./../pages/user/Account"));
 const UserLayout = React.lazy(() => import("../pages/user/UserLayout"));
 const Orders = React.lazy(() => import("../pages/user/Orders"));
@@ -36,6 +38,7 @@ const Auth = React.lazy(() => import("../pages/auth/Auth"));
 const AffiliateFinance = React.lazy(() =>
   import("./../pages/affiliate/Finance_Affiliate")
 );
+const AffiliateIndex = React.lazy(() => import("./../pages/affiliate/Index"));
 const AffiliateAccount = React.lazy(() =>
   import("./../pages/affiliate/Account_Affiliate")
 );
@@ -63,58 +66,47 @@ export const routes = [
     path: "/",
     element: (
       <Suspense fallback={<Loader />}>
-        <Home />
+        <HomeIndex />
       </Suspense>
     ),
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "products",
+        element: <Products />,
+      },
+
+      {
+        path: "about",
+        element: <About />,
+      },
+
+      {
+        path: "products/:product_id",
+        element: <Product />,
+      },
+
+      {
+        path: "search",
+        element: <SearchPage />,
+        loader: async ({ request }) => {
+          let url = new URL(request.url);
+          let searchTerm = url.searchParams.get("q");
+          return searchTerm;
+        },
+      },
+    ],
   },
 
   {
-    path: "products",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <Products />
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "about",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <About />
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "products/:product_id",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <Product />
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "search",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <SearchPage />
-      </Suspense>
-    ),
-    loader: async ({ request }) => {
-      let url = new URL(request.url);
-      let searchTerm = url.searchParams.get("q");
-      return searchTerm;
-    },
-  },
-
-  {
-    path: "user/account",
+    path: "/user",
     element: (
       <Suspense fallback={<Loader />}>
         <UserLayout>
-          <Account />
+          <UserIndex />
         </UserLayout>
       </Suspense>
     ),
@@ -122,218 +114,120 @@ export const routes = [
       // Call API to edit form here
       return null;
     },
+    children: [
+      {
+        path: "account",
+        element: <Account />,
+      },
+      {
+        path: "account/edit",
+        element: <EditProfile />,
+      },
+
+      {
+        path: "orders",
+        element: <Orders />,
+      },
+
+      {
+        path: "saved",
+        element: <Saved />,
+      },
+
+      {
+        path: "recent",
+        element: <Recent />,
+      },
+
+      {
+        path: "payment",
+        element: <Payment />,
+        action: () => {
+          // call API to add new payment card here
+          return null;
+        },
+      },
+      {
+        path: "payment/new",
+        element: <AddPaymentCard />,
+      },
+
+      {
+        path: "notifications",
+        element: <Notifications />,
+      },
+
+      {
+        path: "help",
+        element: <Help />,
+      },
+
+      {
+        path: "report",
+        element: <Report />,
+      },
+
+      {
+        path: "review",
+        element: <Review />,
+      },
+
+      {
+        path: "orders/product/:product_id/review",
+        element: <ProductReview />,
+      },
+    ],
   },
 
   {
-    path: "user/account/edit",
+    path: "seller",
     element: (
       <Suspense fallback={<Loader />}>
         <UserLayout>
-          <EditProfile />
+          <UserIndex />
         </UserLayout>
       </Suspense>
     ),
-  },
+    children: [
+      {
+        path: "analytics",
+        element: <Analytics />,
+      },
+      {
+        path: "products",
+        element: <SellerProducts />,
+      },
 
-  {
-    path: "user/orders",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Orders />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
+      {
+        path: "products/create",
+        element: <CreateProduct />,
+      },
 
-  {
-    path: "user/saved",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Saved />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
+      {
+        path: "finance",
+        element: <Finance />,
+      },
 
-  {
-    path: "user/recent",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Recent />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
+      {
+        path: "followers",
+        element: <Followers />,
+      },
 
-  {
-    path: "user/payment",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Payment />
-        </UserLayout>
-      </Suspense>
-    ),
-    action: () => {
-      // call API to add new payment card here
-      return null;
-    },
-  },
-  {
-    path: "user/payment/new",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <AddPaymentCard />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
+      {
+        path: "promotions",
+        element: <Promotions />,
+      },
 
-  {
-    path: "user/notifications",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Notifications />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
+      {
+        path: "products/:product_id/analytics",
+        element: <ProductAnalytics />,
+      },
 
-  {
-    path: "user/help",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Help />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "user/report",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Report />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "user/review",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Review />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "user/orders/product/:product_id/review",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <ProductReview />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/analytics",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Analytics />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/products",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <SellerProducts />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/products/create",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <CreateProduct />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/finance",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Finance />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/followers",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Followers />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/promotions",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Promotions />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/products/:product_id/analytics",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <ProductAnalytics />
-        </UserLayout>
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/products/:product_id/promote",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <PromoteProduct />
-        </UserLayout>
-      </Suspense>
-    ),
+      {
+        path: "products/:product_id/promote",
+        element: <PromoteProduct />,
+      },
+    ],
   },
 
   {
@@ -360,49 +254,31 @@ export const routes = [
     element: (
       <Suspense>
         <Layout>
-          <AffiliateOverView />
+          <AffiliateIndex />
         </Layout>
       </Suspense>
     ),
-  },
-  {
-    path: "a/products",
-    element: (
-      <Suspense>
-        <Layout>
-          <AffiliateProducts />
-        </Layout>
-      </Suspense>
-    ),
-  },
-  {
-    path: "a/links",
-    element: (
-      <Suspense>
-        <Layout>
-          <AffiliateLinks />
-        </Layout>
-      </Suspense>
-    ),
-  },
-  {
-    path: "a/finance",
-    element: (
-      <Suspense>
-        <Layout>
-          <AffiliateFinance />
-        </Layout>
-      </Suspense>
-    ),
-  },
-  {
-    path: "a/account",
-    element: (
-      <Suspense>
-        <Layout>
-          <AffiliateAccount />
-        </Layout>
-      </Suspense>
-    ),
+    children: [
+      {
+        path: "",
+        element: <AffiliateOverView />,
+      },
+      {
+        path: "products",
+        element: <AffiliateProducts />,
+      },
+      {
+        path: "links",
+        element: <AffiliateLinks />,
+      },
+      {
+        path: "finance",
+        element: <AffiliateFinance />,
+      },
+      {
+        path: "a/account",
+        element: <AffiliateAccount />,
+      },
+    ],
   },
 ];

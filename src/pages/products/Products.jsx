@@ -1,4 +1,3 @@
-import "./products.css";
 import Navbar from "../../components/navbar/Navbar";
 import Search from "../../components/search/Search";
 import { MdOutlineFilterAlt } from "react-icons/md";
