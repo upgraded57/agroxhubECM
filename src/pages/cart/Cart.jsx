@@ -1,6 +1,3 @@
-import Navbar from "./../../components/navbar/Navbar";
-import Recent from "./../../components/recent/Recent";
-import Footer from "./../../components/footer/Footer";
 import CartItem from "./CartItem";
 import { FaUps } from "react-icons/fa";
 import { useState } from "react";
@@ -11,33 +8,16 @@ export default function Cart() {
     useState(false);
   return (
     <>
-      <Navbar />
       <h2 className="text-lg md:text-2xl font-semibold uppercase text-center my-12">
         shopping cart
       </h2>
 
       <div className="contEl mb-12">
-        <div className="pb-6 border-b">
-          <CartItem />
-        </div>
-        <div className="py-6 border-b">
-          <CartItem />
-        </div>
-        <div className="py-6 border-b">
-          <CartItem />
-        </div>
-        <div className="py-6 border-b">
-          <CartItem />
-        </div>
-        <div className="py-6 border-b">
-          <CartItem />
-        </div>
-        <div className="py-6 border-b">
-          <CartItem />
-        </div>
-        <div className="py-6">
-          <CartItem />
-        </div>
+        {[1, 2, 3, 4, 5, 6, 7].map((_, idx) => (
+          <div className="pb-6 border-b" key={idx}>
+            <CartItem />
+          </div>
+        ))}
 
         <div className="block md:my-12 md:flex gap-4">
           <div className="basis-3/5 mb-6 md:mb-0">
@@ -58,113 +38,34 @@ export default function Cart() {
                 </p>
               </div>
 
-              <div className="form-control pr-2">
-                <label className="label justify-between gap-2 cursor-pointer">
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="logisticsProvider"
-                      className="radio scale-75"
-                    />
-                    <div className="label-text flex justify-between items-center">
-                      <div className="flex gap-2 items-center">
-                        <div className="w-8 aspect-square text-white flex items-center justify-center rounded-md bg-dark-blue-clr">
-                          <FaUps className="text-2xl" />
+              {[1, 2, 3, 4].map((_, idx) => (
+                <div className="form-control pr-2" key={idx}>
+                  <label className="label justify-between gap-2 cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="logisticsProvider"
+                        className="radio scale-75"
+                      />
+                      <div className="label-text flex justify-between items-center">
+                        <div className="flex gap-2 items-center">
+                          <div className="w-8 aspect-square text-white flex items-center justify-center rounded-md bg-dark-blue-clr">
+                            <FaUps className="text-2xl" />
+                          </div>
+                          <span>
+                            <p className="text-sm font-semibold">UPS</p>
+                            <p className="text-xs">
+                              est. delivery date - 29th Jan 2024
+                            </p>
+                            <p className="text-xs">Delivers to - Doorstep</p>
+                          </span>
                         </div>
-                        <span>
-                          <p className="text-sm font-semibold">UPS</p>
-                          <p className="text-xs">
-                            est. delivery date - 29th Jan 2024
-                          </p>
-                          <p className="text-xs">Delivers to - Doorstep</p>
-                        </span>
                       </div>
                     </div>
-                  </div>
-                  <p className="text-sm font-semibold">NGN 1,320</p>
-                </label>
-              </div>
-
-              <div className="form-control pr-2">
-                <label className="label justify-between gap-2 cursor-pointer">
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="logisticsProvider"
-                      className="radio scale-75"
-                    />
-                    <div className="label-text flex justify-between items-center">
-                      <div className="flex gap-2 items-center">
-                        <div className="w-8 aspect-square text-white flex items-center justify-center rounded-md bg-dark-blue-clr">
-                          <FaUps className="text-2xl" />
-                        </div>
-                        <span>
-                          <p className="text-sm font-semibold">UPS</p>
-                          <p className="text-xs">
-                            est. delivery date - 29th Jan 2024
-                          </p>
-                          <p className="text-xs">Delivers to - Doorstep</p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-sm font-semibold">NGN 1,320</p>
-                </label>
-              </div>
-
-              <div className="form-control pr-2">
-                <label className="label justify-between gap-2 cursor-pointer">
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="logisticsProvider"
-                      className="radio scale-75"
-                    />
-                    <div className="label-text flex justify-between items-center">
-                      <div className="flex gap-2 items-center">
-                        <div className="w-8 aspect-square text-white flex items-center justify-center rounded-md bg-dark-blue-clr">
-                          <FaUps className="text-2xl" />
-                        </div>
-                        <span>
-                          <p className="text-sm font-semibold">UPS</p>
-                          <p className="text-xs">
-                            est. delivery date - 29th Jan 2024
-                          </p>
-                          <p className="text-xs">Delivers to - Doorstep</p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-sm font-semibold">NGN 1,320</p>
-                </label>
-              </div>
-
-              <div className="form-control pr-2">
-                <label className="label justify-between gap-2 cursor-pointer">
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="logisticsProvider"
-                      className="radio scale-75"
-                    />
-                    <div className="label-text flex justify-between items-center">
-                      <div className="flex gap-2 items-center">
-                        <div className="w-8 aspect-square text-white flex items-center justify-center rounded-md bg-dark-blue-clr">
-                          <FaUps className="text-2xl" />
-                        </div>
-                        <span>
-                          <p className="text-sm font-semibold">UPS</p>
-                          <p className="text-xs">
-                            est. delivery date - 29th Jan 2024
-                          </p>
-                          <p className="text-xs">Delivers to - Doorstep</p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-sm font-semibold">NGN 1,320</p>
-                </label>
-              </div>
+                    <p className="text-sm font-semibold">NGN 1,320</p>
+                  </label>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -215,9 +116,6 @@ export default function Cart() {
       {deliveryModalSelectorActive && (
         <DeliveryAddressModal setState={setDeliveryModalSelectorActive} />
       )}
-
-      <Recent />
-      <Footer />
     </>
   );
 }

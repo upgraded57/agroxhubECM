@@ -1,56 +1,55 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import Loader from "../components/loader/Loader";
+import UserLayout from "../pages/user/UserLayout";
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/navbar/Navbar";
 
-const HomeIndex = React.lazy(() => import("./../pages/home/Index"));
-const Home = React.lazy(() => import("./../pages/home/Home"));
-const Products = React.lazy(() => import("../pages/products/Products"));
-const SearchPage = React.lazy(() => import("../pages/search/Search"));
-const Product = React.lazy(() => import("../pages/product/Product"));
-const UserIndex = React.lazy(() => import("./../pages/user/Index"));
-const Account = React.lazy(() => import("./../pages/user/Account"));
-const UserLayout = React.lazy(() => import("../pages/user/UserLayout"));
-const Orders = React.lazy(() => import("../pages/user/Orders"));
-const Saved = React.lazy(() => import("../pages/user/Saved"));
-const Recent = React.lazy(() => import("./../pages/user/Recent"));
-const Payment = React.lazy(() => import("../pages/user/Payment"));
-const Notifications = React.lazy(() => import("../pages/user/Notifications"));
-const Help = React.lazy(() => import("../pages/user/Help"));
-const Report = React.lazy(() => import("../pages/user/Report"));
-const Review = React.lazy(() => import("./../pages/user/Review"));
-const Analytics = React.lazy(() => import("../pages/user/Analytics"));
-const SellerProducts = React.lazy(() => import("../pages/user/Products"));
-const Finance = React.lazy(() => import("../pages/user/Finance"));
-const Followers = React.lazy(() => import("../pages/user/Followers"));
-const Promotions = React.lazy(() => import("../pages/user/Promotions"));
-const EditProfile = React.lazy(() => import("../pages/user/EditProfile"));
-const ProductAnalytics = React.lazy(() =>
-  import("../pages/user/ProductAnalytics")
-);
-const CreateProduct = React.lazy(() => import("../pages/user/CreateProduct"));
-const Cart = React.lazy(() => import("../pages/cart/Cart"));
-const ProductReview = React.lazy(() => import("../pages/user/ProductReview"));
-const PromoteProduct = React.lazy(() => import("../pages/user/PromoteProduct"));
-const Seller = React.lazy(() => import("../pages/seller/Seller"));
-const AddPaymentCard = React.lazy(() => import("../pages/user/AddPaymentCard"));
-const About = React.lazy(() => import("../pages/about/About"));
-const Layout = React.lazy(() => import("./../pages/affiliate/Layout"));
-const Auth = React.lazy(() => import("../pages/auth/Auth"));
-const AffiliateFinance = React.lazy(() =>
+const Home = lazy(() => import("./../pages/home/Home"));
+const Products = lazy(() => import("../pages/products/Products"));
+const SearchPage = lazy(() => import("../pages/search/Search"));
+const Product = lazy(() => import("../pages/product/Product"));
+const Account = lazy(() => import("./../pages/user/Account"));
+const Orders = lazy(() => import("../pages/user/Orders"));
+const Saved = lazy(() => import("../pages/user/Saved"));
+const Recent = lazy(() => import("./../pages/user/Recent"));
+const Payment = lazy(() => import("../pages/user/Payment"));
+const Notifications = lazy(() => import("../pages/user/Notifications"));
+const Help = lazy(() => import("../pages/user/Help"));
+const Report = lazy(() => import("../pages/user/Report"));
+const Review = lazy(() => import("./../pages/user/Review"));
+const Analytics = lazy(() => import("../pages/user/Analytics"));
+const SellerProducts = lazy(() => import("../pages/user/Products"));
+const Finance = lazy(() => import("../pages/user/Finance"));
+const Followers = lazy(() => import("../pages/user/Followers"));
+const Promotions = lazy(() => import("../pages/user/Promotions"));
+const EditProfile = lazy(() => import("../pages/user/EditProfile"));
+const ProductAnalytics = lazy(() => import("../pages/user/ProductAnalytics"));
+const CreateProduct = lazy(() => import("../pages/user/CreateProduct"));
+const Cart = lazy(() => import("../pages/cart/Cart"));
+const ProductReview = lazy(() => import("../pages/user/ProductReview"));
+const PromoteProduct = lazy(() => import("../pages/user/PromoteProduct"));
+const Seller = lazy(() => import("../pages/seller/Seller"));
+const AddPaymentCard = lazy(() => import("../pages/user/AddPaymentCard"));
+const About = lazy(() => import("../pages/about/About"));
+const Layout = lazy(() => import("./../pages/affiliate/Layout"));
+const Auth = lazy(() => import("../pages/auth/Auth"));
+const AffiliateFinance = lazy(() =>
   import("./../pages/affiliate/Finance_Affiliate")
 );
-const AffiliateIndex = React.lazy(() => import("./../pages/affiliate/Index"));
-const AffiliateAccount = React.lazy(() =>
+const AffiliateAccount = lazy(() =>
   import("./../pages/affiliate/Account_Affiliate")
 );
-const AffiliateLinks = React.lazy(() =>
+const AffiliateLinks = lazy(() =>
   import("./../pages/affiliate/Links_Affiliate")
 );
-const AffiliateProducts = React.lazy(() =>
+const AffiliateProducts = lazy(() =>
   import("./../pages/affiliate/Products_Affiliate")
 );
-const AffiliateOverView = React.lazy(() =>
+const AffiliateOverView = lazy(() =>
   import("./../pages/affiliate/Overview_Affiliate")
 );
+import RecentComponent from "./../components/recent/Recent";
+import Footer from "../components/footer/Footer";
 
 export const routes = [
   {
@@ -65,9 +64,14 @@ export const routes = [
   {
     path: "/",
     element: (
-      <Suspense fallback={<Loader />}>
-        <HomeIndex />
-      </Suspense>
+      <>
+        <Navbar />
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
+        <RecentComponent />
+        <Footer />
+      </>
     ),
     children: [
       {
@@ -98,17 +102,27 @@ export const routes = [
           return searchTerm;
         },
       },
+
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+
+      {
+        path: "seller/:seller_id",
+        element: <Seller />,
+      },
     ],
   },
 
   {
     path: "/user",
     element: (
-      <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <UserIndex />
-        </UserLayout>
-      </Suspense>
+      <UserLayout>
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
+      </UserLayout>
     ),
     action: ({ request }) => {
       // Call API to edit form here
@@ -184,7 +198,7 @@ export const routes = [
     element: (
       <Suspense fallback={<Loader />}>
         <UserLayout>
-          <UserIndex />
+          <Outlet />
         </UserLayout>
       </Suspense>
     ),
@@ -230,31 +244,13 @@ export const routes = [
     ],
   },
 
-  {
-    path: "cart",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <Cart />
-      </Suspense>
-    ),
-  },
-
-  {
-    path: "seller/:seller_id",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <Seller />
-      </Suspense>
-    ),
-  },
-
   // Affiliate
   {
     path: "a",
     element: (
       <Suspense>
         <Layout>
-          <AffiliateIndex />
+          <Outlet />
         </Layout>
       </Suspense>
     ),

@@ -4,13 +4,11 @@ import BeASeller from "./../../components/beaseller/BeASeller";
 import Footer from "./../../components/footer/Footer";
 import Recent from "./../../components/recent/Recent";
 import { FaStar } from "react-icons/fa";
-import Products from "./../products/Products";
 import ProductsList from "./../../components/products/Products";
 
 export default function Seller() {
   return (
     <>
-      <Navbar />
       {/* profile header */}
       <div className="h-[170px] md:h-[312px] overflow-hidden">
         <img
@@ -139,8 +137,6 @@ export default function Seller() {
       <ProductsList header="Most Viewed Products" />
       <Farmers header="View Similar Sellers" />
       <BeASeller />
-      <Recent />
-      <Footer />
     </>
   );
 }

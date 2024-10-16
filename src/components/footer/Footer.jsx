@@ -3,33 +3,31 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo-white.png";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 
-export default function Footer({ noabout }) {
+export default function Footer() {
   return (
     <>
-      {!noabout && (
-        <div className="contEl my-12">
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="h-100">About AgroXhub</h3>
-            <Link to="/about" className="flex items-center gap-3">
-              <p className="text-sm">Learn More About Us</p>
-              <FaArrowRightLong className="text-dark-green-clr" />
-            </Link>
-          </div>
-          <p className="text-sm mb-3">
-            Agroxhub is your premier online marketplace solution designed
-            specifically for the agricultural sector. We connect farmers and
-            agribusinesses directly with buyers, providing a seamless platform
-            to showcase their products and reach a wider audience.
-          </p>
-
-          <p className="text-sm">
-            Our mission at Agroxhub is to revolutionize agricultural sales by
-            empowering farmers and agribusinesses with innovative tools and
-            resources. We are committed to simplifying the sales process,
-            increasing efficiency, and driving growth for our users.
-          </p>
+      <div className="contEl my-12">
+        <div className="flex justify-between items-center mb-3">
+          <h3 className="h-100">About AgroXhub</h3>
+          <Link to="/about" className="flex items-center gap-3">
+            <p className="text-sm">Learn More About Us</p>
+            <FaArrowRightLong className="text-dark-green-clr" />
+          </Link>
         </div>
-      )}
+        <p className="text-sm mb-3">
+          Agroxhub is your premier online marketplace solution designed
+          specifically for the agricultural sector. We connect farmers and
+          agribusinesses directly with buyers, providing a seamless platform to
+          showcase their products and reach a wider audience.
+        </p>
+
+        <p className="text-sm">
+          Our mission at Agroxhub is to revolutionize agricultural sales by
+          empowering farmers and agribusinesses with innovative tools and
+          resources. We are committed to simplifying the sales process,
+          increasing efficiency, and driving growth for our users.
+        </p>
+      </div>
 
       <div className="bg-dark-green-clr flex items-center justify-center py-8">
         <img src={logo} alt="logo" className="w-[150px] md:w-[200px]" />

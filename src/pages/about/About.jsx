@@ -11,8 +11,6 @@ import Footer from "./../../components/footer/Footer";
 export default function About() {
   return (
     <>
-      <Navbar />
-      {/* Hero */}
       <div className="w-full h-[320px] relative overflow-hidden">
         <div className="relative w-full h-full overflow-hidden bg-[url('../../src/assets/images/aboutbg.png')] bg-[right_-100px_bottom] md:bg-right bg-cover"></div>
         <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-[#22955C] to-transparent md:bg-gradient-to-r"></div>
@@ -409,7 +407,7 @@ export default function About() {
       </div>
 
       {/* Contact */}
-      <div className="mt-12  bg-dark-orange-clr py-10">
+      <div className="my-12 bg-dark-orange-clr py-10">
         <div className="contEl  flex flex-col md:flex-row items-center justify-center md:justify-between gap-10">
           <div className="w-full md:basis-1/2 text-left text-white">
             <h3 className="h-300">
@@ -447,7 +445,6 @@ export default function About() {
           </form>
         </div>
       </div>
-      <Footer noabout />
     </>
   );
 }

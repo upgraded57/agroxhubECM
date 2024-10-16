@@ -49,6 +49,10 @@ body {
   font-weight: 600;
 }
 
+.list:last-child {
+  border: none !important;
+}
+
 .hero {
   background-image: url("./assets/images/hero-bg.png"),
     linear-gradient(45deg, #36e18d, #2cad6c);

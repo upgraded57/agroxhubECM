@@ -15,6 +15,29 @@ export default function Navbar() {
     if (window.innerWidth >= 900) setNavOpen(false);
   };
 
+  const navLinks = [
+    {
+      path: "/",
+      title: "Home",
+    },
+    {
+      path: "/products",
+      title: "Products",
+    },
+    {
+      path: "/about",
+      title: "About",
+    },
+    {
+      path: "/contact",
+      title: "Contact",
+    },
+    {
+      path: "/seller",
+      title: "Become a Seller",
+    },
+  ];
+
   return (
     <>
       <header className="w-full h-[50px] px-[4vw] lg:h-[70px] flex items-center shadow-md fixed bg-white z-50">
@@ -28,25 +51,11 @@ export default function Navbar() {
             className={navOpen ? "basis-2/4 active" : "basis-2/4"}
           >
             <ul className="flex items-center justify-between text-sm">
-              <li>
-                <NavLink to="/">Home</NavLink>
-              </li>
-              <li>
-                <NavLink to="/products" end>
-                  Products
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/about">About</NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact">Contact</NavLink>
-              </li>
-              <li>
-                <NavLink to="/seller" end>
-                  Become a Seller
-                </NavLink>
-              </li>
+              {navLinks.map((navLink, idx) => (
+                <li key={idx} onClick={() => setNavOpen(false)}>
+                  <NavLink to={navLink.path}>{navLink.title}</NavLink>
+                </li>
+              ))}
             </ul>
 
             <div className="flex md:hidden absolute bottom-5 w-[100%] flex-col items-center gap-4 border-t-[1px] pt-4">
@@ -78,6 +87,7 @@ export default function Navbar() {
               <p className="hidden md:block">User</p>
               <AiOutlineUser className="text-xl" />
             </NavLink>
+
             <label className="swap swap-flip text-xl lg:hidden">
               {/* this hidden checkbox controls the state */}
               <input

@@ -23,7 +23,6 @@ export default function Products() {
 
   return (
     <>
-      <Navbar />
       <Search />
 
       {/* Product listing */}
@@ -185,8 +184,6 @@ export default function Products() {
       </div>
 
       <BeASeller />
-      <Recent />
-      <Footer />
     </>
   );
 }
