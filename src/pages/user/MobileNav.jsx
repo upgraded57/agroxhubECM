@@ -1,7 +1,13 @@
 import { MdFilterList } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
-export default function MobileNav({ userLinks, sellerLinks, currentPage }) {
+export default function MobileNav({
+  userLinks,
+  sellerLinks,
+  currentPage,
+  user,
+}) {
+  const isSeller = user.type === "wholesaler" || user.type === "farmer";
   return (
     <div className="flex justify-between items-center p-4 bg-light-grey-clr md:hidden">
       <h3 className="text-lg font-semibold uppercase">{currentPage}</h3>
@@ -19,14 +25,19 @@ export default function MobileNav({ userLinks, sellerLinks, currentPage }) {
               <NavLink to={link.path}>{link.title}</NavLink>
             </li>
           ))}
-          <p className="text-sm font-semibold uppercase mt-5 mb-2 border-b">
-            sellers
-          </p>
-          {sellerLinks.map((link, idx) => (
-            <li key={idx}>
-              <NavLink to={link.path}>{link.title}</NavLink>
-            </li>
-          ))}
+
+          {isSeller && (
+            <div>
+              <p className="text-sm font-semibold uppercase mt-5 mb-2 border-b">
+                sellers
+              </p>
+              {sellerLinks.map((link, idx) => (
+                <li key={idx}>
+                  <NavLink to={link.path}>{link.title}</NavLink>
+                </li>
+              ))}
+            </div>
+          )}
         </ul>
       </div>
     </div>

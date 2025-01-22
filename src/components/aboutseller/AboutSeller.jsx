@@ -1,7 +1,9 @@
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import noAvatar from "../../assets/images/noAvatar.jpeg";
+import moment from "moment";
 
-export default function AboutSeller() {
+export default function AboutSeller({ seller }) {
   return (
     <div className="bg-light-grey-clr w-full px-[4vw] mb-12">
       <div className="max-w-screen-xl mx-auto py-5">
@@ -18,13 +20,13 @@ export default function AboutSeller() {
             <div className="flex gap-3 items-center">
               <div className="w-[60px] aspect-square rounded-full overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D"
+                  src={seller?.avatar || noAvatar}
                   alt="Seller Image"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h3 className="text-2xl font-semibold">Bankole & Sons</h3>
+                <h3 className="text-2xl font-semibold">{seller?.name}</h3>
                 <p className="text-sm">Large quantity tomato producer</p>
               </div>
             </div>
@@ -32,17 +34,17 @@ export default function AboutSeller() {
             <div className="mt-5">
               <span className="block pt-2">
                 <p className="text-sm font-semibold">Company Name</p>
-                <p className="text-sm">Bankole & Sons</p>
+                <p className="text-sm">{seller?.name}</p>
               </span>
               <span className="block pt-2">
                 <p className="text-sm font-semibold">Joined Date</p>
-                <p className="text-sm">24th October, 2022</p>
+                <p className="text-sm">
+                  {moment(seller.createdAt).format("DD MMMM, YYYY")}
+                </p>
               </span>
               <span className="block pt-2">
                 <p className="text-sm font-semibold">Farmer Location</p>
-                <p className="text-sm">
-                  123, Somewhere street, somewhere state, Nigeria
-                </p>
+                <p className="text-sm">{seller?.location || "--- ---"}</p>
               </span>
               <span className="block pt-2">
                 <p className="text-sm font-semibold">Followers</p>
@@ -68,7 +70,7 @@ export default function AboutSeller() {
         </div>
 
         <Link
-          to="/seller/1234"
+          to={`/seller/${seller?.id}`}
           className="w-full justify-end flex items-center gap-3"
         >
           <p className="text-sm">View Seller's Profile</p>

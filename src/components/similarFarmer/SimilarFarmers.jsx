@@ -1,9 +1,9 @@
-import Farmer from "./Farmer";
-import { useGetSellers } from "../../api/seller";
+import Farmer from "./SimilarFarmer";
 import FarmerLoader from "../farmerLoader/FarmerLoader";
+import { useGetSimilarSellers } from "../../api/seller";
 
-export default function Farmers({ header }) {
-  const { isLoading, data: sellers } = useGetSellers();
+export default function SimilarFarmers({ header, sellerId }) {
+  const { isLoading, data: sellers } = useGetSimilarSellers(sellerId);
   return (
     <div className="px-[4vw] max-w-screen-xl mx-auto mb-12">
       <h3 className="text-xl text-black-clr font-semibold mb-2">

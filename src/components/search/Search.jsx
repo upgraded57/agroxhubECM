@@ -1,11 +1,12 @@
-import { Form } from "react-router-dom";
+import { Form, useSearchParams } from "react-router-dom";
 import "./search.css";
 import { BsSearch } from "react-icons/bs";
 
 export default function Search() {
+  const [q] = useSearchParams();
   return (
     <Form
-      action="/search"
+      action="/products"
       className=" container px-[4vw] mx-auto w-full flex items-center justify-center h-[150px]"
     >
       <div className="relative w-full max-w-[500px] flex items-center">
@@ -16,6 +17,7 @@ export default function Search() {
             name="q"
             className="grow"
             placeholder="Search ..."
+            defaultValue={q.get("q") || ""}
           />
         </label>
 

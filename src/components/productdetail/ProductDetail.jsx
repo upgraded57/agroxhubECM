@@ -1,71 +1,113 @@
+import { useContext, useEffect, useState } from "react";
 import { FaStar, FaPlus, FaMinus } from "react-icons/fa6";
-import {
-  IoCartOutline,
-  IoChevronDownOutline,
-  IoHeartOutline,
-} from "react-icons/io5";
+import { IoCartOutline, IoHeartOutline } from "react-icons/io5";
+import { UserContext } from "../../utils/userContext";
+import { useGetUser } from "../../api/user";
+import toast from "react-hot-toast";
 
-export default function ProductDetail() {
+export default function ProductDetail({ product }) {
+  const userId = localStorage.getItem("userId");
+  const [qty, setQty] = useState(1);
+  const handleChangeQty = (type) => {
+    if (type === "increase") {
+      if (qty >= 10) {
+        return;
+      } else {
+        setQty((prev) => prev + 1);
+        return;
+      }
+    } else if (type === "decrease") {
+      if (qty <= 1) {
+        return;
+      } else {
+        setQty((prev) => prev - 1);
+      }
+    } else {
+      return;
+    }
+  };
+
+  // Save product as recently viewed to local storage
+  useEffect(() => {
+    const addToRecentItem = () => {
+      // Retrieve the recent products from localStorage, defaulting to an empty array
+      const recentProducts = JSON.parse(localStorage.getItem("recent")) || [];
+
+      // Check if the product is already saved
+      const productIsSaved = recentProducts.some(
+        (item) => item === product.slug
+      );
+      if (productIsSaved) return; // If it exists, do nothing
+
+      // Add the new product to the beginning of the array (to maintain most recent order)
+      recentProducts.unshift(product.slug);
+
+      // Limit the array to the most recent 5 items
+      if (recentProducts.length > 6) {
+        recentProducts.splice(6); // Remove items beyond the 5th index
+      }
+
+      // Save back to localStorage
+      localStorage.setItem("recent", JSON.stringify(recentProducts));
+    };
+
+    addToRecentItem();
+  }, [product.slug]);
+
+  const [currentImg, setCurrentImg] = useState(product?.images[0]);
+
+  const handleSaveProduct = () => {
+    if (!userId) {
+      toast.error("Please login to continue", {
+        id: "saveToast",
+      });
+    }
+  };
   return (
     <div className="contEl mb-12">
       <div className="flex gap-4 flex-col md:flex-row">
         <div className="flex flex-col gap-2 w-full basis-1/2">
           <div className="w-full aspect-[3/2] rounded-lg overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1606588260160-0c4707ab7db5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHRvbWF0b2VzfGVufDB8fDB8fHww"
+              src={currentImg || ""}
               alt="Product image"
               className="w-full h-full object-cover"
             />
           </div>
           <div className="grid grid-cols-4 gap-2">
-            <div className="aspect-[3/2] rounded-md overflow-hidden bg-white">
-              <img
-                src="https://images.unsplash.com/photo-1606588260160-0c4707ab7db5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHRvbWF0b2VzfGVufDB8fDB8fHww"
-                alt="Product Image"
-                className="w-full h-full object-cover opacity-50 hover:opacity-100"
-              />
-            </div>
-            <div className="aspect-[3/2] rounded-md overflow-hidden bg-white">
-              <img
-                src="https://images.unsplash.com/photo-1562447575-88db38dcc649?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRvbWF0b2VzfGVufDB8fDB8fHww"
-                alt="Product Image"
-                className="w-full h-full object-cover opacity-50 hover:opacity-100"
-              />
-            </div>
-            <div className="aspect-[3/2] rounded-md overflow-hidden bg-white">
-              <img
-                src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHRvbWF0b2VzfGVufDB8fDB8fHww"
-                alt="Product Image"
-                className="w-full h-full object-cover opacity-50 hover:opacity-100"
-              />
-            </div>
-            <div className="aspect-[3/2] rounded-md overflow-hidden bg-white">
-              <img
-                src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dG9tYXRvZXN8ZW58MHx8MHx8fDA%3D"
-                alt="Product Image"
-                className="w-full h-full object-cover opacity-50 hover:opacity-100"
-              />
-            </div>
+            {product?.images.map((item, idx) => (
+              <div
+                className="aspect-[3/2] rounded-md overflow-hidden bg-white cursor-zoom-in"
+                key={idx}
+                onClick={() => setCurrentImg(item)}
+              >
+                <img
+                  src={item}
+                  alt="Product Image"
+                  className={`w-full h-full object-cover ${
+                    item === currentImg
+                      ? "opacity-100 border-2 border-orange-clr rounded-md"
+                      : "opacity-50 hover:opacity-100"
+                  } `}
+                />
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="w-full basis-1/2">
           <h2 className="text-lg font-semibold md:font-normal md:text-3xl">
-            Fresh Tomatoes
+            {product?.name}
           </h2>
           <hr className="my-3" />
-          <h1 className="text-lg font-normal md:text-3xl">
-            N3,458 + N1,200 <span className="text-sm">(logistics)</span>
-          </h1>
+          <div className="flex items-end gap-2">
+            <h1 className="text-lg font-normal md:text-3xl">
+              N{product?.unitPrice.toLocaleString()}
+            </h1>
+            <p className="text-sm">per {product?.unit}</p>
+          </div>
           <hr className="my-3" />
-          <p className="text-sm">
-            Lorem ipsum dolor sit amet consectetur. Ornare odio at magna mus sed
-            elementum eleifend aenean tincidunt. Fringilla adipiscing id nibh
-            imperdiet ultricies viverra ipsum rutrum. Elementum nunc diam
-            volutpat scelerisque. Morbi duis pharetra ultricies sed.
-            Pellentesque facilisis sit aliquam aenean urna facilisis. Malesuada
-            venenatis in nunc varius diam vulputate pretium egestas.
-          </p>
+          <p className="text-sm">{product?.description}</p>
           <hr className="my-3" />
           <div className="flex items-center gap-2">
             <FaStar className="text-md text-yellow-300" />
@@ -73,18 +115,27 @@ export default function ProductDetail() {
             <FaStar className="text-md text-yellow-300" />
             <FaStar className="text-md text-yellow-300" />
             <FaStar className="text-md text-gray-300" />
-            <p className="text-sm pl-3">25 Reviews</p>
+            <p className="text-sm pl-3">
+              {product?.reviews?.length || 0} Reviews
+            </p>
           </div>
           <hr className="my-3" />
           <div className="join">
-            <div className="join-item btn rounded-none">
-              <FaPlus />
+            <div
+              className="join-item btn rounded-none"
+              onClick={() => handleChangeQty("decrease")}
+            >
+              <FaMinus />
             </div>
             <div className="join-item flex items-center justify-between input input-bordered text-xl border-x-0">
-              3 Baskets
+              {qty} {product?.unit}
+              {qty > 1 ? "(s)" : ""}
             </div>
-            <div className="join-item btn rounded-none">
-              <FaMinus />
+            <div
+              className="join-item btn rounded-none"
+              onClick={() => handleChangeQty("increase")}
+            >
+              <FaPlus />
             </div>
           </div>
           <p className="text-sm mt-3">
@@ -107,7 +158,10 @@ export default function ProductDetail() {
               Add to Cart
               <IoCartOutline className="text-2xl" />
             </button>
-            <button className="btn border-2 border-orange-clr bg-white text-orange-clr hover:bg-orange-clr hover:text-white hover:border-orange-clr">
+            <button
+              className="btn border-2 border-orange-clr bg-white text-orange-clr hover:bg-orange-clr hover:text-white hover:border-orange-clr"
+              onClick={handleSaveProduct}
+            >
               Save
               <IoHeartOutline className="text-2xl" />
             </button>

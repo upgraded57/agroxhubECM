@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import noAvatar from "../../assets/images/noAvatar.jpeg";
-export default function Farmer({ seller }) {
+export default function SimilarFarmer({ seller }) {
   return (
     <Link
       to={`/seller/${seller?.id}`}

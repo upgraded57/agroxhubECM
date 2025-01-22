@@ -1,8 +1,21 @@
-import SellerProduct from "./../../components/sellerproduct/SellerProduct";
+import SellerProduct from "../../components/sellerproduct/SellerProduct";
 import { FaPlusCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useGetSellerProducts } from "../../api/seller";
+import ProductsLoader from "../../components/productsLoader/ProductsLoader";
 
 export default function SellerProducts() {
+  const navigate = useNavigate();
+  const sellerId = localStorage.getItem("userId");
+  if (!sellerId) {
+    return navigate(-1);
+  }
+
+  const {
+    isLoading,
+    isFetching,
+    data: products,
+  } = useGetSellerProducts(sellerId);
   return (
     <>
       <div className="hidden md:flex items-center justify-between pb-2">
@@ -35,17 +48,15 @@ export default function SellerProducts() {
         </div>
       </div>
 
-      <div className="gridEl">
-        <SellerProduct />
-        <SellerProduct />
-        <SellerProduct />
-        <SellerProduct />
-        <SellerProduct />
-        <SellerProduct />
-        <SellerProduct />
-        <SellerProduct />
-        <SellerProduct />
-      </div>
+      {isLoading || isFetching ? (
+        <ProductsLoader count={8} />
+      ) : (
+        <div className="gridEl">
+          {products?.map((product, idx) => (
+            <SellerProduct product={product} key={idx} />
+          ))}
+        </div>
+      )}
     </>
   );
 }

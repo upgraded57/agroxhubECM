@@ -6,7 +6,6 @@ import Navbar from "../components/navbar/Navbar";
 
 const Home = lazy(() => import("./../pages/home/Home"));
 const Products = lazy(() => import("../pages/products/Products"));
-const SearchPage = lazy(() => import("../pages/search/Search"));
 const Product = lazy(() => import("../pages/product/Product"));
 const Account = lazy(() => import("./../pages/user/Account"));
 const Orders = lazy(() => import("../pages/user/Orders"));
@@ -18,7 +17,7 @@ const Help = lazy(() => import("../pages/user/Help"));
 const Report = lazy(() => import("../pages/user/Report"));
 const Review = lazy(() => import("./../pages/user/Review"));
 const Analytics = lazy(() => import("../pages/user/Analytics"));
-const SellerProducts = lazy(() => import("../pages/user/Products"));
+const SellerProducts = lazy(() => import("../pages/user/SellerProducts"));
 const Finance = lazy(() => import("../pages/user/Finance"));
 const Followers = lazy(() => import("../pages/user/Followers"));
 const Promotions = lazy(() => import("../pages/user/Promotions"));
@@ -28,11 +27,10 @@ const CreateProduct = lazy(() => import("../pages/user/CreateProduct"));
 const Cart = lazy(() => import("../pages/cart/Cart"));
 const ProductReview = lazy(() => import("../pages/user/ProductReview"));
 const PromoteProduct = lazy(() => import("../pages/user/PromoteProduct"));
-const Seller = lazy(() => import("../pages/seller/Seller"));
+const SellerPage = lazy(() => import("../pages/seller/SellerPage"));
 const AddPaymentCard = lazy(() => import("../pages/user/AddPaymentCard"));
 const About = lazy(() => import("../pages/about/About"));
 const Layout = lazy(() => import("./../pages/affiliate/Layout"));
-const Auth = lazy(() => import("../pages/auth/Auth"));
 const AffiliateFinance = lazy(() =>
   import("./../pages/affiliate/Finance_Affiliate")
 );
@@ -50,23 +48,50 @@ const AffiliateOverView = lazy(() =>
 );
 import RecentComponent from "./../components/recent/Recent";
 import Footer from "../components/footer/Footer";
+import AuthLayout from "../pages/auth/AuthLayout";
+import { UserProvider } from "./userContext";
+import NotFound from "../components/notFound/NotFound";
+import ResetScroll from "../components/resetScroll/ResetScroll";
+import SellerContext from "./sellerContext";
+const Login = lazy(() => import("./../pages/auth/Login"));
+const Signup = lazy(() => import("./../pages/auth/Signup"));
+const VerifyOtp = lazy(() => import("./../pages/auth/VerifyOtp"));
 
 export const routes = [
+  // Auth
   {
     path: "/auth",
     element: (
-      <Suspense fallback={<Loader />}>
-        <Auth />
-      </Suspense>
+      <AuthLayout>
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
+      </AuthLayout>
     ),
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
+      },
+      {
+        path: "verify-otp",
+        element: <VerifyOtp />,
+      },
+    ],
   },
 
+  // Main
   {
     path: "/",
     element: (
       <>
         <Navbar />
         <Suspense fallback={<Loader />}>
+          <ResetScroll />
           <Outlet />
         </Suspense>
         <RecentComponent />
@@ -82,47 +107,36 @@ export const routes = [
         path: "products",
         element: <Products />,
       },
-
       {
         path: "about",
         element: <About />,
       },
-
       {
-        path: "products/:product_id",
+        path: "products/:slug",
         element: <Product />,
       },
-
-      {
-        path: "search",
-        element: <SearchPage />,
-        loader: async ({ request }) => {
-          let url = new URL(request.url);
-          let searchTerm = url.searchParams.get("q");
-          return searchTerm;
-        },
-      },
-
       {
         path: "cart",
         element: <Cart />,
       },
-
       {
-        path: "seller/:seller_id",
-        element: <Seller />,
+        path: "seller/:sellerId",
+        element: <SellerPage />,
       },
     ],
   },
 
+  // User
   {
     path: "/user",
     element: (
-      <UserLayout>
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
-      </UserLayout>
+      <UserProvider>
+        <UserLayout>
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
+        </UserLayout>
+      </UserProvider>
     ),
     action: ({ request }) => {
       // Call API to edit form here
@@ -193,13 +207,18 @@ export const routes = [
     ],
   },
 
+  // Seller
   {
     path: "seller",
     element: (
       <Suspense fallback={<Loader />}>
-        <UserLayout>
-          <Outlet />
-        </UserLayout>
+        <UserProvider>
+          <SellerContext>
+            <UserLayout>
+              <Outlet />
+            </UserLayout>
+          </SellerContext>
+        </UserProvider>
       </Suspense>
     ),
     children: [
@@ -276,5 +295,10 @@ export const routes = [
         element: <AffiliateAccount />,
       },
     ],
+  },
+
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];

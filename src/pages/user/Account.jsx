@@ -1,7 +1,12 @@
 import { BiEdit } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../utils/userContext";
+import noAvatar from "../../assets/images/noAvatar.jpeg";
+import moment from "moment";
 
 export default function Account() {
+  const user = useContext(UserContext).user;
   return (
     <>
       <h2 className="font-semibold text-2xl hidden md:block pb-2">
@@ -12,14 +17,14 @@ export default function Account() {
         <div className="w-[max-content] mx-auto md:mx-0 flex flex-col md:flex-row gap-4 items-center">
           <div className="w-[100px] md:w-[50px] aspect-square rounded-full overflow-hidden ">
             <img
-              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src={user.avatar || noAvatar}
               alt="User Avatar"
               className="w-full h-full object-cover"
             />
           </div>
           <span className="text-center md:text-left">
-            <p className="text-sm font-semibold">JANES MCDOWELLS</p>
-            <p className="text-sm">RETAIL BUYER</p>
+            <p className="text-sm font-semibold">{user?.name}</p>
+            <p className="text-sm">{user.type}</p>
           </span>
         </div>
       </div>
@@ -38,19 +43,33 @@ export default function Account() {
       <div className="p-4">
         <span className="block mb-4">
           <p className="font-semibold text-xs">FULL NAME</p>
-          <p className="text-sm">JANE MCDOWELLS</p>
+          <p className="text-sm">{user.name}</p>
         </span>
         <span className="block mb-4">
           <p className="font-semibold text-xs">EMAIL ADDRESS</p>
-          <p className="text-sm">JANEMDOWELLS@MAIL.COM</p>
+          <p className="text-sm">{user.email}</p>
         </span>
         <span className="block mb-4">
           <p className="font-semibold text-xs">PHONE NUMBER</p>
-          <p className="text-sm">+234 (0) 91 885 123 76</p>
+          <p className="text-sm">{user.phoneNumber || "---"}</p>
         </span>
         <span className="block mb-4">
           <p className="font-semibold text-xs">DELIVERY ADDRESS</p>
-          <p className="text-sm">125, SAMPLE ADDRESS, SOME STATE, NIGERIA</p>
+          <p className="text-sm">{user.address || "---"}</p>
+        </span>
+        <span className="block mb-4">
+          <p className="font-semibold text-xs">LOCATION</p>
+          <div className="flex items-center gap-6">
+            <p className="text-sm">
+              <b>State:</b> {user.region.state || "---"}
+            </p>
+            <p className="text-sm">
+              <b>Lcda:</b> {user.region.lcda || "---"}
+            </p>
+            <p className="text-sm">
+              <b>Region:</b> {user.region.name || "---"}
+            </p>
+          </div>
         </span>
         <span className="block mb-4">
           <p className="font-semibold text-xs">PURCHASES</p>
@@ -64,13 +83,11 @@ export default function Account() {
           <p className="font-semibold text-xs">REVIEWS</p>
           <p className="text-sm">18</p>
         </span>
-        <span className="block mb-4">
-          <p className="font-semibold text-xs">SALES</p>
-          <p className="text-sm">0</p>
-        </span>
         <span className="block">
-          <p className="font-semibold text-xs">PAYMENT CARDS</p>
-          <p className="text-sm">2</p>
+          <p className="font-semibold text-xs">JOINED SINCE</p>
+          <p className="text-sm">
+            {moment(user.createdAt).format("DD MMM, YYYY")}
+          </p>
         </span>
       </div>
     </>

@@ -3,13 +3,15 @@ import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import { useLocation } from "react-router-dom";
 import { resolveLocation } from "../../utils/ResolveLocation";
-import { Suspense } from "react";
-import Loader from "../../components/loader/Loader";
 import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
+import { useContext } from "react";
+import { UserContext } from "../../utils/userContext";
 
 export default function UserLayout({ children }) {
+  // Check if user exists in store
   const location = useLocation();
+  const user = useContext(UserContext).user;
 
   const currentPage = resolveLocation(location);
 
@@ -78,10 +80,15 @@ export default function UserLayout({ children }) {
         currentPage={currentPage}
         sellerLinks={sellerLinks}
         userLinks={userLinks}
+        user={user}
       />
       <div className="contEl md:mt-12">
         <div className="flex gap-4 items-start">
-          <DesktopNav userLinks={userLinks} sellerLinks={sellerLinks} />
+          <DesktopNav
+            userLinks={userLinks}
+            sellerLinks={sellerLinks}
+            user={user}
+          />
           <div className="basis-full md:basis-3/4 md:border md:rounded-lg md:px-4 md:py-2 overflow-x-hidden">
             {children}
           </div>

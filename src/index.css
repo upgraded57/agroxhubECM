@@ -20,7 +20,7 @@
     @apply max-w-screen-xl px-[4vw] mx-auto;
   }
   .gridEl {
-    @apply w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center;
+    @apply w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center;
   }
 }
 
@@ -71,6 +71,9 @@ body {
   color: white;
 }
 
+.btn:disabled {
+  background: transparent !important;
+}
 @media screen and (max-width: 768px) {
   .h-300 {
     font-size: 32px;
@@ -88,5 +91,20 @@ body {
 
   .filters.active {
     display: block;
+  }
+}
+
+.filter {
+  height: calc(100vh - 100px) !important;
+  top: 80px !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1024px) {
+  .drawer-side {
+    bottom: 50px !important;
+    overflow: auto !important;
+    min-height: max-content !important;
   }
 }

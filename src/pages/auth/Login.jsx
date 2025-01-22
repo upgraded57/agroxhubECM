@@ -1,17 +1,47 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
+import { useLoginMutation } from "../../api/auth";
 
-export default function Login({ setAuth }) {
+export default function Login() {
   const navigate = useNavigate();
-  const login = (e) => {
+  const [q] = useSearchParams();
+  const from = q.get("from");
+  const { mutateAsync: loginMutation, isLoading } = useLoginMutation();
+
+  const login = async (e) => {
     e.preventDefault();
-    navigate("/");
+    const data = Object.fromEntries(new FormData(e.target));
+    await loginMutation(data)
+      .then((res) => {
+        if (res) {
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("userId", res.data.userId);
+          if (from) {
+            navigate(from.toString());
+          } else {
+            navigate("/");
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.status === 401) {
+          localStorage.clear();
+          localStorage.setItem("userId", err.response.data.userId);
+          navigate("/auth/verify-otp");
+        }
+      });
   };
+
   return (
     <div className="w-full flex items-center justify-center gap-8 flex-col">
       <p className="text-sm uppercase font-semibold">sign in to your account</p>
-      <form onSubmit={login} className="w-full ">
+      <form onSubmit={login} className="w-full">
         <label htmlFor="email">
           <p className="text-sm uppercase">email address</p>
           <input
@@ -19,6 +49,8 @@ export default function Login({ setAuth }) {
             name="email"
             id="email"
             className="input input-bordered w-full mb-8"
+            required
+            disabled={isLoading}
           />
         </label>
         <label htmlFor="password">
@@ -28,10 +60,19 @@ export default function Login({ setAuth }) {
             name="password"
             id="password"
             className="input input-bordered w-full"
+            required
+            disabled={isLoading}
           />
         </label>
-        <button className="btn green-gradient w-full uppercase mt-8">
-          sign in
+        <button
+          className="btn green-gradient w-full uppercase mt-8"
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <span className="loading loading-dots loading-md bg-white" />
+          ) : (
+            "sign in"
+          )}
         </button>
       </form>
       <div>
@@ -51,12 +92,14 @@ export default function Login({ setAuth }) {
         <p className="text-sm uppercase font-semibold">
           don't have an account?
         </p>
-        <p
-          className="text-sm uppercase font-semibold text-dark-green-clr cursor-pointer"
-          onClick={() => setAuth("signup")}
+        <Link
+          to="/auth/signup"
+          className={`text-sm uppercase font-semibold text-dark-green-clr cursor-pointer ${
+            isLoading && "pointer-events-none"
+          }`}
         >
-          signup
-        </p>
+          sign up
+        </Link>
       </span>
     </div>
   );

@@ -51,8 +51,8 @@ export default function Footer() {
         </form>
       </div>
 
-      <footer className="bg-dark-green-clr py-8 px-[4vw] text-white">
-        <div className="flex flex-col gap-10 md:gap-0 md:flex-row md:justify-between md:items-start mx-auto max-w-screen-2xl">
+      <footer className="bg-dark-green-clr py-8 text-white">
+        <div className="flex flex-col gap-10 md:gap-0 md:flex-row md:justify-between md:items-start contEl">
           <span className="max-w-[150px]">
             <p className="text-sm font-semibold mb-2">CONTACT US</p>
             <p className="text-sm mb-4">
