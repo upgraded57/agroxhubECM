@@ -4,11 +4,11 @@ export default function Farmer({ seller }) {
   return (
     <Link
       to={`/seller/${seller?.id}`}
-      className="w-full rounded-md relative overflow-hidden aspect-[5/6]"
+      className="w-full rounded-md relative bg-gray-200 overflow-hidden aspect-[5/6]"
     >
       <img
         src={seller?.avatar || noAvatar}
-        alt="Farmer Image"
+        alt={seller?.name}
         className="w-full h-full object-cover"
       />
       <div className="absolute bottom-0 w-full bg-black/40 text-white text-center py-2">

@@ -17,10 +17,10 @@ export default function Product({ product }) {
       to={`/products/${product?.slug}`}
       className="w-full rounded-xl p-2 hover:shadow-md pb-3 mb-4"
     >
-      <div className="w-full h-[128px] rounded-b-none rounded-lg overflow-hidden">
+      <div className="w-full h-[128px] rounded-b-none bg-gray-200 rounded-lg overflow-hidden">
         <img
           src={product.images.length > 0 ? product.images[1] : tempImg}
-          alt="Product Image"
+          alt={product?.name}
           className="w-full h-full object-cover"
         />
       </div>
