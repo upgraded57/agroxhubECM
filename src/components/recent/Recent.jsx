@@ -15,7 +15,7 @@ export default function Recent() {
           <ProductsLoader count={5} />
         ) : (
           products?.map((product, idx) => (
-            <div className="min-w-[200px] w-full max-w-[300px]" key={idx}>
+            <div className="w-[200px] carousel-item" key={idx}>
               <Product product={product} />
             </div>
           ))
