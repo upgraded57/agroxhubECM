@@ -1,9 +1,4 @@
-import {
-  useInfiniteQuery,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./axiosInstance";
 
 export const useGetProductCategories = () => {
@@ -28,14 +23,9 @@ export const useGetProducts = (queryParams) => {
     return res.data;
   };
 
-  return useInfiniteQuery({
+  return useQuery({
     queryKey: ["Products", JSON.stringify(Object.fromEntries(queryParams))],
     queryFn: getProducts,
-    getNextPageParam: (lastPage, data) => {
-      // console.log({ lastPage });
-      const hasMore = lastPage.hasMore; // Backend should indicate if more pages exist
-      // return hasMore ? currentPage + 1 : undefined; // Return next page or undefined to stop
-    },
   });
 };
 

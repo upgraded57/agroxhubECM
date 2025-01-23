@@ -19,6 +19,10 @@ export default function ProductsFilter() {
     const updatedParams = new URLSearchParams(searchParams);
     if (value) {
       updatedParams.set(name, value);
+      const currentPage = queryParams.currentPage;
+      if (parseInt(currentPage) > 1) {
+        updatedParams.delete("currentPage");
+      }
     } else {
       updatedParams.delete(name); // Remove parameter if value is empty
     }

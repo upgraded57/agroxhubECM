@@ -1,12 +1,13 @@
-import { LiaFolderOpenSolid } from "react-icons/lia";
-export default function EmptyProducts() {
+import noProduct from "../../assets/images/noProduct.jpeg";
+export default function EmptyProducts({ text }) {
   return (
     <div className=" w-full flex flex-col items-center justify-center gap-6 py-10">
-      <LiaFolderOpenSolid className="text-8xl text-gray-200" />
-      <p className="text-sm">
-        We could not find any product matching your search. Try using a
-        different search term
-      </p>
+      <img
+        src={noProduct}
+        alt=""
+        className="pointer-events-none max-w-[300px]"
+      />
+      <p className="text-sm text-center max-w-sm">{text}</p>
     </div>
   );
 }

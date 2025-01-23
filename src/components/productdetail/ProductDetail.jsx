@@ -1,8 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaStar, FaPlus, FaMinus } from "react-icons/fa6";
 import { IoCartOutline, IoHeartOutline } from "react-icons/io5";
-import { UserContext } from "../../utils/userContext";
-import { useGetUser } from "../../api/user";
 import toast from "react-hot-toast";
 
 export default function ProductDetail({ product }) {
@@ -63,6 +61,17 @@ export default function ProductDetail({ product }) {
       });
     }
   };
+
+  const positiveRating = Array.from(
+    { length: product?.ratings },
+    (_, index) => index
+  );
+
+  const emptyRating = Array.from(
+    { length: 5 - product?.ratings },
+    (_, index) => index
+  );
+
   return (
     <div className="contEl mb-12">
       <div className="flex gap-4 flex-col md:flex-row">
@@ -100,7 +109,7 @@ export default function ProductDetail({ product }) {
             {product?.name}
           </h2>
           <hr className="my-3" />
-          <div className="flex items-end gap-2">
+          <div className="flex items-center gap-2">
             <h1 className="text-lg font-normal md:text-3xl">
               N{product?.unitPrice.toLocaleString()}
             </h1>
@@ -110,11 +119,14 @@ export default function ProductDetail({ product }) {
           <p className="text-sm">{product?.description}</p>
           <hr className="my-3" />
           <div className="flex items-center gap-2">
-            <FaStar className="text-md text-yellow-300" />
-            <FaStar className="text-md text-yellow-300" />
-            <FaStar className="text-md text-yellow-300" />
-            <FaStar className="text-md text-yellow-300" />
-            <FaStar className="text-md text-gray-300" />
+            <div className="flex gap-1 items-center text-md text-yellow-300 py-2">
+              {positiveRating?.map((_, idx) => (
+                <FaStar key={idx} />
+              ))}
+              {emptyRating?.map((_, idx) => (
+                <FaStar className="text-gray-200" key={idx} />
+              ))}
+            </div>
             <p className="text-sm pl-3">
               {product?.reviews?.length || 0} Reviews
             </p>

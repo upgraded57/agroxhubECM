@@ -12,28 +12,29 @@ import EmptyProducts from "../../components/emptyStates/EmptyProducts";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const currentParams = new URLSearchParams(searchParams);
+  const currentPage = parseInt(currentParams.get("currentPage")) || 1;
 
-  const { isLoading, isFetching, data, fetchNextPage, refetch } =
-    useGetProducts(searchParams);
-  const hasMore = data?.pages[0]?.hasMore;
+  const { isLoading, isFetching, data, refetch } = useGetProducts(searchParams);
+  const hasMore = data?.hasMore;
 
-  const products = data?.pages[0]?.products;
+  const products = data?.products;
 
-  const handleLoadMoreProducts = () => {
-    const currentParams = new URLSearchParams(searchParams);
+  const handleLoadNextPage = () => {
     if (hasMore) {
-      const currentPage = currentParams.get("currentPage");
-      if (!currentPage) {
-        currentParams.set("currentPage", 1);
-      } else {
-        currentParams.set("currentPage", parseInt(currentPage) + 1);
-      }
+      currentParams.set("currentPage", parseInt(currentPage) + 1);
       setSearchParams(currentParams);
     }
   };
 
+  const handleLoadPreviousPage = () => {
+    currentParams.set("currentPage", parseInt(currentPage) - 1);
+    setSearchParams(currentParams);
+  };
+
   useEffect(() => {
     refetch();
+    window.scrollTo(0, 0);
   }, [searchParams]);
 
   return (
@@ -64,24 +65,35 @@ export default function Products() {
                     <Product key={idx} product={product} />
                   ))}
                 </div>
-                {hasMore && (
-                  <div className="w-full flex justify-center mt-4">
+
+                <div className="w-full flex justify-center mt-4">
+                  <div className="join">
                     <button
-                      className="btn btn-outline border-2 border-orange-clr text-orange-clr hover:text-white hover:bg-orange-clr hover:border-orange-clr"
-                      onClick={handleLoadMoreProducts}
-                      disabled={isLoading || isFetching}
+                      className="join-item btn bg-orange-clr text-white hover:bg-orange-clr hover:border-orange-clr"
+                      disabled={currentPage <= 1}
+                      onClick={handleLoadPreviousPage}
                     >
-                      {isFetching ? (
-                        <span className="loading loading-dots loading-md bg-orange-clr" />
-                      ) : (
-                        "Load More Products"
-                      )}
+                      «
+                    </button>
+                    <button className="join-item btn bg-transparent pointer-events-none">
+                      Page {currentPage}
+                    </button>
+                    <button
+                      className="join-item btn bg-orange-clr text-white hover:bg-orange-clr hover:border-orange-clr"
+                      disabled={!hasMore}
+                      onClick={handleLoadNextPage}
+                    >
+                      »
                     </button>
                   </div>
-                )}
+                </div>
               </div>
             ) : (
-              <EmptyProducts />
+              <EmptyProducts
+                text={
+                  "We could not find any product matching your search. Try using a different search term"
+                }
+              />
             )}
           </div>
           <div className="drawer-side">

@@ -10,7 +10,7 @@ export default function ProductsList({ header, category }) {
   });
 
   const { isLoading, data } = useGetProducts(filter || null);
-  const products = data?.pages[0]?.products;
+  const products = data?.products;
   return (
     <div className="contEl mb-12">
       <div className="flex items-center justify-between">
