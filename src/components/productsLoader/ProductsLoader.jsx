@@ -1,9 +1,32 @@
 import React from "react";
 
-export default function ProductsLoader({ count }) {
+export default function ProductsLoader({ count, type }) {
   const array = Array.from({ length: count }, (_, index) => index);
 
-  return (
+  return type === "list" ? (
+    <div className="w-full">
+      {array.map((_, idx) => (
+        <div
+          className="w-full p-4 flex items-center justify-between border-b"
+          key={idx}
+        >
+          <div className="flex items-center gap-3">
+            <div className="skeleton h-[128px] w-[128px] rounded-lg"></div>
+            <div className="flex flex-col gap-2">
+              <div className="w-[160px] h-6 rounded-md skeleton"></div>
+              <div className="w-[140px] h-4 rounded-md skeleton"></div>
+              <div className="flex gap-2">
+                <div className="w-[80px] h-8 rounded-md skeleton"></div>
+                <div className="w-[80px] h-8 rounded-md skeleton"></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-[120px] h-12 rounded-lg skeleton"></div>
+        </div>
+      ))}
+    </div>
+  ) : (
     <div className="gridEl w-full">
       {array.map((_, idx) => (
         <div className="w-full mb-6 p-4" key={idx}>

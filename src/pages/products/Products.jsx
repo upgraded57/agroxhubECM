@@ -9,6 +9,7 @@ import ProductsLoader from "../../components/productsLoader/ProductsLoader";
 import { useSearchParams } from "react-router-dom";
 import ProductsFilter from "../../components/productsFilter/ProductsFilter";
 import EmptyProducts from "../../components/emptyStates/EmptyProducts";
+import ResetScroll from "../../components/resetScroll/ResetScroll";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,6 +41,7 @@ export default function Products() {
   return (
     <>
       <Search />
+      <ResetScroll />
       <div className="max-w-screen-xl mx-auto px-[4vw] -mt-6 mb-10">
         <div className="drawer lg:gap-4 lg:drawer-open">
           <input id="filterDrawer" type="checkbox" className="drawer-toggle" />

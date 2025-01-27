@@ -1,64 +1,52 @@
 import { useEffect, useState } from "react";
 import { FaStar, FaPlus, FaMinus } from "react-icons/fa6";
-import { IoCartOutline, IoHeartOutline } from "react-icons/io5";
+import { IoCartOutline, IoHeartOutline, IoHeart } from "react-icons/io5";
 import toast from "react-hot-toast";
+import { useGetSavedProducts, useSaveProduct } from "../../api/saves";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ProductDetail({ product }) {
+  const queryClient = useQueryClient(); // Use React Query's QueryClient hook
   const userId = localStorage.getItem("userId");
   const [qty, setQty] = useState(1);
+  const [isSavedProduct, setIsSavedProduct] = useState(false);
+
   const handleChangeQty = (type) => {
     if (type === "increase") {
-      if (qty >= 10) {
-        return;
-      } else {
-        setQty((prev) => prev + 1);
-        return;
-      }
+      setQty((prev) => (prev < 10 ? prev + 1 : prev));
     } else if (type === "decrease") {
-      if (qty <= 1) {
-        return;
-      } else {
-        setQty((prev) => prev - 1);
-      }
-    } else {
-      return;
+      setQty((prev) => (prev > 1 ? prev - 1 : prev));
     }
   };
 
-  // Save product as recently viewed to local storage
+  const { data: savedProducts, isLoading: isLoadingSavedProducts } =
+    useGetSavedProducts();
+
+  // Determine if the product is saved
   useEffect(() => {
-    const addToRecentItem = () => {
-      // Retrieve the recent products from localStorage, defaulting to an empty array
-      const recentProducts = JSON.parse(localStorage.getItem("recent")) || [];
-
-      // Check if the product is already saved
-      const productIsSaved = recentProducts.some(
-        (item) => item === product.slug
+    if (savedProducts) {
+      const isSaved = savedProducts.some(
+        (item) => item.productId === product.id
       );
-      if (productIsSaved) return; // If it exists, do nothing
+      setIsSavedProduct(isSaved);
+    }
+  }, [savedProducts, product.id]);
 
-      // Add the new product to the beginning of the array (to maintain most recent order)
-      recentProducts.unshift(product.slug);
+  const { mutateAsync: saveProduct, isLoading: isSavingProduct } =
+    useSaveProduct();
 
-      // Limit the array to the most recent 5 items
-      if (recentProducts.length > 6) {
-        recentProducts.splice(6); // Remove items beyond the 5th index
-      }
-
-      // Save back to localStorage
-      localStorage.setItem("recent", JSON.stringify(recentProducts));
-    };
-
-    addToRecentItem();
-  }, [product.slug]);
-
-  const [currentImg, setCurrentImg] = useState(product?.images[0]);
-
-  const handleSaveProduct = () => {
+  const handleSaveProduct = async () => {
     if (!userId) {
-      toast.error("Please login to continue", {
-        id: "saveToast",
-      });
+      toast.error("Please login to continue", { id: "saveToast" });
+      return;
+    }
+
+    try {
+      await saveProduct(product?.id);
+      queryClient.invalidateQueries(["Saves"]);
+      setIsSavedProduct((prev) => !prev);
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
     }
   };
 
@@ -66,11 +54,22 @@ export default function ProductDetail({ product }) {
     { length: product?.ratings },
     (_, index) => index
   );
-
   const emptyRating = Array.from(
     { length: 5 - product?.ratings },
     (_, index) => index
   );
+
+  useEffect(() => {
+    // Save product as recently viewed to localStorage
+    const recentProducts = JSON.parse(localStorage.getItem("recent")) || [];
+    if (!recentProducts.includes(product.slug)) {
+      recentProducts.unshift(product.slug);
+      if (recentProducts.length > 6) recentProducts.splice(6);
+      localStorage.setItem("recent", JSON.stringify(recentProducts));
+    }
+  }, [product.slug]);
+
+  const [currentImg, setCurrentImg] = useState(product?.images[0]);
 
   return (
     <div className="contEl mb-12">
@@ -154,17 +153,6 @@ export default function ProductDetail({ product }) {
             50 Baskets max saleable in one order | 750 Baskets still in stock
           </p>
           <hr className="my-3" />
-          {/* <div className="flex items-end gap-2">
-            <p className="text-sm">Choose logistic service provider</p>
-            <IoChevronDownOutline />
-          </div>
-          <hr className="my-3" /> */}
-
-          {/* <p className="text-sm">
-            Deliver to - <b>Ajegunle Alakuko.</b>{" "}
-            <span className="text-orange-clr">(Change delivery address)</span>
-          </p>
-          <hr className="my-3" /> */}
           <div className="flex items-center gap-2">
             <button className="btn green-gradient text-white">
               Add to Cart
@@ -173,9 +161,14 @@ export default function ProductDetail({ product }) {
             <button
               className="btn border-2 border-orange-clr bg-white text-orange-clr hover:bg-orange-clr hover:text-white hover:border-orange-clr"
               onClick={handleSaveProduct}
+              disabled={isSavingProduct || isLoadingSavedProducts}
             >
-              Save
-              <IoHeartOutline className="text-2xl" />
+              {isSavedProduct ? "Unsave" : "Save"}
+              {isSavedProduct ? (
+                <IoHeartOutline className="text-2xl" />
+              ) : (
+                <IoHeart className="text-2xl" />
+              )}
             </button>
           </div>
         </div>

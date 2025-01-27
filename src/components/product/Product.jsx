@@ -19,7 +19,7 @@ export default function Product({ product }) {
     >
       <div className="w-full h-[128px] rounded-b-none bg-gray-200 rounded-lg overflow-hidden">
         <img
-          src={product.images.length > 0 ? product.images[1] : tempImg}
+          src={product.images.length > 0 ? product.images[0] : tempImg}
           alt={product?.name}
           className="w-full h-full object-cover"
         />

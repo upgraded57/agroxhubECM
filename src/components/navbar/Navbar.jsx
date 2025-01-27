@@ -89,7 +89,12 @@ export default function Navbar() {
               className="btn btn-ghost mx-0 p-0 hover:bg-transparent font-normal"
             >
               <p className="hidden md:block">Cart</p>
-              <IoCartOutline className="text-xl" />
+              <div className="relative">
+                <IoCartOutline className="text-xl" />
+                <div className="w-3 h-3 bg-dark-green-clr flex items-center justify-center rounded-full overflow-hidden absolute text-white -top-1 -right-1">
+                  <small className="text-[10px]">2</small>
+                </div>
+              </div>
             </NavLink>
 
             {isFetching ? (
