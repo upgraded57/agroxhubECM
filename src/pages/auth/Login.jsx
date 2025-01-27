@@ -1,23 +1,37 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import {
-  Link,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLoginMutation } from "../../api/auth";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import ErrorMessage from "../../components/errorMessage/ErrorMessage";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
   const [q] = useSearchParams();
   const from = q.get("from");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .required("Email is required")
+      .email("Invalid email address"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters long")
+      .matches(/[a-zA-Z]/, "Password must contain at least one letter")
+      .matches(/\d/, "Password must contain at least one number"),
+  });
   const { mutateAsync: loginMutation, isLoading } = useLoginMutation();
 
-  const login = async (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target));
-    await loginMutation(data)
+  const handleLogin = async (values) => {
+    await loginMutation(values)
       .then((res) => {
         if (res) {
           localStorage.setItem("token", res.data.token);
@@ -38,35 +52,51 @@ export default function Login() {
       });
   };
 
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: handleLogin,
+  });
   return (
     <div className="w-full flex items-center justify-center gap-8 flex-col">
       <p className="text-sm uppercase font-semibold">sign in to your account</p>
-      <form onSubmit={login} className="w-full">
-        <label htmlFor="email">
+      <form onSubmit={formik.handleSubmit} className="w-full">
+        <label htmlFor="email" className="block mb-8">
           <p className="text-sm uppercase">email address</p>
           <input
             type="email"
             name="email"
-            id="email"
-            className="input input-bordered w-full mb-8"
-            required
-            disabled={isLoading}
-          />
-        </label>
-        <label htmlFor="password">
-          <p className="text-sm uppercase">password</p>
-          <input
-            type="password"
-            name="password"
-            id="password"
+            {...formik.getFieldProps("email")}
             className="input input-bordered w-full"
-            required
             disabled={isLoading}
           />
+          <ErrorMessage formik={formik} fieldName="email" />
+        </label>
+        <label htmlFor="password" className="block">
+          <p className="text-sm uppercase">password</p>
+          <div className="input input-bordered w-full join p-0">
+            <input
+              type={passwordVisible ? "text" : "password"}
+              name="password"
+              {...formik.getFieldProps("password")}
+              className=" w-full h-full join-item px-4"
+              disabled={isLoading}
+            />
+            {formik.values.password.length > 1 && (
+              <span
+                className="join-item h-full flex items-center justify-center bg-transparent px-4"
+                onClick={() => setPasswordVisible((prev) => !prev)}
+              >
+                {passwordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+              </span>
+            )}
+          </div>
+          <ErrorMessage formik={formik} fieldName="password" />
         </label>
         <button
           className="btn green-gradient w-full uppercase mt-8"
-          disabled={isLoading}
+          disabled={isLoading || !formik.isValid || !formik.dirty}
+          type="submit"
         >
           {isLoading ? (
             <span className="loading loading-dots loading-md bg-white" />

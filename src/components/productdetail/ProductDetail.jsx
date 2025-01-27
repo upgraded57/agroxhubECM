@@ -132,22 +132,23 @@ export default function ProductDetail({ product }) {
           </div>
           <hr className="my-3" />
           <div className="join">
-            <div
-              className="join-item btn rounded-none"
+            <button
+              className="join-item btn"
               onClick={() => handleChangeQty("decrease")}
+              disabled={qty <= 1}
             >
               <FaMinus />
-            </div>
-            <div className="join-item flex items-center justify-between input input-bordered text-xl border-x-0">
+            </button>
+            <div className="join-item flex items-center justify-between input input-bordered text-xl">
               {qty} {product?.unit}
               {qty > 1 ? "(s)" : ""}
             </div>
-            <div
-              className="join-item btn rounded-none"
+            <button
+              className="join-item btn"
               onClick={() => handleChangeQty("increase")}
             >
               <FaPlus />
-            </div>
+            </button>
           </div>
           <p className="text-sm mt-3">
             50 Baskets max saleable in one order | 750 Baskets still in stock
