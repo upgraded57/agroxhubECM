@@ -10,6 +10,7 @@ export const useGetSavedProducts = () => {
   return useQuery({
     queryKey: ["Saves"],
     queryFn: getSavedProducts,
+    retry: false,
   });
 };
 

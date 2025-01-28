@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaStar, FaPlus, FaMinus } from "react-icons/fa6";
-import { IoCartOutline, IoHeartOutline, IoHeart } from "react-icons/io5";
+import { IoCartOutline, IoHeart, IoHeartDislikeOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { useGetSavedProducts, useSaveProduct } from "../../api/saves";
 import { useQueryClient } from "@tanstack/react-query";
+import { CartContext } from "../../utils/cartContext";
 
 export default function ProductDetail({ product }) {
-  const queryClient = useQueryClient(); // Use React Query's QueryClient hook
+  const addProductToCart = useContext(CartContext).addToCart;
+  const queryClient = useQueryClient();
   const userId = localStorage.getItem("userId");
   const [qty, setQty] = useState(1);
   const [isSavedProduct, setIsSavedProduct] = useState(false);
@@ -50,17 +52,21 @@ export default function ProductDetail({ product }) {
     }
   };
 
-  const positiveRating = Array.from(
-    { length: product?.ratings },
-    (_, index) => index
-  );
-  const emptyRating = Array.from(
-    { length: 5 - product?.ratings },
-    (_, index) => index
-  );
+  const productRatings = () => {
+    const positive = Array.from(
+      { length: product?.ratings },
+      (_, index) => index
+    );
+    const empty = Array.from(
+      { length: 5 - product?.ratings },
+      (_, index) => index
+    );
 
+    return { positive, empty };
+  };
+
+  // Save product as recently viewed to localStorage
   useEffect(() => {
-    // Save product as recently viewed to localStorage
     const recentProducts = JSON.parse(localStorage.getItem("recent")) || [];
     if (!recentProducts.includes(product.slug)) {
       recentProducts.unshift(product.slug);
@@ -70,6 +76,17 @@ export default function ProductDetail({ product }) {
   }, [product.slug]);
 
   const [currentImg, setCurrentImg] = useState(product?.images[0]);
+
+  const handleAddProductToCart = (product) => {
+    addProductToCart({
+      name: product.name,
+      slug: product.slug,
+      quantity: qty,
+      image: product.images[0],
+      price: parseInt(product.unitPrice) * qty,
+      unit: product.unit,
+    });
+  };
 
   return (
     <div className="contEl mb-12">
@@ -119,10 +136,10 @@ export default function ProductDetail({ product }) {
           <hr className="my-3" />
           <div className="flex items-center gap-2">
             <div className="flex gap-1 items-center text-md text-yellow-300 py-2">
-              {positiveRating?.map((_, idx) => (
+              {productRatings().positive?.map((_, idx) => (
                 <FaStar key={idx} />
               ))}
-              {emptyRating?.map((_, idx) => (
+              {productRatings().empty?.map((_, idx) => (
                 <FaStar className="text-gray-200" key={idx} />
               ))}
             </div>
@@ -141,7 +158,6 @@ export default function ProductDetail({ product }) {
             </button>
             <div className="join-item flex items-center justify-between input input-bordered text-xl">
               {qty} {product?.unit}
-              {qty > 1 ? "(s)" : ""}
             </div>
             <button
               className="join-item btn"
@@ -155,18 +171,27 @@ export default function ProductDetail({ product }) {
           </p>
           <hr className="my-3" />
           <div className="flex items-center gap-2">
-            <button className="btn green-gradient text-white">
+            <button
+              className="btn green-gradient text-white"
+              onClick={() => handleAddProductToCart(product)}
+            >
               Add to Cart
               <IoCartOutline className="text-2xl" />
             </button>
             <button
-              className="btn border-2 border-orange-clr bg-white text-orange-clr hover:bg-orange-clr hover:text-white hover:border-orange-clr"
+              className="btn border-2 border-orange-clr bg-white text-orange-clr hover:bg-orange-clr hover:text-white hover:border-orange-clr disabled:border-gray-200"
               onClick={handleSaveProduct}
               disabled={isSavingProduct || isLoadingSavedProducts}
             >
-              {isSavedProduct ? "Unsave" : "Save"}
+              {isLoadingSavedProducts ? (
+                <span className="loading loading-dots loading-md" />
+              ) : isSavedProduct ? (
+                "Unsave"
+              ) : (
+                "Save"
+              )}
               {isSavedProduct ? (
-                <IoHeartOutline className="text-2xl" />
+                <IoHeartDislikeOutline className="text-2xl" />
               ) : (
                 <IoHeart className="text-2xl" />
               )}

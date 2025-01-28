@@ -49,8 +49,8 @@ axiosInstance.interceptors.response.use(
       error.status === 401 &&
       error.response.data.message === "Session expired. Please login again"
     ) {
-      window.location === "/auth/login";
-      return;
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
     }
     return Promise.reject(error);
   }

@@ -6,7 +6,7 @@ import {
 import { routes } from "./utils/Routes";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { CartProvider } from "./utils/cartContext";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -24,8 +24,10 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Toaster />
-        <RouterProvider router={router}></RouterProvider>
+        <CartProvider>
+          <Toaster />
+          <RouterProvider router={router}></RouterProvider>
+        </CartProvider>
       </QueryClientProvider>
     </>
   );

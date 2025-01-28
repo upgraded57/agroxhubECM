@@ -1,11 +1,25 @@
 import CartItem from "./CartItem";
 import { FaUps } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DeliveryAddressModal from "../../components/deliveryAddressModal/DeliveryAddressModal";
+import { CartContext } from "../../utils/cartContext";
+import EmptyProducts from "../../components/emptyStates/EmptyProducts";
 
 export default function Cart() {
   const [deliveryModalSelectorActive, setDeliveryModalSelectorActive] =
     useState(false);
+
+  const cartItems = useContext(CartContext).cart;
+
+  // Calculate total price
+  const totalPrice = () => {
+    let price = 0;
+    cartItems.map((item) => {
+      price += item.price;
+    });
+    return price;
+  };
+
   return (
     <>
       <h2 className="text-lg md:text-2xl font-semibold uppercase text-center my-12">
@@ -13,11 +27,15 @@ export default function Cart() {
       </h2>
 
       <div className="contEl mb-12">
-        {[1, 2, 3, 4, 5, 6, 7].map((_, idx) => (
-          <div className="pb-6 border-b" key={idx}>
-            <CartItem />
-          </div>
-        ))}
+        {cartItems.length > 0 ? (
+          cartItems.map((item, idx) => (
+            <div className="pb-6 border-b" key={idx}>
+              <CartItem item={item} />
+            </div>
+          ))
+        ) : (
+          <EmptyProducts text="Your cart is empty. Try adding products to your cart" />
+        )}
 
         <div className="block md:my-12 md:flex gap-4">
           <div className="basis-3/5 mb-6 md:mb-0">
@@ -78,7 +96,9 @@ export default function Cart() {
               <div className="p-4">
                 <span className="flex items-center justify-between mb-4">
                   <p className="text-sm">Products Price</p>
-                  <p className="text-sm font-semibold">NGN 38,460</p>
+                  <p className="text-sm font-semibold">
+                    NGN {totalPrice().toLocaleString()}
+                  </p>
                 </span>
                 <span className="flex items-center justify-between my-4">
                   <p className="text-sm">Logistic Cost</p>

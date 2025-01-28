@@ -11,6 +11,7 @@ export const useGetUser = (id) => {
     queryKey: ["User", id],
     queryFn: getUser,
     enabled: !!userId,
+    retry: false,
   });
 };
 

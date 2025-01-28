@@ -4,11 +4,11 @@ import { Form, useNavigate } from "react-router-dom";
 import { UserContext } from "../../utils/userContext";
 import noAvatar from "../../assets/images/noAvatar.jpeg";
 import { useEditUser } from "../../api/user";
-import { QueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useGetRegions } from "../../api/region";
-const queryClient = new QueryClient();
 
 export default function EditProfile() {
+  const queryClient = useQueryClient();
   const [newAvatar, setNewAvatar] = useState(null);
   const user = useContext(UserContext).user;
   const navigate = useNavigate();
