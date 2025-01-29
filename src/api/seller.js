@@ -44,7 +44,7 @@ export const useGetSellerProducts = (sellerId) => {
     const res = await axiosInstance.get(`/seller/${sellerId}/products`, {
       showToast: false,
     });
-    return res.data.products;
+    return res.data;
   };
   return useQuery({
     queryKey: ["Seller Products", sellerId],

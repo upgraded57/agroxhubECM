@@ -6,7 +6,6 @@ import {
   useGetSeller,
   useGetSellerMostPurchasedProducts,
   useGetSellerNewestProducts,
-  useGetSellerProducts,
 } from "../../api/seller";
 import noAvatar from "../../assets/images/noAvatar.jpeg";
 import moment from "moment";
@@ -30,6 +29,33 @@ export default function SellerPage() {
     isLoading: isLoadingSellerNewesrProducts,
     data: farmerNewestProducts,
   } = useGetSellerNewestProducts(sellerId);
+
+  const summary = [
+    {
+      title: "Products",
+      qty: seller?._count.products || 0,
+    },
+    {
+      title: "Sales",
+      qty: 205,
+    },
+    {
+      title: "Orders",
+      qty: 205,
+    },
+    {
+      title: "Cart",
+      qty: 205,
+    },
+    {
+      title: "Reviews",
+      qty: 205,
+    },
+    {
+      title: "Followers",
+      qty: 205,
+    },
+  ];
 
   return (
     <>
@@ -107,34 +133,12 @@ export default function SellerPage() {
             />
             <div role="tabpanel" className="tab-content">
               <div className="block items-center gap-8 justify-around py-2">
-                <span className="block pt-2">
-                  <p className="text-sm font-semibold">PRODUCTS</p>
-                  <p className="text-sm">205</p>
-                </span>
-                <span className="block pt-2">
-                  <p className="text-sm font-semibold">SALES</p>
-                  <p className="text-sm">88</p>
-                </span>
-                <span className="block pt-2">
-                  <p className="text-sm font-semibold">ORDERS</p>
-                  <p className="text-sm">189</p>
-                </span>
-                <span className="block pt-2">
-                  <p className="text-sm font-semibold">CART</p>
-                  <p className="text-sm">35</p>
-                </span>
-                <span className="block pt-2">
-                  <p className="text-sm font-semibold">REVIEWS</p>
-                  <p className="text-sm">35</p>
-                </span>
-                <span className="block pt-2">
-                  <p className="text-sm font-semibold">RETURNS</p>
-                  <p className="text-sm">35</p>
-                </span>
-                <span className="block pt-2">
-                  <p className="text-sm font-semibold">FOLLOWERS</p>
-                  <p className="text-sm">35</p>
-                </span>
+                {summary.map((item, idx) => (
+                  <span className="block pt-2" key={idx}>
+                    <p className="text-sm font-semibold">{item.title}</p>
+                    <p className="text-sm">{item.qty}</p>
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -174,11 +178,13 @@ export default function SellerPage() {
         header="Most Purchased Products"
         products={sellerProducts}
         isLoading={isLoadingSellerProducts}
+        moreLink={`/seller/${sellerId}/products`}
       />
       <ProductsGrid
         header="Newest Products"
         isLoading={isLoadingSellerNewesrProducts}
         products={farmerNewestProducts}
+        moreLink={`/seller/${sellerId}/products`}
       />
       {/* <ProductsGrid header="Most Viewed Products" /> */}
       <SimilarFarmers header="View Similar Sellers" sellerId={sellerId} />

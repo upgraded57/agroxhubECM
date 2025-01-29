@@ -27,17 +27,28 @@ export default function Cart() {
       </h2>
 
       <div className="contEl mb-12">
-        {cartItems.length > 0 ? (
-          cartItems.map((item, idx) => (
-            <div className="pb-6 border-b" key={idx}>
-              <CartItem item={item} />
-            </div>
-          ))
-        ) : (
-          <EmptyProducts text="Your cart is empty. Try adding products to your cart" />
-        )}
+        <div className="overflow-x-auto">
+          <table className="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.length > 0 ? (
+                cartItems.map((item, idx) => <CartItem item={item} key={idx} />)
+              ) : (
+                <EmptyProducts text="Your cart is empty. Try adding products to your cart" />
+              )}
+            </tbody>
+          </table>
+        </div>
 
-        <div className="block md:my-12 md:flex gap-4">
+        <div className="block my-12 md:flex gap-4">
           <div className="basis-3/5 mb-6 md:mb-0">
             <div className="w-full border rounded-lg">
               <p className="text-sm font-semibold p-2 uppercase border-b">

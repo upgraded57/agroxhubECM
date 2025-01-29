@@ -28,6 +28,9 @@ const Cart = lazy(() => import("../pages/cart/Cart"));
 const ProductReview = lazy(() => import("../pages/user/ProductReview"));
 const PromoteProduct = lazy(() => import("../pages/user/PromoteProduct"));
 const SellerPage = lazy(() => import("../pages/seller/SellerPage"));
+const SellerProductsListing = lazy(() =>
+  import("../pages/sellerProducts/SellerProductsListing")
+);
 const AddPaymentCard = lazy(() => import("../pages/user/AddPaymentCard"));
 const About = lazy(() => import("../pages/about/About"));
 const Layout = lazy(() => import("./../pages/affiliate/Layout"));
@@ -122,6 +125,10 @@ export const routes = [
       {
         path: "seller/:sellerId",
         element: <SellerPage />,
+      },
+      {
+        path: "seller/:sellerId/products",
+        element: <SellerProductsListing />,
       },
     ],
   },

@@ -11,11 +11,8 @@ export default function SellerProducts() {
     return navigate(-1);
   }
 
-  const {
-    isLoading,
-    isFetching,
-    data: products,
-  } = useGetSellerProducts(sellerId);
+  const { isLoading, isFetching, data } = useGetSellerProducts(sellerId);
+  const products = data?.products;
   return (
     <>
       <div className="hidden md:flex items-center justify-between pb-2">

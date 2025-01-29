@@ -78,6 +78,7 @@ body {
 .btn:disabled {
   background: transparent !important;
 }
+
 @media screen and (max-width: 768px) {
   .h-300 {
     font-size: 32px;
@@ -88,21 +89,10 @@ body {
     font-size: 18px;
     font-weight: 600;
   }
-
-  .filters {
-    display: none;
-  }
-
-  .filters.active {
-    display: block;
-  }
 }
 
 .filter {
-  height: calc(100vh - 100px) !important;
-  top: 80px !important;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  min-height: calc(100vh - 80px) !important;
 }
 
 @media (min-width: 1024px) {

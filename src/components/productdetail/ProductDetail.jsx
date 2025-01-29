@@ -21,8 +21,11 @@ export default function ProductDetail({ product }) {
     }
   };
 
-  const { data: savedProducts, isLoading: isLoadingSavedProducts } =
-    useGetSavedProducts();
+  const {
+    data: savedProducts,
+    isLoading: isLoadingSavedProducts,
+    isFetching: isFetchingSavedProducts,
+  } = useGetSavedProducts();
 
   // Determine if the product is saved
   useEffect(() => {
@@ -181,9 +184,9 @@ export default function ProductDetail({ product }) {
             <button
               className="btn border-2 border-orange-clr bg-white text-orange-clr hover:bg-orange-clr hover:text-white hover:border-orange-clr disabled:border-gray-200"
               onClick={handleSaveProduct}
-              disabled={isSavingProduct || isLoadingSavedProducts}
+              disabled={isSavingProduct || isFetchingSavedProducts}
             >
-              {isLoadingSavedProducts ? (
+              {isFetchingSavedProducts ? (
                 <span className="loading loading-dots loading-md" />
               ) : isSavedProduct ? (
                 "Unsave"

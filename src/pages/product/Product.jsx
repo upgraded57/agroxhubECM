@@ -46,6 +46,7 @@ export default function Product() {
         header="More Products from Seller"
         isLoading={isLoadingSellerProducts}
         products={sellerProducts}
+        moreLink={`/seller/${sellerId}/products`}
       />
       <ProductsGrid
         header="You may also like"

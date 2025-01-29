@@ -2,7 +2,7 @@ import { useGetProductCategories } from "../../api/product";
 import { useGetRegions } from "../../api/region";
 import { useSearchParams } from "react-router-dom";
 
-export default function ProductsFilter() {
+export default function ProductsFilter({ sellerPage }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { isLoading: isLoadingCategories, data: categories } =
     useGetProductCategories();
@@ -34,7 +34,7 @@ export default function ProductsFilter() {
   };
 
   return (
-    <div className="block">
+    <div className="block filter">
       {/* Price */}
       <div className="rounded-lg bg-light-grey-clr p-4">
         <h3 className="text-lg font-semibold">PRICE</h3>
@@ -63,26 +63,28 @@ export default function ProductsFilter() {
       </div>
 
       {/* Location */}
-      <div className="rounded-lg bg-light-grey-clr p-4 mt-4">
-        <h3 className="text-lg font-semibold">LOCATION</h3>
-        <div className="mt-2">
-          <select
-            name="region"
-            onChange={handleFilterChange}
-            id="region"
-            className="select w-full"
-            defaultValue=""
-            disabled={isLoadingRegions}
-          >
-            <option value="">All Locations</option>
-            {regions?.map((item, idx) => (
-              <option value={item.name} key={idx}>
-                {`${item.lcda} - ${item.name}`}
-              </option>
-            ))}
-          </select>
+      {!sellerPage && (
+        <div className="rounded-lg bg-light-grey-clr p-4 mt-4">
+          <h3 className="text-lg font-semibold">LOCATION</h3>
+          <div className="mt-2">
+            <select
+              name="region"
+              onChange={handleFilterChange}
+              id="region"
+              className="select w-full"
+              defaultValue=""
+              disabled={isLoadingRegions}
+            >
+              <option value="">All Locations</option>
+              {regions?.map((item, idx) => (
+                <option value={item.name} key={idx}>
+                  {`${item.lcda} - ${item.name}`}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Category */}
       <div className="rounded-lg bg-light-grey-clr p-4 mt-4">
@@ -107,23 +109,25 @@ export default function ProductsFilter() {
       </div>
 
       {/* Seller */}
-      <div className="rounded-lg bg-light-grey-clr p-4 mt-4">
-        <h3 className="text-lg font-semibold">SELLER</h3>
-        <div className="mt-2">
-          <select
-            name="seller"
-            onChange={handleFilterChange}
-            id="seller"
-            className="select w-full"
-            defaultValue=""
-            disabled={false}
-          >
-            <option value="">All Sellers</option>
-            <option value="farmer">Farmer</option>
-            <option value="wholesaler">Wholesaler</option>
-          </select>
+      {!sellerPage && (
+        <div className="rounded-lg bg-light-grey-clr p-4 mt-4">
+          <h3 className="text-lg font-semibold">SELLER</h3>
+          <div className="mt-2">
+            <select
+              name="seller"
+              onChange={handleFilterChange}
+              id="seller"
+              className="select w-full"
+              defaultValue=""
+              disabled={false}
+            >
+              <option value="">All Sellers</option>
+              <option value="farmer">Farmer</option>
+              <option value="wholesaler">Wholesaler</option>
+            </select>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Rating */}
       <div className="rounded-lg bg-light-grey-clr p-4 mt-4">

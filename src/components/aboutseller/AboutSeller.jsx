@@ -6,7 +6,7 @@ import moment from "moment";
 export default function AboutSeller({ seller }) {
   return (
     <div className="bg-light-grey-clr w-full px-[4vw] mb-12">
-      <div className="max-w-screen-xl mx-auto py-5">
+      <div className="contEl mx-auto py-5">
         <div role="tablist" className="tabs tabs-bordered">
           <input
             type="radio"

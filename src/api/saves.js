@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./axiosInstance";
 
+const token = localStorage.getItem("token");
 export const useGetSavedProducts = () => {
   const getSavedProducts = async () => {
     const res = await axiosInstance.get("/saves", { showToast: false });
@@ -11,6 +12,7 @@ export const useGetSavedProducts = () => {
     queryKey: ["Saves"],
     queryFn: getSavedProducts,
     retry: false,
+    enabled: !!token,
   });
 };
 
