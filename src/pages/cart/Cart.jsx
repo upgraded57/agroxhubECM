@@ -27,26 +27,28 @@ export default function Cart() {
       </h2>
 
       <div className="contEl mb-12">
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems.length > 0 ? (
-                cartItems.map((item, idx) => <CartItem item={item} key={idx} />)
-              ) : (
-                <EmptyProducts text="Your cart is empty. Try adding products to your cart" />
-              )}
-            </tbody>
-          </table>
-        </div>
+        {cartItems.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems.map((item, idx) => (
+                  <CartItem item={item} key={idx} />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <EmptyProducts text="Your cart is empty. Try adding products to your cart" />
+        )}
 
         <div className="block my-12 md:flex gap-4">
           <div className="basis-3/5 mb-6 md:mb-0">
