@@ -21,11 +21,10 @@ export default function ProductDetail({ product }) {
     }
   };
 
-  const {
-    data: savedProducts,
-    isLoading: isLoadingSavedProducts,
-    isFetching: isFetchingSavedProducts,
-  } = useGetSavedProducts();
+  const { isAddingItemToCart } = useContext(CartContext).cart;
+
+  const { data: savedProducts, isFetching: isFetchingSavedProducts } =
+    useGetSavedProducts();
 
   // Determine if the product is saved
   useEffect(() => {
@@ -176,9 +175,14 @@ export default function ProductDetail({ product }) {
           <div className="flex items-center gap-2">
             <button
               className="btn green-gradient text-white"
+              disabled={isAddingItemToCart}
               onClick={() => handleAddProductToCart(product)}
             >
-              Add to Cart
+              {isAddingItemToCart ? (
+                <span className="loading loading-dots" />
+              ) : (
+                "Add to Cart"
+              )}
               <IoCartOutline className="text-2xl" />
             </button>
             <button

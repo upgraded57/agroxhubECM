@@ -41,9 +41,13 @@ export default function SellerProduct({ product }) {
         >
           <FaRegEye />
         </Link>
-        <span className={tooltipStyle} data-tip="Edit Product">
+        <Link
+          to={`/seller/products/${product?.slug}/edit`}
+          className={tooltipStyle}
+          data-tip="Edit Product"
+        >
           <BiEdit />
-        </span>
+        </Link>
         <span
           className={tooltipStyle}
           data-tip="Delete Product"

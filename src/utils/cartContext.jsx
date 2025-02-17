@@ -1,56 +1,104 @@
 import React, { createContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import {
+  useAddItemToCart,
+  useGetCartItems,
+  useRemoveItemFromCart,
+} from "../api/cart";
 
 export const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
+const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const {
+    isLoading: isLoadingCart,
+    data: cartItems,
+    refetch,
+  } = useGetCartItems();
+  const { mutateAsync: addItemToCart, isLoading: isAddingItemToCart } =
+    useAddItemToCart();
 
-  // Load cart from localStorage on initial render
+  const { mutateAsync: removeItemFromCart, isLoading: isRemovingItem } =
+    useRemoveItemFromCart();
+
+  const userId = localStorage.getItem("userId") || null;
+
   useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(savedCart);
-    return;
+    if (userId) {
+      refetch();
+    }
   }, []);
 
-  // Save cart to localStorage whenever it changes
+  // Sync cart
   useEffect(() => {
-    if (cart.length) {
+    if (cartItems && cartItems.length > 0) {
+      setCart(cartItems);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    } else {
+      const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+      setCart(savedCart);
+    }
+  }, [cartItems]);
+
+  // Save to localStorage whenever cart updates
+  useEffect(() => {
+    if (cart.length > 0) {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart]);
 
+  // Add item to cart
   const addToCart = (item) => {
-    // Check if item exists in the cart already
-    const itemExists = cart.some((c) => c.slug === item.slug);
-
-    if (itemExists) {
-      // Remove previous item and add the new one
-      const newCart = cart.filter((c) => c.slug !== item.slug);
-      setCart([...newCart, item]);
+    if (userId) {
+      addItemToCart(item).then((res) => {
+        setCart(res.data.cart);
+      });
     } else {
-      // Add new item if it doesn't exist
-      setCart((prevCart) => [...prevCart, item]);
+      const itemExists = cart.some((c) => c.slug === item.slug);
+      if (itemExists) {
+        setCart((prevCart) =>
+          prevCart.map((c) => (c.slug === item.slug ? item : c))
+        );
+      } else {
+        setCart((prevCart) => [...prevCart, item]);
+      }
+      toast.success("Product added to cart", { id: "cartToast" });
     }
-
-    toast.success("Product added to cart", { id: "cartToast" });
   };
 
+  // Remove item from cart
   const removeFromCart = (slug) => {
-    setCart((prevCart) => prevCart.filter((c) => c.slug !== slug));
-    toast.success("Product removed from cart", { id: "cartToast" });
+    if (userId) {
+      removeItemFromCart(slug).then((res) => {
+        setCart(res.data.cart);
+      });
+    } else {
+      setCart((prevCart) => prevCart.filter((c) => c.slug !== slug));
+      toast.success("Product removed from cart", { id: "cartToast" });
+    }
   };
 
   const clearCart = () => {
-    console.log("Cart will clear", cart);
     setCart([]);
+    localStorage.removeItem("cart");
   };
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        isAddingItemToCart,
+        isLoadingCart,
+        refetch,
+        isRemovingItem,
+      }}
     >
       {children}
     </CartContext.Provider>
   );
 };
+
+export default CartProvider;

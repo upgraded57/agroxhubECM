@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import { useSyncCart } from "../../api/cart";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ export default function Login() {
     email: "",
     password: "",
   };
+
+  const { mutate: syncCart } = useSyncCart();
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -36,6 +39,17 @@ export default function Login() {
         if (res) {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("userId", res.data.userId);
+
+          // Sync local storage cart
+          if (localStorage.getItem("cart")) {
+            const cartItems = JSON.parse(localStorage.getItem("cart"));
+            // Transform cart to fit backend expectation
+            const transformedCart = cartItems.map((item) => ({
+              ...item,
+              productSlug: item.slug,
+            }));
+            syncCart(transformedCart);
+          }
           if (from) {
             navigate(from.toString());
           } else {

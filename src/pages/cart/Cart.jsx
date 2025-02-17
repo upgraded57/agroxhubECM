@@ -14,7 +14,7 @@ export default function Cart() {
   // Calculate total price
   const totalPrice = () => {
     let price = 0;
-    cartItems.map((item) => {
+    cartItems?.map((item) => {
       price += item.price;
     });
     return price;
@@ -27,7 +27,7 @@ export default function Cart() {
       </h2>
 
       <div className="contEl mb-12">
-        {cartItems.length > 0 ? (
+        {cartItems && cartItems?.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="table">
               <thead>
@@ -40,7 +40,7 @@ export default function Cart() {
                 </tr>
               </thead>
               <tbody>
-                {cartItems.map((item, idx) => (
+                {cartItems?.map((item, idx) => (
                   <CartItem item={item} key={idx} />
                 ))}
               </tbody>

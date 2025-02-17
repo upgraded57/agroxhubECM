@@ -23,7 +23,10 @@ export default function SellerProductsListing() {
       navigate("/products");
     }
   }, []);
-  const { isLoading, isFetching, data } = useGetSellerProducts(sellerId);
+  const { isLoading, isFetching, data, refetch } = useGetSellerProducts(
+    sellerId,
+    searchParams
+  );
 
   const hasMore = data?.hasMore;
   const products = data?.products;
@@ -39,6 +42,11 @@ export default function SellerProductsListing() {
     currentParams.set("currentPage", parseInt(currentPage) - 1);
     setSearchParams(currentParams);
   };
+
+  useEffect(() => {
+    refetch();
+    window.scrollTo(0, 0);
+  }, [searchParams]);
   return (
     <>
       <Search />

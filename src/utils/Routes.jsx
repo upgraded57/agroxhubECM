@@ -22,6 +22,7 @@ const Finance = lazy(() => import("../pages/user/Finance"));
 const Followers = lazy(() => import("../pages/user/Followers"));
 const Promotions = lazy(() => import("../pages/user/Promotions"));
 const EditProfile = lazy(() => import("../pages/user/EditProfile"));
+const EditProduct = lazy(() => import("../pages/user/EditProduct"));
 const ProductAnalytics = lazy(() => import("../pages/user/ProductAnalytics"));
 const CreateProduct = lazy(() => import("../pages/user/CreateProduct"));
 const Cart = lazy(() => import("../pages/cart/Cart"));
@@ -259,12 +260,17 @@ export const routes = [
       },
 
       {
-        path: "products/:product_id/analytics",
+        path: "products/:slug/analytics",
         element: <ProductAnalytics />,
       },
 
       {
-        path: "products/:product_id/promote",
+        path: "products/:slug/edit",
+        element: <EditProduct />,
+      },
+
+      {
+        path: "products/:slug/promote",
         element: <PromoteProduct />,
       },
     ],

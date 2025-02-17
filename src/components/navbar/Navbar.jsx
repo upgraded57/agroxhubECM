@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo1.png";
 import "./navbar.css";
 
@@ -6,18 +6,19 @@ import { IoCartOutline, IoClose } from "react-icons/io5";
 import { AiOutlineUser, AiFillTwitterCircle } from "react-icons/ai";
 import { FaFacebook, FaLinkedin, FaInstagram, FaYoutube } from "react-icons/fa";
 import { HiBars3 } from "react-icons/hi2";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LiaDoorOpenSolid } from "react-icons/lia";
 import { useGetUser } from "../../api/user";
 import noAvatar from "../../assets/images/noAvatar.jpeg";
 import { CartContext } from "../../utils/cartContext";
+import toast from "react-hot-toast";
 
 export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
   const userId = localStorage.getItem("userId");
-  const { isFetching, data: user } = useGetUser(userId);
+  const { isFetching, data: user, refetch: refetchUser } = useGetUser(userId);
 
-  const cartItems = useContext(CartContext).cart;
+  const { cart, refetch } = useContext(CartContext);
 
   window.onresize = () => {
     if (window.innerWidth >= 900) setNavOpen(false);
@@ -49,7 +50,13 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
+    refetchUser();
+    toast.success("User logged out successfully");
   };
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <>
@@ -93,9 +100,9 @@ export default function Navbar() {
               <p className="hidden md:block">Cart</p>
               <div className="relative">
                 <IoCartOutline className="text-xl" />
-                {cartItems?.length > 0 && (
+                {cart?.length > 0 && (
                   <div className="w-3 h-3 bg-dark-green-clr flex items-center justify-center rounded-full overflow-hidden absolute text-white -top-1 -right-1">
-                    <small className="text-[10px]">{cartItems?.length}</small>
+                    <small className="text-[10px]">{cart?.length}</small>
                   </div>
                 )}
               </div>

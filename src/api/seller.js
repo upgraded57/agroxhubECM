@@ -39,11 +39,14 @@ export const useGetSimilarSellers = (id) => {
   });
 };
 
-export const useGetSellerProducts = (sellerId) => {
+export const useGetSellerProducts = (sellerId, params) => {
   const getSellerProducts = async () => {
-    const res = await axiosInstance.get(`/seller/${sellerId}/products`, {
-      showToast: false,
-    });
+    const res = await axiosInstance.get(
+      `/seller/${sellerId}/products?${params}`,
+      {
+        showToast: false,
+      }
+    );
     return res.data;
   };
   return useQuery({

@@ -6,7 +6,7 @@ import {
 import { routes } from "./utils/Routes";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { CartProvider } from "./utils/cartContext";
+import CartProvider from "./utils/cartContext";
 
 // Create a client
 const queryClient = new QueryClient({

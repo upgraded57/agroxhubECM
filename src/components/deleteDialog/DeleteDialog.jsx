@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "../../utils/cartContext";
 
 const DeleteDialog = ({ item }) => {
-  const removeFromCart = useContext(CartContext).removeFromCart;
+  const { removeFromCart, isRemovingItem } = useContext(CartContext);
 
   const handleRemovefromCart = (e) => {
     e.preventDefault();
@@ -19,12 +19,19 @@ const DeleteDialog = ({ item }) => {
         <div className="modal-action">
           <form method="dialog">
             <div className="flex items-center gap-2">
-              <button className="btn">No, Cancel</button>
+              <button className="btn" disabled={isRemovingItem}>
+                No, Cancel
+              </button>
               <button
                 className="btn bg-red-clr text-white hover:bg-red-700 border-transparent hover:border-transparent"
                 onClick={handleRemovefromCart}
+                disabled={isRemovingItem}
               >
-                Yes, Remove
+                {isRemovingItem ? (
+                  <span className="loading loading-dots" />
+                ) : (
+                  "Yes, Remove"
+                )}
               </button>
             </div>
           </form>

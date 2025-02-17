@@ -1,74 +1,31 @@
-import { useCreateProduct, useGetProductCategories } from "../../api/product";
-import { useGetRegions } from "../../api/region";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useGetProductCategories,
+  useGetSingleProduct,
+} from "../../api/product";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../utils/userContext";
-import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { FaRegTrashCan } from "react-icons/fa6";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
+import { UserContext } from "../../utils/userContext";
+import { useGetRegions } from "../../api/region";
+import * as Yup from "yup";
+import Loader from "../../components/loader/Loader";
+import { FaRegTrashCan } from "react-icons/fa6";
 
-export default function CreateProduct() {
+export default function EditProduct() {
   const navigate = useNavigate();
-  const user = useContext(UserContext).user;
-  const { mutateAsync: createProduct, isLoading: isCreatingProduct } =
-    useCreateProduct();
-
-  const handleCreateProduct = async (values) => {
-    const formData = new FormData();
-    for (const key in values) {
-      if (values.hasOwnProperty(key)) {
-        formData.append(key, values[key]);
-      }
+  const { slug } = useParams();
+  useEffect(() => {
+    if (!slug) {
+      navigate(-1);
     }
-
-    // append images
-    if (images && images.length > 0) {
-      images.forEach((image) => {
-        formData.append("images", image);
-      });
-    }
-
-    await createProduct(formData).then((res) => {
-      if (res) {
-        navigate("/seller/products");
-      }
-    });
-  };
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Product name is required"),
-    description: Yup.string().required("Product description is required"),
-    categoryId: Yup.string().required("Product category is required"),
-    unitWeight: Yup.string().required("Product unit weight is required"),
-    unitPrice: Yup.string().required("Product unit price is required"),
-    quantity: Yup.string().required("Product available quantity is required"),
-    unit: Yup.string().required("Product unit is required"),
-  });
-
-  const initialValues = {
-    name: "",
-    description: "",
-    categoryId: "",
-    sellerId: user?.id,
-    location: "",
-    regionId: "",
-    unitWeight: "",
-    unitPrice: "",
-    quantity: "",
-    unit: "",
-  };
-
-  const formik = useFormik({
-    validationSchema,
-    initialValues,
-    onSubmit: handleCreateProduct,
-  });
-
-  const { isLoading: isLoadingProductCategories, data: productCategories } =
+  }, []);
+  const { user } = useContext(UserContext);
+  const { data: product, isLoading } = useGetSingleProduct(slug);
+  const { data: productCategories, isLoading: isLoadingProductCategories } =
     useGetProductCategories();
+  const { data: regions, isLoading: isLoadingRegions } = useGetRegions();
 
-  const { isLoading: isLoadingRegions, data: regions } = useGetRegions();
   const [selectedRegion, setSelectedRegion] = useState({
     state: null,
     lcda: null,
@@ -118,6 +75,56 @@ export default function CreateProduct() {
     }
   };
 
+  const initialValues = {
+    name: product?.name || "",
+    description: product?.description || "",
+    unitPrice: product?.unitPrice || "",
+    unit: product?.unit || "",
+    unitWeight: product?.unitWeight || "",
+    quantity: product?.quantity || "",
+    categoryId: product?.categoryId || "",
+    location: product?.location || "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Product name is required"),
+    description: Yup.string().required("Product description is required"),
+    categoryId: Yup.string().required("Product category is required"),
+    unitWeight: Yup.string().required("Product unit weight is required"),
+    unitPrice: Yup.string().required("Product unit price is required"),
+    quantity: Yup.string().required("Product available quantity is required"),
+    unit: Yup.string().required("Product unit is required"),
+  });
+
+  const handleEditProduct = async (values) => {
+    const formData = new FormData();
+    for (const key in values) {
+      if (values.hasOwnProperty(key)) {
+        formData.append(key, values[key]);
+      }
+    }
+
+    // append images
+    if (images && images.length > 0) {
+      images.forEach((image) => {
+        formData.append("images", image);
+      });
+    }
+
+    // await createProduct(formData).then((res) => {
+    //   if (res) {
+    //     navigate("/seller/products");
+    //   }
+    // });
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: handleEditProduct,
+    enableReinitialize: true,
+  });
+
   const [images, setImages] = useState([]);
 
   const handleUploadImages = (e) => {
@@ -141,6 +148,22 @@ export default function CreateProduct() {
     setImages(newImgArray);
   };
 
+  const [defaultProductImgs, setDefaultProductImgs] = useState([]);
+
+  useEffect(() => {
+    const imagesArray = product?.images?.length > 0 ? [...product?.images] : [];
+    setDefaultProductImgs(imagesArray);
+  }, [product]);
+
+  const handleRemoveDefaultImg = (image) => {
+    const newImagesArray = defaultProductImgs.filter((img) => img !== image);
+    setDefaultProductImgs(newImagesArray);
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <h2 className="hidden md:block font-semibold text-2xl pb-2 border-b">
@@ -152,6 +175,7 @@ export default function CreateProduct() {
           <p className="text-sm uppercase">product name</p>
           <input
             {...formik.getFieldProps("name")}
+            placeholder={formik.initialValues.name}
             className="input input-bordered w-full"
           />
           <ErrorMessage formik={formik} fieldName="name" />
@@ -255,8 +279,8 @@ export default function CreateProduct() {
               <p className="text-sm uppercase">PRODUCT STATE</p>
               <select
                 className="select select-bordered w-full"
-                defaultValue=""
                 name="state"
+                defaultValue="Lagos"
                 disabled={
                   isLoadingRegions ||
                   !regions ||
@@ -358,35 +382,54 @@ export default function CreateProduct() {
           />
         </label>
 
-        {images.length > 0 && (
+        {defaultProductImgs.length > 0 ? (
           <div className="flex items-center gap-2 mt-6">
-            {images.map((image, idx) => (
+            {defaultProductImgs.map((image, idx) => (
               <div
                 key={idx}
                 className="w-24 h-24 flex items-center justify-center rounded-md bg-black relative overflow-hidden"
               >
                 <img
-                  src={URL.createObjectURL(image)}
+                  src={image}
                   alt=""
                   className="w-full h-full object-cover hover:opacity-60 transition-opacity peer"
-                  onClick={() => handleRemoveImg(idx)}
+                  onClick={() => handleRemoveDefaultImg(image)}
                 />
                 <FaRegTrashCan className="text-white text-lg absolute pointer-events-none hidden peer-hover:block" />
               </div>
             ))}
           </div>
+        ) : (
+          images.length > 0 && (
+            <div className="flex items-center gap-2 mt-6">
+              {images.map((image, idx) => (
+                <div
+                  key={idx}
+                  className="w-24 h-24 flex items-center justify-center rounded-md bg-black relative overflow-hidden"
+                >
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt=""
+                    className="w-full h-full object-cover hover:opacity-60 transition-opacity peer"
+                    onClick={() => handleRemoveImg(idx)}
+                  />
+                  <FaRegTrashCan className="text-white text-lg absolute pointer-events-none hidden peer-hover:block" />
+                </div>
+              ))}
+            </div>
+          )
         )}
 
         <div className="w-full flex justify-center mt-6">
           <button
             type="submit"
             className="btn btn-outline uppercase border-2 border-orange-clr text-orange-clr hover:text-white hover:bg-orange-clr hover:border-orange-clr"
-            disabled={isCreatingProduct}
+            disabled={false}
           >
-            {isCreatingProduct ? (
+            {false ? (
               <span className="loading loading-dots loading-md bg-orange-clr" />
             ) : (
-              "create product"
+              "update product"
             )}
           </button>
         </div>
