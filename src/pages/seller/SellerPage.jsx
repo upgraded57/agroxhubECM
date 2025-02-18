@@ -1,8 +1,9 @@
-import Farmers from "../../components/farmers/Farmers";
 import BeASeller from "../../components/beaseller/BeASeller";
 import { FaStar } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  useCheckIsFollowing,
+  useFollowSeller,
   useGetSeller,
   useGetSellerMostPurchasedProducts,
   useGetSellerNewestProducts,
@@ -12,8 +13,15 @@ import moment from "moment";
 import { useEffect } from "react";
 import ProductsGrid from "../../components/productsGrid/ProductsGrid";
 import SimilarFarmers from "../../components/similarFarmer/SimilarFarmers";
+import { useGetUser } from "../../api/user";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function SellerPage() {
+  const userId = localStorage.getItem("userId") || null;
+  const queryClient = useQueryClient();
+
+  const { isLoading: isLoadingUser, data: user } = useGetUser(userId);
+  const isBuyer = user && user?.type === "buyer";
   const { sellerId } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -26,7 +34,7 @@ export default function SellerPage() {
     useGetSellerMostPurchasedProducts(sellerId);
 
   const {
-    isLoading: isLoadingSellerNewesrProducts,
+    isLoading: isLoadingSellerNewestProducts,
     data: farmerNewestProducts,
   } = useGetSellerNewestProducts(sellerId);
 
@@ -57,6 +65,24 @@ export default function SellerPage() {
     },
   ];
 
+  const {
+    isLoading: isCheckingFollowing,
+    data: isFollowing,
+    isFetching: isFetchingFollowing,
+  } = useCheckIsFollowing(sellerId);
+
+  const { mutateAsync: followSeller, isLoading: isLoadingFollowSeller } =
+    useFollowSeller();
+
+  const handleFollowSeller = () => {
+    followSeller(sellerId).then((res) => {
+      if (res) {
+        queryClient.invalidateQueries({
+          queryKey: ["isFollowing", sellerId],
+        });
+      }
+    });
+  };
   return (
     <>
       {/* profile header */}
@@ -110,9 +136,34 @@ export default function SellerPage() {
           </span>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button className="btn btn-sm green-gradient uppercase">
-            follow
-          </button>
+          {isBuyer && (
+            <button
+              className={`btn btn-sm ${
+                isFollowing
+                  ? "bg-transparent text-yellow-clr border-2 border-yellow-clr hover:border-2 hover:border-yellow-clr hover:bg-yellow-clr hover:text-white"
+                  : "green-gradient"
+              } uppercase`}
+              disabled={
+                !user ||
+                isLoadingUser ||
+                isCheckingFollowing ||
+                isLoadingFollowSeller ||
+                isFetchingFollowing
+              }
+              onClick={handleFollowSeller}
+            >
+              {isCheckingFollowing ||
+              isLoadingFollowSeller ||
+              isFetchingFollowing ||
+              isLoadingUser ? (
+                <span className="loading loading-dots" />
+              ) : isFollowing ? (
+                "unfollow"
+              ) : (
+                "follow"
+              )}
+            </button>
+          )}
           <button className="btn uppercase btn-sm btn-outline border-2 border-red-clr text-red-clr hover:text-white hover:bg-red-clr hover:border-red-clr">
             report
           </button>
@@ -182,7 +233,7 @@ export default function SellerPage() {
       />
       <ProductsGrid
         header="Newest Products"
-        isLoading={isLoadingSellerNewesrProducts}
+        isLoading={isLoadingSellerNewestProducts}
         products={farmerNewestProducts}
         moreLink={`/seller/${sellerId}/products`}
       />

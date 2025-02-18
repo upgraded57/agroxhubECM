@@ -85,3 +85,41 @@ export const useGetSellerNewestProducts = (sellerId) => {
     queryFn: getSellerNewestProducts,
   });
 };
+
+export const useGetSellerFollowers = (sellerId) => {
+  const getSellerFollowers = async () => {
+    const res = await axiosInstance.get(`/seller/${sellerId}/followers`, {
+      showToast: false,
+    });
+    return res.data.followers;
+  };
+
+  return useQuery({
+    queryFn: getSellerFollowers,
+    queryKey: ["Followers", sellerId],
+  });
+};
+
+export const useFollowSeller = () => {
+  return useMutation({
+    mutationFn: (sellerId) => {
+      return axiosInstance.post(`/seller/${sellerId}/follow`);
+    },
+  });
+};
+
+export const useCheckIsFollowing = (sellerId) => {
+  const checkIsFollowing = async () => {
+    const res = await axiosInstance.get(`/seller/${sellerId}/isFollowing`, {
+      showToast: false,
+    });
+    return res.data.isFollowing;
+  };
+
+  return useQuery({
+    queryKey: ["isFollowing", sellerId],
+    queryFn: checkIsFollowing,
+    // enabled: false,
+    retry: false,
+  });
+};

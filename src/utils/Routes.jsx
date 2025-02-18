@@ -132,6 +132,7 @@ export const routes = [
         element: <SellerProductsListing />,
       },
     ],
+    errorElement: <div>Something has gone wrong!</div>,
   },
 
   // User
@@ -250,7 +251,7 @@ export const routes = [
       },
 
       {
-        path: "followers",
+        path: ":sellerId/followers",
         element: <Followers />,
       },
 

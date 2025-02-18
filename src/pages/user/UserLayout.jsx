@@ -64,7 +64,7 @@ export default function UserLayout({ children }) {
       title: "Finance",
     },
     {
-      path: "/seller/followers",
+      path: `/seller/${user?.id}/followers`,
       title: "Followers",
     },
     {

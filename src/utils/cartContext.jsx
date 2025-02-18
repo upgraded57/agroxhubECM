@@ -23,6 +23,7 @@ const CartProvider = ({ children }) => {
 
   const userId = localStorage.getItem("userId") || null;
 
+  // Refetch cart data
   useEffect(() => {
     if (userId) {
       refetch();
@@ -78,6 +79,7 @@ const CartProvider = ({ children }) => {
     }
   };
 
+  // Clear cart
   const clearCart = () => {
     setCart([]);
     localStorage.removeItem("cart");
