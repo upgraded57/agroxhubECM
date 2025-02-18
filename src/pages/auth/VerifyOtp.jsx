@@ -64,6 +64,7 @@ export default function VerifyOtp() {
             className="input input-bordered w-full mb-8"
             inputMode="numeric"
             required
+            maxLength={6}
             disabled={isLoading}
           />
         </label>

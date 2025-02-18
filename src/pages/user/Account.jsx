@@ -51,23 +51,23 @@ export default function Account() {
         </span>
         <span className="block mb-4">
           <p className="font-semibold text-xs">PHONE NUMBER</p>
-          <p className="text-sm">{user.phoneNumber || "---"}</p>
+          <p className="text-sm">{user?.phoneNumber || "---"}</p>
         </span>
         <span className="block mb-4">
           <p className="font-semibold text-xs">DELIVERY ADDRESS</p>
-          <p className="text-sm">{user.address || "---"}</p>
+          <p className="text-sm">{user?.address || "---"}</p>
         </span>
         <span className="block mb-4">
           <p className="font-semibold text-xs">LOCATION</p>
           <div className="flex items-center gap-6">
             <p className="text-sm">
-              <b>State:</b> {user.region.state || "---"}
+              <b>State:</b> {user?.region?.state || "---"}
             </p>
             <p className="text-sm">
-              <b>Lcda:</b> {user.region.lcda || "---"}
+              <b>Lcda:</b> {user?.region?.lcda || "---"}
             </p>
             <p className="text-sm">
-              <b>Region:</b> {user.region.name || "---"}
+              <b>Region:</b> {user?.region?.name || "---"}
             </p>
           </div>
         </span>
