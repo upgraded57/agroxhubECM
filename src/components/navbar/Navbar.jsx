@@ -42,7 +42,7 @@ export default function Navbar() {
       title: "Contact",
     },
     {
-      path: "/seller",
+      path: "/be-a-seller",
       title: "Become a Seller",
     },
   ];

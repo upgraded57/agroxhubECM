@@ -1,6 +1,7 @@
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import tempImg from "../../assets/images/temp.jpeg";
+import "./product.css";
 
 export default function Product({ product }) {
   const positiveRating = Array.from(
@@ -15,13 +16,13 @@ export default function Product({ product }) {
   return (
     <Link
       to={`/products/${product?.slug}`}
-      className="w-full rounded-xl p-2 hover:shadow-md pb-3 mb-4"
+      className="w-full rounded-xl p-2 hover:shadow-md pb-3 mb-4 product-link"
     >
       <div className="w-full h-[128px] rounded-b-none bg-gray-200 rounded-lg overflow-hidden">
         <img
           src={product.images.length > 0 ? product.images[0] : tempImg}
           alt={product?.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover product-img"
         />
       </div>
       <p className="text-md pt-2 truncate" title={product?.name}>

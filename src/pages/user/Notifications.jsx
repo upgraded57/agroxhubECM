@@ -2,6 +2,10 @@ import { PiHandCoins } from "react-icons/pi";
 import { CiDeliveryTruck, CiCreditCard1 } from "react-icons/ci";
 import { HiOutlineMegaphone } from "react-icons/hi2";
 import { BsShop } from "react-icons/bs";
+import { useGetNotifications } from "../../api/notification";
+import Notification from "../../components/notification/Notification";
+import Loader from "../../components/loader/Loader";
+import { useState } from "react";
 
 const notifs = [
   {
@@ -42,7 +46,7 @@ const notifs = [
 
   {
     id: 5,
-    type: "follower update",
+    type: "follow",
     content:
       "Adex Farm, a seller you follow has just posted a new product. Be the first to check it out.",
     date: "Oct 23, 2023. 08:16AM",
@@ -60,38 +64,47 @@ const notifs = [
 ];
 
 export default function Notifications() {
+  const [status, setStatus] = useState("all");
+  const { isLoading, data: notifications } = useGetNotifications();
   return (
     <>
       <div className="hidden md:flex items-center justify-between border-b py-2 md:pt-0">
         <h2 className="font-semibold text-sm md:text-2xl">NOTIFICATIONS</h2>
-        <select className="select select-xs uppercase font-normal">
+        <select
+          className="select select-xs uppercase font-normal"
+          onChange={(e) => setStatus(e.target.value.toLowerCase())}
+        >
           <option>All</option>
           <option>Read</option>
           <option>Unread</option>
         </select>
       </div>
 
-      {notifs.map((notif) => (
-        <div className="block py-4  border-b" key={notif.id}>
-          <div className="flex items-start gap-2">
-            <div className="min-w-8 aspect-square bg-dark-blue-clr rounded-md flex items-center justify-center text-white">
-              <div className="text-xl"> {<notif.icon />} </div>
-            </div>
-
-            <div className="block">
-              <p className="text-sm font-semibold uppercase">{notif.type}</p>
-              <p className="text-sm">{notif.content}</p>
-              <p className="text-xs text-gray-400">{notif.date}</p>
-            </div>
-          </div>
+      {isLoading ? (
+        <Loader />
+      ) : notifications?.length < 1 ? (
+        <div className=" flex items-center justify-center w-full py-10 border-[1px] rounded-lg my-10">
+          <p className="text-sm py-10 text-center">
+            You have no new notifications!
+          </p>
         </div>
-      ))}
+      ) : (
+        notifications
+          ?.filter((item) => {
+            if (status === "unread") {
+              return item.unread;
+            } else {
+              return item;
+            }
+          })
+          ?.map((notif, idx) => <Notification item={notif} key={idx} />)
+      )}
 
-      <div className="flex w-full items-center justify-center mt-4 mb-12">
+      {/* <div className="flex w-full items-center justify-center mt-4 mb-12">
         <button className="btn border-2 btn-outline border-orange-clr text-orange-clr uppercase hover:bg-orange-clr hover:border-orange-clr hover:text-white">
           mark all as read
         </button>
-      </div>
+      </div> */}
     </>
   );
 }
