@@ -10,6 +10,7 @@ export const resolveLocation = (location) => {
   if (location.pathname.includes("help")) return "Help Center";
   if (location.pathname.includes("user/review")) return "Review / Suggestion";
   if (location.pathname.includes("report")) return "Report a Problem";
+  if (location.pathname.includes("/followers")) return "Followers";
   if (location.pathname.includes("seller/products/create"))
     return "Create Product";
   if (

@@ -21,14 +21,16 @@ export default function Followers() {
       {followers?.length > 0 ? (
         followers?.map((follower, idx) => (
           <div className="py-6 border-b flex items-center gap-2 px-2" key={idx}>
-            <div className="w-12 aspect-square rounded-full overflow-hidden">
+            <div className="w-8 lg:w-12 aspect-square rounded-full overflow-hidden">
               <img
                 src={follower.avatar || noAvatar}
                 alt={follower.name}
                 className="w-full h-full object-cover"
               />
             </div>
-            <p className="text-sm font-semibold uppercase">{follower.name}</p>
+            <p className="text-xs lg:text-sm font-semibold uppercase">
+              {follower.name}
+            </p>
           </div>
         ))
       ) : (
