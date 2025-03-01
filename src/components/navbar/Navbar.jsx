@@ -101,7 +101,7 @@ export default function Navbar() {
               <div className="relative">
                 <IoCartOutline className="text-xl" />
                 {cart?.length > 0 && (
-                  <div className="w-3 h-3 bg-dark-green-clr flex items-center justify-center rounded-full overflow-hidden absolute text-white -top-1 -right-1">
+                  <div className="w-3 h-3 bg-dark-green-clr flex items-center justify-center rounded-full overflow-hidden absolute text-white -top-1 -right-1 border-[1px] border-white">
                     <small className="text-[10px]">{cart?.length}</small>
                   </div>
                 )}

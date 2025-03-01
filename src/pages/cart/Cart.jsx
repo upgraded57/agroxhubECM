@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import DeliveryAddressModal from "../../components/deliveryAddressModal/DeliveryAddressModal";
 import { CartContext } from "../../utils/cartContext";
 import EmptyProducts from "../../components/emptyStates/EmptyProducts";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const [deliveryModalSelectorActive, setDeliveryModalSelectorActive] =
@@ -137,9 +138,12 @@ export default function Cart() {
               </div>
 
               <div className="flex p-4 items-center justify-center">
-                <button className="btn green-gradient w-full uppercase">
+                <Link
+                  to="/checkout"
+                  className="btn green-gradient w-full uppercase"
+                >
                   proceed to checkout
-                </button>
+                </Link>
               </div>
             </div>
           </div>
