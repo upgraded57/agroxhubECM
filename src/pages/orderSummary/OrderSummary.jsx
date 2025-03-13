@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "../../utils/cartContext";
-import OrderItem from "../../components/orderItem/OrderItem";
+import OrderGroup from "../../components/orderGroup/OrderGroup";
 
 export default function OrderSummary() {
   const cartItems = useContext(CartContext).cart;
@@ -14,13 +14,14 @@ export default function OrderSummary() {
         <p className="text-sm">Please review your order before checkout</p>
       </div>
 
-      <div className="contEl mb-12 lg:flex gap-4">
+      <div className="contEl mb-12 lg:flex gap-4 relative">
         <div className="basis-2/3">
-          {[1, 2, 3, 4, 5].map((item, idx) => (
-            <OrderItem key={idx} />
+          {[1, 2].map((_, idx) => (
+            <OrderGroup key={idx} />
           ))}
         </div>
-        <div className="basis-1/3">
+
+        <div className="basis-1/3 lg:sticky lg:top-[80px] flex-grow-0 self-start">
           {/* Additional Information */}
           <div className="p-6 bg-light-grey-clr rounded-lg mb-4">
             <p className="text-sm text-center font-semibold uppercase">
@@ -28,7 +29,7 @@ export default function OrderSummary() {
             </p>
 
             <span className="block my-6">
-              <p className="text-xs mb-2">Note to Seller</p>
+              <p className="text-xs mb-2">Note to Sellers</p>
               <input
                 type="text"
                 name="note_to_seller"
@@ -38,7 +39,7 @@ export default function OrderSummary() {
             </span>
 
             <span>
-              <p className="text-xs mb-2">Note to Logistic Provider</p>
+              <p className="text-xs mb-2">Note to Logistic Providers</p>
               <input
                 type="text"
                 name="note_to_seller"

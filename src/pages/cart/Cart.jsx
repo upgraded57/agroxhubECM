@@ -1,16 +1,63 @@
 import CartItem from "./CartItem";
-import { FaUps } from "react-icons/fa";
-import { useContext, useState } from "react";
-import DeliveryAddressModal from "../../components/deliveryAddressModal/DeliveryAddressModal";
+import { Fragment, useContext, useEffect, useState, useRef } from "react";
 import { CartContext } from "../../utils/cartContext";
 import EmptyProducts from "../../components/emptyStates/EmptyProducts";
-import { Link } from "react-router-dom";
+import { useGetRegions } from "../../api/region";
+import toast from "react-hot-toast";
+import { useGetUser } from "../../api/user";
+import { Link, useNavigate } from "react-router-dom";
+import Loader from "../../components/loader/Loader";
 
 export default function Cart() {
-  const [deliveryModalSelectorActive, setDeliveryModalSelectorActive] =
-    useState(false);
-
+  const customAddressRef = useRef("");
+  const customRegionRef = useRef("");
+  const navigate = useNavigate();
   const cartItems = useContext(CartContext).cart;
+  const { isLoading: isLoadingRegions, data: regions } = useGetRegions();
+  const [selectedRegion, setSelectedRegion] = useState({
+    state: null,
+    lcda: null,
+    selectedLcda: null,
+    region: null,
+    selectedRegion: null,
+  });
+
+  // Fetch user info
+  const { isLoading: isLoadingUser, data: user } = useGetUser(
+    localStorage.getItem("userId")
+  );
+
+  const [deliveryInfo, setDeliveryInfo] = useState({
+    type: null, // either default or custom
+    address: "", // address to deliver product to
+    regionId: null, // id of selected delivery region
+  });
+
+  // Set selected lcda
+  useEffect(() => {
+    if (regions) {
+      const selected = [...new Set(regions.map((region) => region.lcda))];
+
+      setSelectedRegion((prev) => ({
+        ...prev,
+        lcda: selected,
+      }));
+    }
+  }, [selectedRegion.state]);
+
+  // Set selected region
+  useEffect(() => {
+    if (selectedRegion.selectedLcda) {
+      const selected = regions.filter(
+        (item) => item.lcda === selectedRegion.selectedLcda
+      );
+
+      setSelectedRegion((prev) => ({
+        ...prev,
+        region: selected,
+      }));
+    }
+  }, [selectedRegion.selectedLcda]);
 
   // Calculate total price
   const totalPrice = () => {
@@ -19,6 +66,62 @@ export default function Cart() {
       price += item.price;
     });
     return price;
+  };
+
+  const handleRouteToLogin = () => {
+    const currentLocation = window.location.pathname;
+    navigate(`/auth/login?from=${currentLocation}`);
+  };
+
+  const handleSetRegion = (e) => {
+    setSelectedRegion((prev) => ({
+      ...prev,
+      selectedRegion: e.target.value,
+    }));
+
+    setDeliveryInfo((prev) => ({
+      ...prev,
+      regionId: e.target.value,
+    }));
+  };
+
+  const setDelivery = () => {
+    if (deliveryInfo.type === "default") {
+      setDeliveryInfo((prev) => ({
+        ...prev,
+        address: user?.address,
+        regionId: user?.region?.id,
+      }));
+    }
+
+    if (deliveryInfo.type === "custom") {
+      setDeliveryInfo((prev) => ({
+        ...prev,
+        address: customAddressRef.current.value,
+        regionId: customRegionRef.current.value,
+      }));
+    }
+  };
+
+  const handleCheckout = () => {
+    if (!deliveryInfo.type) {
+      toast.error("Please choose a delivery option");
+      return;
+    }
+
+    setDelivery();
+
+    if (!deliveryInfo.regionId) {
+      toast.error("Please select a delivery region");
+      return;
+    }
+
+    if (!deliveryInfo.address) {
+      toast.error("Please enter a delivery address");
+      return;
+    }
+
+    navigate("/checkout");
   };
 
   return (
@@ -52,55 +155,201 @@ export default function Cart() {
         )}
 
         <div className="block my-12 md:flex gap-4">
+          {/* Delivery Address */}
           <div className="basis-3/5 mb-6 md:mb-0">
             <div className="w-full border rounded-lg">
               <p className="text-sm font-semibold p-2 uppercase border-b">
-                delivery options
+                delivery location
               </p>
 
-              <div className="text-sm p-4 flex items-center gap-2 border-b">
-                <p>
-                  Deliver to - <b className="font-semibold">Ajegunle Alakuko</b>
-                </p>
-                <p
-                  className="text-orange-clr font-semibold cursor-pointer hover:underline"
-                  onClick={() => setDeliveryModalSelectorActive(true)}
-                >
-                  (Change)
-                </p>
-              </div>
-
-              {[1, 2, 3, 4].map((_, idx) => (
-                <div className="form-control pr-2" key={idx}>
-                  <label className="label justify-between gap-2 cursor-pointer">
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="radio"
-                        name="logisticsProvider"
-                        className="radio scale-75"
-                      />
-                      <div className="label-text flex justify-between items-center">
-                        <div className="flex gap-2 items-center">
-                          <div className="w-8 aspect-square text-white flex items-center justify-center rounded-md bg-dark-blue-clr">
-                            <FaUps className="text-2xl" />
-                          </div>
-                          <span>
-                            <p className="text-sm font-semibold">UPS</p>
-                            <p className="text-xs">
-                              est. delivery date - 29th Jan 2024
+              {user ? (
+                <Fragment>
+                  <div className="w-full rounded-lg h-auto bg-white">
+                    <div className="px-4">
+                      {/* Default Delivery Address */}
+                      <div className="form-control py-2 border-b">
+                        <label className="label cursor-pointer items-start justify-start gap-2">
+                          <input
+                            type="radio"
+                            name="deliveryAddress"
+                            className="radio radio-sm md:radio-md checked:bg-orange-clr"
+                            disabled={!user}
+                            onClick={() =>
+                              setDeliveryInfo((prev) => ({
+                                ...prev,
+                                type: "default",
+                              }))
+                            }
+                          />
+                          <div>
+                            <span className="label-text flex flex-col md:flex-row md:gap-2 md:items-center">
+                              <p className="text-sm">Default location</p>
+                              <p className="text-sm font-semibold">
+                                {user?.address}
+                              </p>
+                            </span>
+                            <p className="text-sm pt-2">
+                              State - {user?.region?.state} <br /> LCDA -{" "}
+                              {user?.region?.lcda}
+                              <br /> Region - {user?.region?.name}
                             </p>
-                            <p className="text-xs">Delivers to - Doorstep</p>
-                          </span>
-                        </div>
+                          </div>
+                        </label>
+                      </div>
+
+                      {/* Custom Delivery Address */}
+                      <div className="form-control py-2">
+                        <label className="label w-full items-start cursor-pointer gap-2">
+                          <input
+                            type="radio"
+                            name="deliveryAddress"
+                            className="radio radio-sm md:radio-md checked:bg-orange-clr"
+                            onClick={() =>
+                              setDeliveryInfo((prev) => ({
+                                ...prev,
+                                type: "custom",
+                              }))
+                            }
+                          />
+                          <div className="label-text w-full">
+                            <p className="text-sm mb-4">Custom Location</p>
+                            <div className="flex flex-col lg:flex-row items-center gap-6 mb-6 w-full">
+                              <label htmlFor="state" className="block w-full">
+                                <p className="text-sm uppercase">
+                                  State of residence
+                                </p>
+                                <select
+                                  className="select select-bordered w-full"
+                                  defaultValue=""
+                                  name="state"
+                                  disabled={
+                                    isLoadingRegions ||
+                                    !regions ||
+                                    regions?.length < 1
+                                  }
+                                  onChange={(e) =>
+                                    setSelectedRegion((prev) => ({
+                                      ...prev,
+                                      state: e.target.value,
+                                    }))
+                                  }
+                                >
+                                  <option value="" disabled>
+                                    -- Select State --
+                                  </option>
+                                  <option value="Lagos">Lagos</option>
+                                </select>
+                              </label>
+
+                              <label htmlFor="lcda" className="block w-full">
+                                <p className="text-sm uppercase">
+                                  lcda of residence
+                                </p>
+                                <select
+                                  className="select select-bordered w-full"
+                                  defaultValue=""
+                                  name="lcda"
+                                  disabled={
+                                    isLoadingRegions || !selectedRegion.state
+                                  }
+                                  onChange={(e) =>
+                                    setSelectedRegion((prev) => ({
+                                      ...prev,
+                                      selectedLcda: e.target.value,
+                                    }))
+                                  }
+                                >
+                                  <option value="" disabled>
+                                    -- Select Lcda --
+                                  </option>
+                                  {selectedRegion?.lcda?.map((item, idx) => (
+                                    <option value={item} key={idx}>
+                                      {item}
+                                    </option>
+                                  ))}
+                                </select>
+                              </label>
+
+                              <label
+                                htmlFor="regionId"
+                                className="block w-full"
+                              >
+                                <p className="text-sm uppercase">
+                                  Region of residence
+                                </p>
+                                <select
+                                  className="select select-bordered w-full"
+                                  defaultValue=""
+                                  name="regionId"
+                                  ref={customRegionRef}
+                                  disabled={
+                                    isLoadingRegions ||
+                                    !selectedRegion.selectedLcda
+                                  }
+                                  onChange={(e) => handleSetRegion(e)}
+                                >
+                                  <option value="" disabled>
+                                    -- Select Region --
+                                  </option>
+                                  {selectedRegion?.region
+                                    ?.sort((a, b) =>
+                                      a.name.localeCompare(b.name)
+                                    )
+                                    .map((item, idx) => (
+                                      <option value={item.id} key={idx}>
+                                        {item.name}
+                                      </option>
+                                    ))}
+                                </select>
+                              </label>
+                            </div>
+                            <label
+                              htmlFor="customAddress"
+                              className="block w-full"
+                            >
+                              <p className="text-sm uppercase">
+                                Delivery Address
+                              </p>
+                              <input
+                                type="text"
+                                className="input input-bordered w-full"
+                                ref={customAddressRef}
+                              />
+                            </label>
+                          </div>
+                        </label>
                       </div>
                     </div>
-                    <p className="text-sm font-semibold">NGN 1,320</p>
-                  </label>
-                </div>
-              ))}
+                  </div>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <div className="w-full p-6 flex flex-col gap-6 items-center justify-center min-h-[300px]">
+                    <p className="text-sm">You must be logged in to continue</p>
+                    <div className="w-full flex flex-col md:flex-row justify-center">
+                      <button
+                        className="btn w-full md:w-max uppercase green-gradient"
+                        onClick={handleRouteToLogin}
+                      >
+                        Login
+                      </button>
+                      <div className="divider md:divider-horizontal text-xs">
+                        OR
+                      </div>
+                      <Link
+                        to="/auth/signup"
+                        className="btn w-full md:w-max uppercase"
+                      >
+                        Create an Account
+                      </Link>
+                    </div>
+                  </div>
+                </Fragment>
+              )}
             </div>
           </div>
 
+          {/* Order Summary */}
           <div className="basis-2/5">
             <div className="w-full border rounded-lg">
               <p className="text-sm font-semibold p-2 uppercase border-b">
@@ -114,9 +363,13 @@ export default function Cart() {
                     NGN {totalPrice().toLocaleString()}
                   </p>
                 </span>
+                <span className="flex items-center justify-between mb-4">
+                  <p className="text-sm">VAT (10% TC)</p>
+                  <p className="text-sm font-semibold">NGN 400</p>
+                </span>
                 <span className="flex items-center justify-between my-4">
                   <p className="text-sm">Logistic Cost</p>
-                  <p className="text-sm font-semibold">NGN 1,740</p>
+                  <p className="text-sm">* Calculated on checkout</p>
                 </span>
                 <span className="flex items-center justify-between mt-4">
                   <p className="text-sm">Total Cost</p>
@@ -124,11 +377,11 @@ export default function Cart() {
                 </span>
               </div>
 
-              <div className="border-t border-b block p-4">
+              <div className="border-t border-b block p-4 w-full">
                 <p className="text-sm">Promo Code</p>
                 <div className="flex items-center gap-2">
                   <input
-                    className="input input-sm input-bordered border-2 rounded-md"
+                    className="input input-sm input-bordered border-2 rounded-md w-full"
                     placeholder="Email"
                   />
                   <button className="btn btn-sm btn-outline uppercase rounded-md border-2 border-orange-clr text-orange-clr hover:text-white hover:bg-orange-clr hover:border-orange-clr">
@@ -138,21 +391,49 @@ export default function Cart() {
               </div>
 
               <div className="flex p-4 items-center justify-center">
-                <Link
-                  to="/checkout"
-                  className="btn green-gradient w-full uppercase"
-                >
-                  proceed to checkout
-                </Link>
+                {user ? (
+                  <button
+                    onClick={handleCheckout}
+                    className="btn green-gradient w-full uppercase"
+                  >
+                    proceed to checkout
+                  </button>
+                ) : (
+                  <button
+                    className="btn w-full uppercase"
+                    onClick={handleRouteToLogin}
+                  >
+                    Login to continue
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {deliveryModalSelectorActive && (
-        <DeliveryAddressModal setState={setDeliveryModalSelectorActive} />
-      )}
     </>
   );
+}
+
+{
+  /* <div className="form-control pr-2" key={idx}>
+  <label className="label justify-between gap-2 cursor-pointer">
+    <div className="flex items-center gap-2">
+      <input type="radio" name="logisticsProvider" className="radio scale-75" />
+      <div className="label-text flex justify-between items-center">
+        <div className="flex gap-2 items-center">
+          <div className="w-8 aspect-square text-white flex items-center justify-center rounded-md bg-dark-blue-clr">
+            <FaUps className="text-2xl" />
+          </div>
+          <span>
+            <p className="text-sm font-semibold">UPS</p>
+            <p className="text-xs">est. delivery date - 29th Jan 2024</p>
+            <p className="text-xs">Delivers to - Doorstep</p>
+          </span>
+        </div>
+      </div>
+    </div>
+    <p className="text-sm font-semibold">NGN 1,320</p>
+  </label>
+</div>; */
 }

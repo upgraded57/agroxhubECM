@@ -126,7 +126,11 @@ export const routes = [
       },
       {
         path: "checkout",
-        element: <OrderSummary />,
+        element: (
+          <UserProvider>
+            <OrderSummary />
+          </UserProvider>
+        ),
       },
       {
         path: "seller/:sellerId",

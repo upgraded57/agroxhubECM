@@ -33,20 +33,27 @@ export default function CartItem({ item }) {
 
       <td>
         <div className="flex items-center gap-3">
-          <Link
-            to={`/products/${item.slug}`}
-            className="btn btn-ghost btn-sm p-1 rounded-md hover:bg-green-50 text-light-green-clr"
+          <div className="tooltip" data-tip="Edit Quantity">
+            <Link
+              to={`/products/${item.slug}`}
+              className="btn btn-ghost btn-sm aspect-square p-1 rounded-md hover:bg-green-50 text-light-green-clr"
+            >
+              <FaPenToSquare />
+            </Link>
+          </div>
+          <div
+            className="tooltip tooltip-error text-white"
+            data-tip="Remove Product"
           >
-            <FaPenToSquare />
-          </Link>
-          <button
-            className="btn btn-ghost btn-sm p-1 rounded-md hover:bg-red-100 text-red-clr"
-            onClick={() =>
-              document.getElementById(`delete_modal_${item.slug}`).showModal()
-            }
-          >
-            <MdDeleteForever className="text-xl" />
-          </button>
+            <button
+              className="btn btn-ghost aspect-square btn-sm p-1 rounded-md hover:bg-red-100 text-red-clr"
+              onClick={() =>
+                document.getElementById(`delete_modal_${item.slug}`).showModal()
+              }
+            >
+              <MdDeleteForever className="text-xl" />
+            </button>
+          </div>
         </div>
         <DeleteDialog item={item} />
       </td>
