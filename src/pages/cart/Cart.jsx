@@ -414,26 +414,3 @@ export default function Cart() {
     </>
   );
 }
-
-{
-  /* <div className="form-control pr-2" key={idx}>
-  <label className="label justify-between gap-2 cursor-pointer">
-    <div className="flex items-center gap-2">
-      <input type="radio" name="logisticsProvider" className="radio scale-75" />
-      <div className="label-text flex justify-between items-center">
-        <div className="flex gap-2 items-center">
-          <div className="w-8 aspect-square text-white flex items-center justify-center rounded-md bg-dark-blue-clr">
-            <FaUps className="text-2xl" />
-          </div>
-          <span>
-            <p className="text-sm font-semibold">UPS</p>
-            <p className="text-xs">est. delivery date - 29th Jan 2024</p>
-            <p className="text-xs">Delivers to - Doorstep</p>
-          </span>
-        </div>
-      </div>
-    </div>
-    <p className="text-sm font-semibold">NGN 1,320</p>
-  </label>
-</div>; */
-}

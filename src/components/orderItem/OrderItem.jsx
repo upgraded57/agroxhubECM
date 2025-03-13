@@ -10,8 +10,8 @@ export default function OrderItem() {
   return (
     <>
       {/* Large screen view */}
-      <div className="hidden lg:flex items-center justify-between px-6 py-2.5 border-b-[1px] border-light-grey-clr gap-5">
-        <div className="w-[100px] h-[100px] aspect-square rounded-lg overflow-hidden">
+      <div className="hidden lg:flex items-center justify-between px-3 lg:px-6 py-2.5 border-b-[1px] border-light-grey-clr gap-5">
+        <div className="w-[100px] h-[100px] aspect-square rounded-lg overflow-hidden bg-light-grey-clr">
           <img
             src="https://picsum.photos/200/200"
             alt="Product Image"
@@ -35,7 +35,7 @@ export default function OrderItem() {
       </div>
 
       {/* Small screen view */}
-      <div className="flex lg:hidden items-center justify-between px-6 py-2.5 border-b-[1px] border-light-grey-clr gap-5">
+      <div className="flex lg:hidden items-center justify-between px-3 lg:px-6 py-2.5 border-b-[1px] border-light-grey-clr gap-5">
         <div className="w-[60px] h-[60px] aspect-square rounded-lg overflow-hidden">
           <img
             src="https://picsum.photos/200/200"
