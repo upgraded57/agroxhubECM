@@ -1,20 +1,40 @@
 import { useContext } from "react";
 import { CartContext } from "../../utils/cartContext";
+import { useUpdateOrderItem } from "../../api/checkout";
+import { useQueryClient } from "@tanstack/react-query";
 
-const DeleteDialog = ({ item }) => {
+const DeleteDialog = ({ item, type }) => {
   const { removeFromCart, isRemovingItem } = useContext(CartContext);
 
-  const handleRemovefromCart = (e) => {
+  const handleRemoveFromCart = (e) => {
     e.preventDefault();
     removeFromCart(item.slug);
     document.getElementById(`delete_modal_${item.slug}`).close();
+  };
+
+  const queryClient = useQueryClient();
+  const { mutateAsync: updateQuantity, isLoading: isRemovingFromOrder } =
+    useUpdateOrderItem();
+
+  const handleItemUpdate = (type) => {
+    const itemId = item?.id;
+    if (type === "delete") {
+      updateQuantity({ itemId, type }).then((res) => {
+        if (res) {
+          queryClient.invalidateQueries(["Order"]);
+        }
+      });
+    } else {
+      toast.error("Unknown update type provided");
+    }
   };
   return (
     <dialog id={`delete_modal_${item.slug}`} className="modal">
       <div className="modal-box">
         <h3 className="font-bold text-lg">Confirm Removal</h3>
         <p className="py-4">
-          Are you sure you want to remove <b>{item.name}</b> from your cart?
+          Are you sure you want to remove <b>{item.name}</b> from your{" "}
+          {type === "cart" ? "cart" : "order"}?
         </p>
         <div className="modal-action">
           <form method="dialog">
@@ -24,8 +44,12 @@ const DeleteDialog = ({ item }) => {
               </button>
               <button
                 className="btn bg-red-clr text-white hover:bg-red-700 border-transparent hover:border-transparent"
-                onClick={handleRemovefromCart}
-                disabled={isRemovingItem}
+                onClick={
+                  type === "cart"
+                    ? handleRemoveFromCart
+                    : () => handleItemUpdate("delete")
+                }
+                disabled={isRemovingItem || isRemovingFromOrder}
               >
                 {isRemovingItem ? (
                   <span className="loading loading-dots" />

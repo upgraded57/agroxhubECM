@@ -1,9 +1,16 @@
-import { useContext } from "react";
-import { CartContext } from "../../utils/cartContext";
 import OrderGroup from "../../components/orderGroup/OrderGroup";
+import { useGetOrder } from "../../api/checkout";
+import EmptyProducts from "../../components/emptyStates/EmptyProducts";
+import Loader from "../../components/loader/Loader";
 
-export default function OrderSummary() {
-  const cartItems = useContext(CartContext).cart;
+export default function Checkout() {
+  const { data: order, isLoading } = useGetOrder();
+
+  if (isLoading) return <Loader />;
+
+  if (order && Object.entries(order).length === 0) {
+    return <EmptyProducts text="You have no open order at this moment" />;
+  }
 
   return (
     <>
@@ -16,8 +23,8 @@ export default function OrderSummary() {
 
       <div className="contEl mb-12 lg:flex gap-4 relative">
         <div className="basis-2/3">
-          {[1, 2].map((_, idx) => (
-            <OrderGroup key={idx} />
+          {order?.orderGroups?.map((orderGroup, idx) => (
+            <OrderGroup key={idx} orderGroup={orderGroup} />
           ))}
         </div>
 
@@ -58,18 +65,18 @@ export default function OrderSummary() {
             <span className="block my-6">
               <p className="text-xs">Delivery Region</p>
               <p className="font-medium">
-                Lagos State, Kosofe LCDA, Ajegunle Region
+                {`${order?.deliveryRegion?.state} State, ${order?.deliveryRegion?.lcda} LCDA, ${order?.deliveryRegion?.name} Region`}
               </p>
             </span>
 
             <span className="block my-6">
               <p className="text-xs">Delivery Address</p>
-              <p className="font-medium">18, Taiwo Street, Ajegunle Alakuko</p>
+              <p className="font-medium">{order?.deliveryAddress}</p>
             </span>
           </div>
 
           {/* Order Summary */}
-          <div className="p-6 bg-light-grey-clr rounded-lg mb-4">
+          <div className="p-6 bg-light-grey-clr rounded-lg">
             <p className="text-sm font-semibold text-center uppercase mb-6">
               order summary
             </p>
@@ -77,15 +84,27 @@ export default function OrderSummary() {
             <div className="mb-6">
               <span className="flex items-center justify-between mb-4">
                 <p className="text-sm">Products Price</p>
-                <p className="text-sm font-semibold">NGN 23,041</p>
+                <p className="text-sm font-semibold">
+                  NGN {order?.productsAmount?.toLocaleString()}
+                </p>
               </span>
               <span className="flex items-center justify-between my-4">
                 <p className="text-sm">Logistic Cost</p>
-                <p className="text-sm font-semibold">NGN 1,740</p>
+                <p className="text-sm font-semibold">
+                  NGN {order?.logisticsAmount.toLocaleString()}
+                </p>
+              </span>
+              <span className="flex items-center justify-between mt-4">
+                <p className="text-sm">VAT</p>
+                <p className="text-sm font-semibold">
+                  NGN {order?.vat.toLocaleString()}
+                </p>
               </span>
               <span className="flex items-center justify-between mt-4">
                 <p className="text-sm">Total Cost</p>
-                <p className="text-sm font-semibold">NGN 40,000</p>
+                <p className="text-sm font-semibold">
+                  NGN {order?.totalAmount.toLocaleString()}
+                </p>
               </span>
             </div>
 

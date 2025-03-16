@@ -6,9 +6,11 @@ import { useGetRegions } from "../../api/region";
 import toast from "react-hot-toast";
 import { useGetUser } from "../../api/user";
 import { Link, useNavigate } from "react-router-dom";
-import Loader from "../../components/loader/Loader";
+import { useCreateOrder } from "../../api/checkout";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Cart() {
+  const queryClient = useQueryClient();
   const customAddressRef = useRef("");
   const customRegionRef = useRef("");
   const navigate = useNavigate();
@@ -26,6 +28,9 @@ export default function Cart() {
   const { isLoading: isLoadingUser, data: user } = useGetUser(
     localStorage.getItem("userId")
   );
+
+  const { mutateAsync: createOrder, isLoading: isCreatingOrder } =
+    useCreateOrder();
 
   const [deliveryInfo, setDeliveryInfo] = useState({
     type: null, // either default or custom
@@ -121,7 +126,14 @@ export default function Cart() {
       return;
     }
 
-    navigate("/checkout");
+    createOrder({
+      deliveryAddress: deliveryInfo.address,
+      deliveryRegionId: deliveryInfo.regionId,
+      cartId: cartItems?.[0]?.cartId,
+    }).then(() => {
+      queryClient.invalidateQueries(["Order"]);
+      navigate("/checkout");
+    });
   };
 
   return (
@@ -173,7 +185,9 @@ export default function Cart() {
                             type="radio"
                             name="deliveryAddress"
                             className="radio radio-sm md:radio-md checked:bg-orange-clr"
-                            disabled={!user}
+                            disabled={
+                              !user || !user?.address || !user?.regionId
+                            }
                             onClick={() =>
                               setDeliveryInfo((prev) => ({
                                 ...prev,
@@ -188,11 +202,20 @@ export default function Cart() {
                                 {user?.address}
                               </p>
                             </span>
-                            <p className="text-sm pt-2">
-                              State - {user?.region?.state} <br /> LCDA -{" "}
-                              {user?.region?.lcda}
-                              <br /> Region - {user?.region?.name}
-                            </p>
+                            {user?.address && user?.regionId ? (
+                              <p className="text-sm pt-2">
+                                State - {user?.region?.state} <br /> LCDA -{" "}
+                                {user?.region?.lcda}
+                                <br /> Region - {user?.region?.name}
+                              </p>
+                            ) : (
+                              <p className="text-sm pt-2">
+                                <i>
+                                  Set your region and address in edit profile to
+                                  choose this option
+                                </i>
+                              </p>
+                            )}
                           </div>
                         </label>
                       </div>
@@ -395,8 +418,13 @@ export default function Cart() {
                   <button
                     onClick={handleCheckout}
                     className="btn green-gradient w-full uppercase"
+                    disabled={isCreatingOrder}
                   >
-                    proceed to checkout
+                    {isCreatingOrder ? (
+                      <span className="loading loading-lg loading-dots" />
+                    ) : (
+                      "proceed to checkout"
+                    )}
                   </button>
                 ) : (
                   <button

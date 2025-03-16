@@ -55,7 +55,7 @@ export default function CartItem({ item }) {
             </button>
           </div>
         </div>
-        <DeleteDialog item={item} />
+        <DeleteDialog item={item} type="cart" />
       </td>
     </tr>
   );

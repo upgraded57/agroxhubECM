@@ -2,19 +2,22 @@ import { FaUps } from "react-icons/fa6";
 import OrderItem from "../orderItem/OrderItem";
 import { useState } from "react";
 import LogisticChangeModal from "../logisticChangeModal/LogisticChangeModal";
+import { Link } from "react-router-dom";
 
-export default function OrderGroup() {
+export default function OrderGroup({ orderGroup }) {
   const [deliveryModalActive, setDeliveryModalActive] = useState(false);
   return (
     <>
-      <div className="mb-4 border-[1px] border-light-grey-clr rounded-lg overflow-hidden">
+      <div className="mb-10 last-of-type:mb-0 border-[1px] border-light-grey-clr rounded-lg overflow-hidden">
         <div className="px-6 py-2 border-b-[1px] border-light-grey-clr">
-          <p>
-            Store: <b>Kenny Stores</b>
-          </p>
+          <Link to={`/seller/${orderGroup?.sellerId}`}>
+            <p>
+              Store: <b className="link">{orderGroup?.sellerName}</b>
+            </p>
+          </Link>
         </div>
-        {[1, 2, 3, 4].map((_, idx) => (
-          <OrderItem key={idx} />
+        {orderGroup?.orderItems?.map((item, idx) => (
+          <OrderItem key={idx} item={item} />
         ))}
 
         <div className="items-center gap-2 bg-light-grey-clr w-full px-6 py-2">
