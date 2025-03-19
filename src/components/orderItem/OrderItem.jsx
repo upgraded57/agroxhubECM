@@ -21,6 +21,7 @@ export default function OrderItem({ item }) {
       updateQuantity({ itemId, type }).then((res) => {
         if (res) {
           queryClient.invalidateQueries(["Order"]);
+          queryClient.invalidateQueries(["Orders"]);
         }
       });
     } else {
@@ -73,7 +74,7 @@ export default function OrderItem({ item }) {
         </div>
         <div className="flex items-center gap-2">
           <h2 className="text-lg font-semibold">
-            NGN {product?.totalPrice.toLocaleString()}
+            NGN {product?.totalPrice?.toLocaleString()}
           </h2>
           <span
             className={`bg-transparent hover:bg-light-grey-clr ${iconStyle}`}

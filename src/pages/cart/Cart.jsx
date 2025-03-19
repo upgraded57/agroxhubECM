@@ -133,6 +133,7 @@ export default function Cart() {
     }).then((res) => {
       if (res) {
         queryClient.invalidateQueries(["Order"]);
+        queryClient.invalidateQueries(["Orders"]);
         navigate(`/checkout/${res.data.order.orderNumber}`);
       } else {
         toast.error("Something went wrong. Please retry");
