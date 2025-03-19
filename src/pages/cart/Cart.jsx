@@ -110,19 +110,19 @@ export default function Cart() {
 
   const handleCheckout = () => {
     if (!deliveryInfo.type) {
-      toast.error("Please choose a delivery option");
+      toast.error("Please choose a delivery option", { id: "cartToast" });
       return;
     }
 
     setDelivery();
 
     if (!deliveryInfo.regionId) {
-      toast.error("Please select a delivery region");
+      toast.error("Please select a delivery region", { id: "cartToast" });
       return;
     }
 
     if (!deliveryInfo.address) {
-      toast.error("Please enter a delivery address");
+      toast.error("Please enter a delivery address", { id: "cartToast" });
       return;
     }
 
@@ -130,9 +130,13 @@ export default function Cart() {
       deliveryAddress: deliveryInfo.address,
       deliveryRegionId: deliveryInfo.regionId,
       cartId: cartItems?.[0]?.cartId,
-    }).then(() => {
-      queryClient.invalidateQueries(["Order"]);
-      navigate("/checkout");
+    }).then((res) => {
+      if (res) {
+        queryClient.invalidateQueries(["Order"]);
+        navigate(`/checkout/${res.data.order.orderNumber}`);
+      } else {
+        toast.error("Something went wrong. Please retry");
+      }
     });
   };
 

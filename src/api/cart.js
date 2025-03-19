@@ -3,7 +3,12 @@ import { axiosInstance } from "./axiosInstance";
 
 export const useSyncCart = () => {
   return useMutation({
-    mutationFn: (data) => axiosInstance.post("/cart/sync", { cartItems: data }),
+    mutationFn: (data) =>
+      axiosInstance.post(
+        "/cart/sync",
+        { cartItems: data },
+        { showToast: false }
+      ),
   });
 };
 

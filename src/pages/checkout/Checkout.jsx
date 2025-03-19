@@ -2,15 +2,40 @@ import OrderGroup from "../../components/orderGroup/OrderGroup";
 import { useGetOrder } from "../../api/checkout";
 import EmptyProducts from "../../components/emptyStates/EmptyProducts";
 import Loader from "../../components/loader/Loader";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useInitiatePayment } from "../../api/payment";
 
 export default function Checkout() {
-  const { data: order, isLoading } = useGetOrder();
+  const navigate = useNavigate();
+  const { orderNumber } = useParams();
+
+  useEffect(() => {
+    if (!orderNumber) {
+      navigate(-1);
+    }
+  }, []);
+  const { data: order, isLoading } = useGetOrder(orderNumber);
+  const { mutateAsync: initiatePayment, isLoading: isInitiatingPayment } =
+    useInitiatePayment();
 
   if (isLoading) return <Loader />;
+
+  if (!order) {
+    return (
+      <EmptyProducts text="Unable to load your order at the moment. Please retry" />
+    );
+  }
 
   if (order && Object.entries(order).length === 0) {
     return <EmptyProducts text="You have no open order at this moment" />;
   }
+
+  const handleInitiatePayment = () => {
+    initiatePayment(orderNumber).then((res) => {
+      window.location = res.data.data.authorization_url;
+    });
+  };
 
   return (
     <>
@@ -122,9 +147,13 @@ export default function Checkout() {
             </div>
 
             <div className="flex items-center justify-center">
-              <div className="btn green-gradient w-full uppercase">
+              <button
+                className="btn green-gradient w-full uppercase"
+                onClick={handleInitiatePayment}
+                disabled={isInitiatingPayment}
+              >
                 proceed to pay with paystack
-              </div>
+              </button>
             </div>
           </div>
         </div>

@@ -57,6 +57,7 @@ import { UserProvider } from "./userContext";
 import NotFound from "../components/notFound/NotFound";
 import ResetScroll from "../components/resetScroll/ResetScroll";
 import SellerContext from "./sellerContext";
+import VerifyPayment from "../pages/verifyPayment/VerifyPayment";
 const Checkout = lazy(() => import("../pages/checkout/Checkout"));
 const Login = lazy(() => import("./../pages/auth/Login"));
 const Signup = lazy(() => import("./../pages/auth/Signup"));
@@ -125,10 +126,18 @@ export const routes = [
         element: <Cart />,
       },
       {
-        path: "checkout",
+        path: "checkout/:orderNumber",
         element: (
           <UserProvider>
             <Checkout />
+          </UserProvider>
+        ),
+      },
+      {
+        path: "payment/verify",
+        element: (
+          <UserProvider>
+            <VerifyPayment />
           </UserProvider>
         ),
       },
