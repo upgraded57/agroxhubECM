@@ -8,3 +8,15 @@ export const useInitiatePayment = () => {
     },
   });
 };
+
+export const useVerifyPayment = () => {
+  return useMutation({
+    mutationFn: (referenceCode) => {
+      return axiosInstance.post(
+        "/pay/verify",
+        { referenceCode },
+        { showToast: false }
+      );
+    },
+  });
+};
