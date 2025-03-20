@@ -3,12 +3,15 @@ import { useGetOrder } from "../../api/checkout";
 import EmptyProducts from "../../components/emptyStates/EmptyProducts";
 import Loader from "../../components/loader/Loader";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useInitiatePayment } from "../../api/payment";
+import PageTitle from "../../utils/pageTitle";
+import { UserContext } from "../../utils/userContext";
 
 export default function Checkout() {
   const navigate = useNavigate();
   const { orderNumber } = useParams();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (!orderNumber) {
@@ -39,6 +42,7 @@ export default function Checkout() {
 
   return (
     <>
+      <PageTitle title={`Checkout | ${user?.name}`} />
       <div className="text-center my-12">
         <h2 className="text-lg md:text-2xl font-semibold uppercase">
           checkout

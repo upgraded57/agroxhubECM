@@ -8,6 +8,7 @@ import { useGetUser } from "../../api/user";
 import { Link, useNavigate } from "react-router-dom";
 import { useCreateOrder } from "../../api/checkout";
 import { useQueryClient } from "@tanstack/react-query";
+import PageTitle from "../../utils/pageTitle";
 
 export default function Cart() {
   const queryClient = useQueryClient();
@@ -23,6 +24,8 @@ export default function Cart() {
     region: null,
     selectedRegion: null,
   });
+
+  // document.title = "Cart | Agroxhub";
 
   // Fetch user info
   const { isLoading: isLoadingUser, data: user } = useGetUser(
@@ -143,6 +146,7 @@ export default function Cart() {
 
   return (
     <>
+      <PageTitle title={`Shopping Cart | ${user?.name}`} />
       <h2 className="text-lg md:text-2xl font-semibold uppercase text-center my-12">
         shopping cart
       </h2>

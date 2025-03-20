@@ -6,9 +6,9 @@ import BeASeller from "./../../components/beaseller/BeASeller";
 import { useEffect } from "react";
 import { useGetSimilarProducts, useGetSingleProduct } from "../../api/product";
 import Loader from "../../components/loader/Loader";
-import ProductsList from "../../components/productsList/ProductsList";
 import ProductsGrid from "../../components/productsGrid/ProductsGrid";
 import { useGetSellerMostPurchasedProducts } from "../../api/seller";
+import PageTitle from "../../utils/pageTitle";
 
 export default function Product() {
   const { slug } = useParams();
@@ -35,10 +35,15 @@ export default function Product() {
     refetch();
   }, [sellerId]);
 
+  // document.title = `Buy ${product.name} on Agroxhub`;
+
   if (isLoading) return <Loader />;
 
   return (
     <>
+      <PageTitle
+        title={product ? `Buy ${product?.name} on Agroxhub` : "Agroxhub"}
+      />
       <Search />
       {product && <ProductDetail product={product} />}
       {product && <AboutSeller seller={product?.seller} />}

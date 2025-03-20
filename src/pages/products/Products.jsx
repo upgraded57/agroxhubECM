@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import ProductsFilter from "../../components/productsFilter/ProductsFilter";
 import EmptyProducts from "../../components/emptyStates/EmptyProducts";
 import ResetScroll from "../../components/resetScroll/ResetScroll";
+import PageTitle from "../../utils/pageTitle";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,8 +39,17 @@ export default function Products() {
     window.scrollTo(0, 0);
   }, [searchParams]);
 
+  const searchValue = searchParams.get("q");
+
   return (
     <>
+      <PageTitle
+        title={
+          searchValue
+            ? `Searching - ${searchValue} | Find products on Agroxhub`
+            : "Find products on Agroxhub"
+        }
+      />
       <Search />
       <ResetScroll />
       <div className="max-w-screen-xl mx-auto px-[4vw] -mt-6 mb-10">

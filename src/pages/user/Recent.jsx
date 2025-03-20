@@ -1,14 +1,19 @@
+import { useContext } from "react";
 import { useGetRecentProducts } from "../../api/product";
 import EmptyProducts from "../../components/emptyStates/EmptyProducts";
 import ProductsLoader from "../../components/productsLoader/ProductsLoader";
 import RecentProduct from "../../components/recent/RecentProduct";
+import { UserContext } from "../../utils/userContext";
+import PageTitle from "../../utils/pageTitle";
 
 export default function Recent() {
   const recent = JSON.parse(localStorage.getItem("recent"));
+  const { user } = useContext(UserContext);
 
   const { isLoading, data: products } = useGetRecentProducts(recent);
   return (
     <>
+      <PageTitle title={`${user?.name} | Recent Items`} />
       <div className="hidden md:flex items-center justify-between border-b py-2 md:pt-0">
         <h2 className="font-semibold text-sm md:text-2xl">RECENT ITEMS</h2>
         <select className="select select-xs uppercase font-normal">

@@ -15,6 +15,7 @@ import ProductsGrid from "../../components/productsGrid/ProductsGrid";
 import SimilarFarmers from "../../components/similarFarmer/SimilarFarmers";
 import { useGetUser } from "../../api/user";
 import { useQueryClient } from "@tanstack/react-query";
+import PageTitle from "../../utils/pageTitle";
 
 export default function SellerPage() {
   const userId = localStorage.getItem("userId") || null;
@@ -83,8 +84,21 @@ export default function SellerPage() {
       }
     });
   };
+
+  useEffect(() => {
+    if (seller) {
+      document.title = `${seller.name} store on Agroxhub`;
+    }
+  }, [seller]);
   return (
     <>
+      <PageTitle
+        title={
+          seller
+            ? `${seller?.name}'s store on Agroxhub`
+            : "Buy from sellers on Agruxhub"
+        }
+      />
       {/* profile header */}
       <div className="h-[170px] md:h-[312px] overflow-hidden bg-gray-200">
         {isLoading ? (

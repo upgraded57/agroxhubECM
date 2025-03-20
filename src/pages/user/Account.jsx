@@ -4,11 +4,13 @@ import { useContext } from "react";
 import { UserContext } from "../../utils/userContext";
 import noAvatar from "../../assets/images/noAvatar.jpeg";
 import moment from "moment";
+import PageTitle from "../../utils/pageTitle";
 
 export default function Account() {
   const user = useContext(UserContext).user;
   return (
     <>
+      <PageTitle title={`${user?.name} | Account`} />
       <h2 className="font-semibold text-2xl hidden md:block pb-2">
         MY ACCOUNT
       </h2>

@@ -1,16 +1,20 @@
-import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetOrders } from "../../api/order";
 import Loader from "../../components/loader/Loader";
 import EmptyProducts from "../../components/emptyStates/EmptyProducts";
 import moment from "moment";
+import PageTitle from "../../utils/pageTitle";
+import { useContext } from "react";
+import { UserContext } from "../../utils/userContext";
 
 export default function Orders() {
   const { isLoading, data: orders } = useGetOrders();
+  const { user } = useContext(UserContext);
 
   if (isLoading) return <Loader />;
   return (
     <>
+      <PageTitle title={`${user?.name} | Orders`} />
       <div className="flex items-center justify-between border-b py-2 md:pt-0">
         <h2 className="font-semibold text-sm md:text-2xl">ORDER HISTORY</h2>
         <select className="select select-xs uppercase font-normal">
