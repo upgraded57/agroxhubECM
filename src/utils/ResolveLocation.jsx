@@ -2,6 +2,7 @@ export const resolveLocation = (location) => {
   if (location.pathname === "/user/account") return "My Account";
   if (location.pathname.split("/")[3] === "edit") return "Edit Account";
   if (location.pathname === "/user/orders") return "Orders";
+  if (location.pathname.includes("/user/orders/")) return "Order Group";
   if (location.pathname.includes("saved")) return "Saved Items";
   if (location.pathname.includes("recent")) return "Recent Items";
   if (location.pathname === "/user/payment") return "Payment Methods";

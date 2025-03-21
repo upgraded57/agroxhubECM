@@ -9,7 +9,7 @@ import PageTitle from "../../utils/pageTitle";
 export default function Home() {
   return (
     <>
-      <PageTitle title="Agroxhub | Nigeria Online Agricultural Marketplace" />;
+      <PageTitle title="Agroxhub | Nigeria Online Agricultural Marketplace" />
       <div>
         <Search />
         <Hero />

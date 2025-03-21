@@ -37,7 +37,7 @@ export default function Orders() {
               : "red-clr";
           return (
             <Link
-              to={`/orders/${order?.orderNumber}`}
+              to={order?.orderNumber}
               key={idx}
               className="grid grid-cols-2 gap-y-4 gap-x-4 justify-between lg:gap-y-0 lg:flex items-center p-2 border-b-[1px] last-of-type:border-none hover:bg-light-grey-clr"
             >

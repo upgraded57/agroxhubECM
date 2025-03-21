@@ -57,11 +57,14 @@ import { UserProvider } from "./userContext";
 import NotFound from "../components/notFound/NotFound";
 import ResetScroll from "../components/resetScroll/ResetScroll";
 import SellerContext from "./sellerContext";
-import VerifyPayment from "../pages/verifyPayment/VerifyPayment";
+const VerifyPayment = lazy(() =>
+  import("../pages/verifyPayment/VerifyPayment")
+);
 const Checkout = lazy(() => import("../pages/checkout/Checkout"));
 const Login = lazy(() => import("./../pages/auth/Login"));
 const Signup = lazy(() => import("./../pages/auth/Signup"));
 const VerifyOtp = lazy(() => import("./../pages/auth/VerifyOtp"));
+const OrderGroups = lazy(() => import("./../pages/user/OrderGroups"));
 
 export const routes = [
   // Auth
@@ -182,6 +185,11 @@ export const routes = [
       {
         path: "orders",
         element: <Orders />,
+      },
+
+      {
+        path: "orders/:orderNumber",
+        element: <OrderGroups />,
       },
 
       {
