@@ -16,6 +16,7 @@ export default function Checkout() {
   useEffect(() => {
     if (!orderNumber) {
       navigate(-1);
+      return null;
     }
   }, []);
   const { data: order, isLoading } = useGetOrder(orderNumber);

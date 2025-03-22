@@ -102,3 +102,8 @@ body {
     min-height: max-content !important;
   }
 }
+
+.collapse:not(.collapse-close)
+  > :where(input[type="radio"]:checked ~ .collapse-content) {
+  padding-bottom: 0 !important;
+}

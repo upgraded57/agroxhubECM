@@ -2,6 +2,9 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useVerifyPayment } from "../../api/payment";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import Lottie from "lottie-react";
+import successAnimation from "../../assets/json/AnimationSuccess.json";
+import failAnimation from "../../assets/json/AnimationFail.json";
 
 export default function VerifyPayment() {
   const [q] = useSearchParams();
@@ -13,10 +16,14 @@ export default function VerifyPayment() {
   if (!reference)
     return (
       <div className="contEl flex flex-col items-center justify-center h-[600px]">
-        <p className="text-smn text-center">Cannot verify payment.</p>
-        <p className="text-smn text-center">
-          Payment reference number not provided
-        </p>
+        <Lottie
+          animationData={failAnimation}
+          loop={false}
+          autoPlay={true}
+          style={{ width: 140, height: 140 }}
+        />
+        <p className="text-sm text-center">Cannot verify payment.</p>
+        <p className="text-sm text-center">Reference number not provided!</p>
       </div>
     );
 
@@ -30,7 +37,7 @@ export default function VerifyPayment() {
     return (
       <div className="contEl flex flex-col gap-10 items-center justify-center h-[600px]">
         <span className="loading loading-spinner loading-lg text-dark-green-clr " />
-        <p className="text-smn text-center">
+        <p className="text-sm text-center">
           Please wait while we verify your payment
         </p>
       </div>
@@ -43,28 +50,38 @@ export default function VerifyPayment() {
     });
     localStorage.removeItem("cart");
     return (
-      <div className="contEl flex flex-col items-center justify-center h-[600px]">
+      <div className="contEl flex flex-col items-center justify-center min-h-[600px]">
         {/* <span className="loading loading-spinner loading-lg text-dark-green-clr " /> */}
-        <p className="text-smn text-center text-dark-green-clr">
+        <Lottie
+          animationData={successAnimation}
+          loop={false}
+          autoPlay={true}
+          style={{ width: 140, height: 140 }}
+        />
+        <p className="text-sm text-center mt-6">
           Payment verified successfully
         </p>
-        <Link to={`/orders/${data?.data?.order?.orderNumber}`}>
-          <button className="btn mt-10 green-gradient">Go to Order</button>
+        <Link to={`/user/orders/${data?.data?.order?.orderNumber}`}>
+          <button className="btn green-gradient mt-6">Go to Order</button>
         </Link>
       </div>
     );
   }
 
-  console.log(error?.response?.data);
-
   if (isError) {
     return (
-      <div className="contEl flex flex-col items-center justify-center h-[600px]">
+      <div className="contEl flex flex-col items-center justify-center min-h-[600px]">
         {/* <span className="loading loading-spinner loading-lg text-dark-green-clr " /> */}
-        <p className="text-smn text-center">Cannot verify payment.</p>
-        <p className="text-smn text-center">{error?.response?.data?.message}</p>
-        <Link to={`/orders/${error?.response?.data?.order?.orderNumber}`}>
-          <button className="btn mt-10 green-gradient">Go to Order</button>
+        <Lottie
+          animationData={failAnimation}
+          loop={false}
+          autoPlay={true}
+          style={{ width: 140, height: 140 }}
+        />
+        <p className="text-sm text-center mt-6">Cannot verify payment.</p>
+        <p className="text-sm text-center">{error?.response?.data?.message}</p>
+        <Link to={`/user/orders/${error?.response?.data?.order?.orderNumber}`}>
+          <button className="btn mt-6">Go to Order</button>
         </Link>
       </div>
     );
