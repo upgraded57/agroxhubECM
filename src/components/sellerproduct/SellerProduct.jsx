@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import { UseDeleteProduct } from "../../api/product";
 import { useQueryClient } from "@tanstack/react-query";
 
-const tooltipStyle =
-  "tooltip rounded-md p-1 border-2 border-dark-blue-clr text-dark-blue-clr text-xl cursor-pointer hover:border-transparent hover:text-white hover:bg-dark-blue-clr";
+const tooltipStyle = "btn btn-sm rounded-md btn-square text-xl cursor-pointer";
 export default function SellerProduct({ product }) {
   const queryClient = useQueryClient();
   const { mutate: deleteProduct } = UseDeleteProduct(
@@ -34,33 +33,28 @@ export default function SellerProduct({ product }) {
       </div>
       <h3 className="h-100">N{product?.unitPrice.toLocaleString()}</h3>
       <div className="flex items-center gap-2 py-2">
-        <Link
-          to={`/products/${product?.slug}`}
-          className={tooltipStyle}
-          data-tip="View Product"
-        >
-          <FaRegEye />
+        <Link to={`/products/${product?.slug}`} className={tooltipStyle}>
+          <span className="tooltip" data-tip="View Product">
+            <FaRegEye />
+          </span>
         </Link>
         <Link
           to={`/seller/products/${product?.slug}/edit`}
           className={tooltipStyle}
-          data-tip="Edit Product"
         >
-          <BiEdit />
+          <span className="tooltip" data-tip="Edit Product">
+            <BiEdit />
+          </span>
         </Link>
-        <span
-          className={tooltipStyle}
-          data-tip="Delete Product"
-          onClick={handleDeleteProduct}
-        >
-          <MdDeleteForever />
+        <span className={tooltipStyle} onClick={handleDeleteProduct}>
+          <span className="tooltip" data-tip="Delete Product">
+            <MdDeleteForever />
+          </span>
         </span>
-        <Link
-          to="/seller/products/1234/analytics"
-          className={tooltipStyle}
-          data-tip="View Product Analytics"
-        >
-          <BsGraphUp />
+        <Link to="/seller/products/1234/analytics" className={tooltipStyle}>
+          <span className="tooltip" data-tip="View Product Analytics">
+            <BsGraphUp />
+          </span>
         </Link>
       </div>
     </div>

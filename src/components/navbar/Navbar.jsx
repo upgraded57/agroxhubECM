@@ -12,11 +12,13 @@ import { useGetUser } from "../../api/user";
 import noAvatar from "../../assets/images/noAvatar.jpeg";
 import { CartContext } from "../../utils/cartContext";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Navbar() {
+  const queryClient = useQueryClient();
   const [navOpen, setNavOpen] = useState(false);
   const userId = localStorage.getItem("userId");
-  const { isFetching, data: user, refetch: refetchUser } = useGetUser(userId);
+  const { isFetching, data: user } = useGetUser(userId);
 
   const { cart, refetch } = useContext(CartContext);
 
@@ -48,9 +50,9 @@ export default function Navbar() {
   ];
 
   const handleLogout = () => {
+    queryClient.resetQueries();
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
-    refetchUser();
     toast.success("User logged out successfully");
   };
 

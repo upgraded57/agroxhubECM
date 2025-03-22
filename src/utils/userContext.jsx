@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
 
   const { isLoading, data: user } = useGetUser(userId);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader type="full" />;
 
   if (!isLoading && !user) {
     localStorage.removeItem("token");

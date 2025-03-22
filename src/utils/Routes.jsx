@@ -99,7 +99,7 @@ export const routes = [
     element: (
       <>
         <Navbar />
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader type="full" />}>
           <ResetScroll />
           <Outlet />
         </Suspense>
@@ -162,7 +162,7 @@ export const routes = [
     element: (
       <UserProvider>
         <UserLayout>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<Loader type="full" />}>
             <Outlet />
           </Suspense>
         </UserLayout>
@@ -246,7 +246,7 @@ export const routes = [
   {
     path: "seller",
     element: (
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader type="full" />}>
         <UserProvider>
           <SellerContext>
             <UserLayout>

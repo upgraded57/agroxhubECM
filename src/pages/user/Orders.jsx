@@ -11,7 +11,6 @@ export default function Orders() {
   const { isLoading, data: orders } = useGetOrders();
   const { user } = useContext(UserContext);
 
-  if (isLoading) return <Loader />;
   return (
     <>
       <PageTitle title={`${user?.name} | Orders`} />
@@ -27,7 +26,9 @@ export default function Orders() {
       </div>
 
       {/* Products List */}
-      {orders?.length > 0 ? (
+      {isLoading ? (
+        <Loader />
+      ) : orders?.length > 0 ? (
         orders?.map((order, idx) => {
           const paymentStatusBadgeColor =
             order?.paymentStatus === "paid"
