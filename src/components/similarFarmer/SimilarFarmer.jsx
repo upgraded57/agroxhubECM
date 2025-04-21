@@ -4,7 +4,7 @@ export default function SimilarFarmer({ seller }) {
   return (
     <Link
       to={`/seller/${seller?.id}`}
-      className="w-full rounded-md relative overflow-hidden aspect-[5/6]"
+      className="w-full rounded-md relative overflow-hidden aspect-5/6"
     >
       <img
         src={seller?.avatar || noAvatar}

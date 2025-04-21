@@ -13,7 +13,7 @@ export default function About() {
     <>
       <div className="w-full h-[320px] relative overflow-hidden">
         <div className="relative w-full h-full overflow-hidden bg-[url('../../src/assets/images/aboutbg.png')] bg-[right_-100px_bottom] md:bg-right bg-cover"></div>
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-[#22955C] to-transparent md:bg-gradient-to-r"></div>
+        <div className="absolute inset-0 w-full h-full bg-linear-to-t from-[#22955C] to-transparent md:bg-linear-to-r"></div>
         <div className="contEl w-full h-full inset-0 absolute flex justify-center md:justify-start items-end md:items-center">
           <span className="text-white text-center md:text-left pb-[60px] md:pb-0">
             <h1 className="text-5xl font-bold pb-[20px]">
@@ -76,7 +76,7 @@ export default function About() {
         <h3 className="h-100 mb-3">Why Choose Agroxhub?</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
           <div className="flex flex-row md:flex-col gap-4 items-center justify-center w-full">
-            <div className="w-[70px] md:w-[120px] aspect-square bg-gradient-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
+            <div className="w-[70px] md:w-[120px] aspect-square bg-linear-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
               <HiOutlineArrowsRightLeft className="text-white text-3xl md:text-6xl" />
             </div>
             <span className="text-left md:text-center">
@@ -89,7 +89,7 @@ export default function About() {
           </div>
 
           <div className="flex flex-row-reverse md:flex-col gap-4 items-center justify-center w-full">
-            <div className="w-[70px] md:w-[120px] aspect-square bg-gradient-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
+            <div className="w-[70px] md:w-[120px] aspect-square bg-linear-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
               <BsDatabaseCheck className="text-white text-3xl md:text-6xl" />
             </div>
             <span className="text-left md:text-center">
@@ -103,7 +103,7 @@ export default function About() {
           </div>
 
           <div className="flex flex-row md:flex-col gap-4 items-center justify-center w-full">
-            <div className="w-[70px] md:w-[120px] aspect-square bg-gradient-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
+            <div className="w-[70px] md:w-[120px] aspect-square bg-linear-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
               <MdCurrencyExchange className="text-white text-3xl md:text-6xl" />
             </div>
             <span className="text-left md:text-center">
@@ -117,7 +117,7 @@ export default function About() {
           </div>
 
           <div className="flex flex-row-reverse md:flex-col gap-4 items-center justify-center w-full">
-            <div className="w-[70px] md:w-[120px] aspect-square bg-gradient-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
+            <div className="w-[70px] md:w-[120px] aspect-square bg-linear-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
               <TbMoneybag className="text-white text-3xl md:text-6xl" />
             </div>
             <span className="text-left md:text-center">
@@ -132,7 +132,7 @@ export default function About() {
           </div>
 
           <div className="flex flex-row md:flex-col gap-4 items-center justify-center w-full">
-            <div className="w-[70px] md:w-[120px] aspect-square bg-gradient-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
+            <div className="w-[70px] md:w-[120px] aspect-square bg-linear-to-t from-dark-green-clr to-light-green-clr rounded-full flex items-center justify-center">
               <BsTruck className="text-white text-3xl md:text-6xl" />
             </div>
             <span className="text-left md:text-center">
@@ -150,7 +150,7 @@ export default function About() {
       <div className="contEl my-12">
         <h3 className="h-100 mb-6">How it Works</h3>
 
-        <div className="max-w-screen-md mx-auto">
+        <div className="max-w-(--breakpoint-md) mx-auto">
           <div className="flex flex-row-reverse justify-between items-center my-12 gap-5">
             <div className="rounded-lg w-[170px] md:w-[280px] aspect-square overflow-hidden">
               <img

@@ -9,7 +9,7 @@ const iconStyle =
   "btn w-auto h-auto btn-sm shadow-none border-none flex items-center justify-center p-2 rounded-md cursor-pointer aspect-square";
 
 const smIconStyle =
-  "btn btn-xs bg-light-grey-clr rounded-sm aspect-square border-none shadow-none w-auto h-auto p-1";
+  "btn btn-xs bg-light-grey-clr rounded-xs aspect-square border-none shadow-none w-auto h-auto p-1";
 
 export default function OrderItem({ item }) {
   const queryClient = useQueryClient();
@@ -101,7 +101,7 @@ export default function OrderItem({ item }) {
               {product?.name}
             </p>
             <button
-              className="btn btn-xs btn-ghost rounded-sm hover:bg-red-50 aspect-square w-auto h-auto p-1"
+              className="btn btn-xs btn-ghost rounded-xs hover:bg-red-50 aspect-square w-auto h-auto p-1"
               onClick={handleRemoveItem}
             >
               <MdDeleteForever className="text-sm text-red-400" />

@@ -4,7 +4,7 @@ export default function Farmer({ seller }) {
   return (
     <Link
       to={`/seller/${seller?.id}`}
-      className="w-full rounded-md relative bg-gray-200 overflow-hidden aspect-[5/6]"
+      className="w-full rounded-md relative bg-gray-200 overflow-hidden aspect-5/6"
     >
       <img
         src={seller?.avatar || noAvatar}

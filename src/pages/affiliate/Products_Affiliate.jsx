@@ -174,7 +174,7 @@ export default function AffiliateProducts() {
               {productsTable.map((product) => (
                 <tr key={product.id}>
                   <td>
-                    <div className="h-12 w-[62px] rounded-sm overflow-hidden">
+                    <div className="h-12 w-[62px] rounded-xs overflow-hidden">
                       <img
                         src={product.image}
                         alt={product.name}

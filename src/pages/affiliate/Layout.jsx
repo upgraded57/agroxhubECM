@@ -85,7 +85,7 @@ export default function Layout({ children }) {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  className="dropdown-content z-1 menu p-2 shadow-sm bg-base-100 rounded-box w-52"
                 >
                   {links.map((link) => (
                     <li className="w-full my-1" key={link.path}>

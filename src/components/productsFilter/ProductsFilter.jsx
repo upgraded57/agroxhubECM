@@ -138,9 +138,9 @@ export default function ProductsFilter({ sellerPage }) {
               <input
                 key={idx}
                 type="radio"
-                name="rating"
+                name="rating-1"
                 className="mask mask-star-2 bg-orange-400"
-                value={idx + 1}
+                // value={idx + 1}
                 defaultChecked={idx === 3}
                 onChange={handleFilterChange}
               />
@@ -154,7 +154,7 @@ export default function ProductsFilter({ sellerPage }) {
         <h3 className="text-lg font-semibold">DATE POSTED</h3>
         <div className="mt-2">
           <label className="label cursor-pointer flex justify-start items-center gap-4">
-            <input type="checkbox" className="checkbox scale-75" />
+            <input type="checkbox" defaultChecked className="checkbox" />
             <span className="label-text">Last Week</span>
           </label>
           <label className="label cursor-pointer flex justify-start items-center gap-4">

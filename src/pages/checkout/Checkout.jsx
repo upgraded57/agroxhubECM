@@ -58,7 +58,7 @@ export default function Checkout() {
           ))}
         </div>
 
-        <div className="basis-1/3 lg:sticky lg:top-[80px] flex-grow-0 self-start">
+        <div className="basis-1/3 lg:sticky lg:top-[80px] grow-0 self-start">
           {/* Additional Information */}
           <div className="p-6 bg-light-grey-clr rounded-lg mb-4">
             <p className="text-sm text-center font-semibold uppercase">

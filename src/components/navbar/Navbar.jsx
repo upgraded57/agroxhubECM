@@ -94,10 +94,10 @@ export default function Navbar() {
             </div>
           </nav>
 
-          <div className="sidenav flex items-center basis-1/4 justify-end gap-8 text-sm">
+          <div className="sidenav flex items-center basis-1/4 justify-end text-sm">
             <NavLink
               to="/cart"
-              className="btn btn-ghost mx-0 p-0 hover:bg-transparent font-normal"
+              className="btn btn-ghost mx-0 py-0 hover:bg-transparent font-normal"
             >
               <p className="hidden md:block">Cart</p>
               <div className="relative">
@@ -116,7 +116,8 @@ export default function Navbar() {
                 <AiOutlineUser className="text-xl" />
               </div>
             ) : user ? (
-              <div className="dropdown dropdown-end">
+              // Dropdown trigger
+              <div className="dropdown dropdown-end cursor-pointer border-[1px] border-transparent px-4 py-2 rounded hover:border-neutral-content hover:shadow-xs">
                 <div tabIndex={0} role="button">
                   <div className="flex items-center gap-3">
                     <p className="hidden md:block">{user.name.split(" ")[0]}</p>
@@ -128,9 +129,11 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
+
+                {/* Dropdown content */}
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-max p-2 shadow justify-start"
+                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-sm justify-start"
                 >
                   <li className="flex items-center gap-3 w-full">
                     <Link to="/user/account" className="w-full">

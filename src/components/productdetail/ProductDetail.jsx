@@ -94,7 +94,7 @@ export default function ProductDetail({ product }) {
     <div className="contEl mb-12">
       <div className="flex gap-4 flex-col md:flex-row">
         <div className="flex flex-col gap-2 w-full basis-1/2">
-          <div className="w-full aspect-[3/2] rounded-lg bg-gray-200 overflow-hidden">
+          <div className="w-full aspect-3/2 rounded-lg bg-gray-200 overflow-hidden">
             <img
               src={currentImg || ""}
               alt="Product image"
@@ -104,7 +104,7 @@ export default function ProductDetail({ product }) {
           <div className="grid grid-cols-4 gap-2">
             {product?.images.map((item, idx) => (
               <div
-                className="aspect-[3/2] rounded-md overflow-hidden bg-gray-200 cursor-zoom-in"
+                className="aspect-3/2 rounded-md overflow-hidden bg-gray-200 cursor-zoom-in"
                 key={idx}
                 onClick={() => setCurrentImg(item)}
               >

@@ -52,7 +52,7 @@ export default function Products() {
       />
       <Search />
       <ResetScroll />
-      <div className="max-w-screen-xl mx-auto px-[4vw] -mt-6 mb-10">
+      <div className="max-w-(--breakpoint-xl) mx-auto px-[4vw] -mt-6 mb-10">
         <div className="drawer lg:gap-4 lg:drawer-open">
           <input id="filterDrawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
@@ -114,10 +114,10 @@ export default function Products() {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu w-80 lg:w-60 xl:w-80 mt-12 lg:mt-0 p-4 lg:p-0 bg-white lg:bg-transparent">
+            <div className="w-80 lg:w-60 xl:w-80 mt-12 lg:mt-0 p-4 lg:p-0 bg-white lg:bg-transparent">
               {/* Sidebar content here */}
               <ProductsFilter />
-            </ul>
+            </div>
           </div>
         </div>
       </div>

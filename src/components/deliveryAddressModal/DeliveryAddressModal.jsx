@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 export default function DeliveryAddressModal({ setState }) {
   return (
     <>
-      <div className="fixed w-[100vw] h-[100vh] items-center inset-0 flex justify-center z-50 px-[4vw] backdrop-blur-sm">
+      <div className="fixed w-[100vw] h-[100vh] items-center inset-0 flex justify-center z-50 px-[4vw] backdrop-blur-xs">
         <div className="absolute w-full h-full bg-black opacity-50 -z-10"></div>
         <div className="w-full max-w-[600px] rounded-lg h-auto bg-white pb-6">
           <div className="flex px-4 py-2 justify-between items-center border-b">

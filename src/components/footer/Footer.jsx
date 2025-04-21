@@ -37,7 +37,7 @@ export default function Footer() {
         <h1 className="text-dark-green-clr text-lg md:text-2xl font-semibold">
           JOIN OUR NEWSLETTER
         </h1>
-        <form className="flex w-full max-w-screen-sm">
+        <form className="flex w-full max-w-(--breakpoint-sm)">
           <label className="input flex items-center w-full gap-2 bg-light-grey-clr rounded-r-none">
             <HiOutlineEnvelope className="text-gray-300" />
             <input type="email" className="grow" placeholder="Email" />

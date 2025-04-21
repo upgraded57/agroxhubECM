@@ -253,7 +253,7 @@ export default function AffiliateLinks() {
                 </td>
                 <td>
                   <div className="flex items-center gap-2">
-                    <div className="h-12 w-[62px] rounded-sm overflow-hidden">
+                    <div className="h-12 w-[62px] rounded-xs overflow-hidden">
                       <img
                         src={product.image}
                         alt={product.name}

@@ -9,7 +9,7 @@ export default function PromoteProduct() {
 
       <div className="flex gap-4 flex-col md:flex-row mt-6 md:mb-0">
         <div className="flex flex-col gap-2 w-full basis-1/2">
-          <div className="w-full aspect-[3/2] rounded-lg overflow-hidden">
+          <div className="w-full aspect-3/2 rounded-lg overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1606588260160-0c4707ab7db5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHRvbWF0b2VzfGVufDB8fDB8fHww"
               alt="Product image"
@@ -17,28 +17,28 @@ export default function PromoteProduct() {
             />
           </div>
           <div className="grid grid-cols-4 gap-2">
-            <div className="aspect-[3/2] rounded-md overflow-hidden bg-white">
+            <div className="aspect-3/2 rounded-md overflow-hidden bg-white">
               <img
                 src="https://images.unsplash.com/photo-1606588260160-0c4707ab7db5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHRvbWF0b2VzfGVufDB8fDB8fHww"
                 alt="Product Image"
                 className="w-full h-full object-cover opacity-50 hover:opacity-100"
               />
             </div>
-            <div className="aspect-[3/2] rounded-md overflow-hidden bg-white">
+            <div className="aspect-3/2 rounded-md overflow-hidden bg-white">
               <img
                 src="https://images.unsplash.com/photo-1562447575-88db38dcc649?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRvbWF0b2VzfGVufDB8fDB8fHww"
                 alt="Product Image"
                 className="w-full h-full object-cover opacity-50 hover:opacity-100"
               />
             </div>
-            <div className="aspect-[3/2] rounded-md overflow-hidden bg-white">
+            <div className="aspect-3/2 rounded-md overflow-hidden bg-white">
               <img
                 src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHRvbWF0b2VzfGVufDB8fDB8fHww"
                 alt="Product Image"
                 className="w-full h-full object-cover opacity-50 hover:opacity-100"
               />
             </div>
-            <div className="aspect-[3/2] rounded-md overflow-hidden bg-white">
+            <div className="aspect-3/2 rounded-md overflow-hidden bg-white">
               <img
                 src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dG9tYXRvZXN8ZW58MHx8MHx8fDA%3D"
                 alt="Product Image"
