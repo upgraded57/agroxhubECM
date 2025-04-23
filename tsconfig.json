@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "dist", // All output goes here
+    "rootDir": "src", // Source code root
+    "declaration": true, // Optional: generate .d.ts files
+    "declarationDir": "dist/types", // Optional: separate types folder
+    "noEmit": false,
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "react-jsx", // or "react" or "react-jsxdev" depending on your setup
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ES6",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src"], // Adjust this to match your folder
+  "exclude": ["dist", "node_modules"]
+}
