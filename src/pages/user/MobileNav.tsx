@@ -21,6 +21,7 @@ export default function MobileNav({
   user,
 }: Props) {
   const isSeller = user?.type === "farmer" || user?.type === "wholesaler";
+
   return (
     <div className="flex justify-between items-center p-4 bg-light-grey-clr md:hidden">
       <h3 className="text-lg font-semibold uppercase">{currentPage}</h3>
@@ -30,12 +31,15 @@ export default function MobileNav({
           <MdFilterList className="text-2xl" />
         </div>
         <ul
+          id="dropdown-content"
           tabIndex={0}
           className="dropdown-content z-1 menu p-2 shadow-sm bg-base-100 rounded-box w-52"
         >
           {userLinks.map((link, idx) => (
             <li key={idx}>
-              <NavLink to={link.path}>{link.title}</NavLink>
+              <NavLink className="py-3" to={link.path}>
+                {link.title}
+              </NavLink>
             </li>
           ))}
 
@@ -46,7 +50,9 @@ export default function MobileNav({
               </p>
               {sellerLinks.map((link, idx) => (
                 <li key={idx}>
-                  <NavLink to={link.path}>{link.title}</NavLink>
+                  <NavLink className="py-3" to={link.path}>
+                    {link.title}
+                  </NavLink>
                 </li>
               ))}
             </div>

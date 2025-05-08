@@ -7,7 +7,7 @@ import { UserContext } from "../../utils/userContext";
 import PageTitle from "../../utils/pageTitle";
 
 export default function Recent() {
-  const localRecents = localStorage.getItem("recent");
+  const localRecents = localStorage.getItem("recent") || "";
   const recent = localRecents ? JSON.parse(localRecents) : [];
   const { user } = useContext(UserContext);
 

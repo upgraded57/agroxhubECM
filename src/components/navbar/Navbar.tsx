@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo1.png";
 import "./navbar.css";
 
@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [navOpen, setNavOpen] = useState(false);
   const userId = localStorage.getItem("userId") || "";
@@ -54,6 +55,7 @@ export default function Navbar() {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
     toast.success("User logged out successfully");
+    navigate("/auth/login");
   };
 
   useEffect(() => {
@@ -62,8 +64,8 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="w-full h-[50px] px-[4vw] lg:h-[70px] flex items-center shadow-md fixed bg-white z-50">
-        <div className="contEl flex justify-between items-center w-full">
+      <header className="w-full px-[4vw] h-15 flex items-center shadow-md fixed bg-white z-50">
+        <div className="contEl px-0 flex justify-between items-center w-full">
           <NavLink to="/" className="md:basis-1/4">
             <img src={logo} alt="logo" className="w-[150px]" />
           </NavLink>
@@ -96,10 +98,10 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop Navigation */}
-          <div className="sidenav flex items-center basis-1/4 justify-end text-sm gap-2">
+          <div className="sidenav flex items-center basis-1/4 justify-end text-sm ">
             <NavLink
               to="/cart"
-              className="btn btn-ghost mx-0 py-0 hover:bg-transparent font-normal"
+              className="btn btn-ghost mx-0 py-0 hover:bg-transparent font-normal shadow-none"
             >
               <p className="hidden md:block">Cart</p>
               <div className="relative">
@@ -137,8 +139,8 @@ export default function Navbar() {
                   tabIndex={0}
                   className="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-sm justify-start"
                 >
-                  <li className="flex items-center gap-3 w-full">
-                    <Link to="/user/account" className="w-full">
+                  <li>
+                    <Link to="/user/account" className="py-3">
                       <div className="w-5 h-5 rounded-full overflow-hidden">
                         <img
                           src={user.avatar || noAvatar}
@@ -148,22 +150,25 @@ export default function Navbar() {
                       View Profile
                     </Link>
                   </li>
-                  <li className="flex items-center gap-3 w-full">
-                    <Link to="#" className="w-full" onClick={handleLogout}>
+                  <li>
+                    <button className="py-3" onClick={handleLogout}>
                       <LiaDoorOpenSolid className="text-xl" />
                       Logout
-                    </Link>
+                    </button>
                   </li>
                 </ul>
               </div>
             ) : (
-              <Link to="/user/account" className="flex items-center gap-3">
+              <Link
+                to="/user/account"
+                className="btn btn-ghost font-normal hover:bg-transparent shadow-none"
+              >
                 <p className="hidden md:block">User</p>
                 <AiOutlineUser className="text-xl" />
               </Link>
             )}
 
-            <label className="swap swap-flip text-xl lg:hidden">
+            <label className="swap swap-flip btn btn-ghost lg:hidden">
               {/* this hidden checkbox controls the state */}
               <input
                 type="checkbox"
@@ -173,18 +178,18 @@ export default function Navbar() {
 
               {/* hamburger icon */}
               <div className="swap-off">
-                <HiBars3 />
+                <HiBars3 className="text-xl" />
               </div>
 
               {/* close icon */}
               <div className="swap-on">
-                <IoClose />
+                <IoClose className="text-xl" />
               </div>
             </label>
           </div>
         </div>
       </header>
-      <div className="h-[50px] lg:h-[70px]"></div>
+      <div className="h-15" />
     </>
   );
 }

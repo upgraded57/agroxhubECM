@@ -5,7 +5,9 @@ import EmptyProducts from "../emptyStates/EmptyProducts";
 
 export default function Recent() {
   const existingRecentProductSlugs = localStorage.getItem("recent") || "";
-  const recent: string[] = JSON.parse(existingRecentProductSlugs);
+  const recent = existingRecentProductSlugs
+    ? (JSON.parse(existingRecentProductSlugs) as string[])
+    : [];
 
   const { isLoading, data: products } = useGetRecentProducts(recent);
   return (
