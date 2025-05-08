@@ -1,20 +1,10 @@
 import { RiUserFollowLine } from "react-icons/ri";
 import { FiBarChart } from "react-icons/fi";
-import { useGetSingleNotification } from "../../api/notification";
-
-// enum NotificationType {
-//     follow
-//     productReview
-//     productSave
-//     productOrder
-//     productDelivery
-//     productShipped
-//     productClicks
-//   }
 
 export default function Notification({ item }: { item: Notification }) {
   switch (item?.type) {
-    case notificationType.follow:
+    // case notificationType.follow:
+    case "follow":
       return (
         <div
           onClick={() => {
@@ -48,7 +38,7 @@ export default function Notification({ item }: { item: Notification }) {
         </div>
       );
 
-    case notificationType.productClicks:
+    case "productClicks":
       return (
         <div
           onClick={() => {

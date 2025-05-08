@@ -31,9 +31,9 @@ export default function Orders() {
       ) : orders && orders?.length > 0 ? (
         orders?.map((order, idx) => {
           const paymentStatusBadgeColor =
-            order?.paymentStatus === paymentStatus.paid
+            order?.paymentStatus === "paid"
               ? "dark-green-clr"
-              : order?.paymentStatus === paymentStatus.pending
+              : order?.paymentStatus === "pending"
               ? "yellow-clr"
               : "red-clr";
           return (
