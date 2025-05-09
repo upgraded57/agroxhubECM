@@ -9,13 +9,13 @@ export default function Recent() {
     ? (JSON.parse(existingRecentProductSlugs) as string[])
     : [];
 
-  const { isLoading, data: products } = useGetRecentProducts(recent);
+  const { isFetching, data: products } = useGetRecentProducts(recent);
   return (
     <div className="contEl mb-12">
       <h3 className="h-100">Your Recent Views</h3>
 
       <div className="w-full carousel gap-3">
-        {isLoading ? (
+        {isFetching ? (
           <ProductsLoader count={5} />
         ) : products && products.length > 0 ? (
           products?.map((product, idx) => (

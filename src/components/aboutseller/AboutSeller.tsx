@@ -1,9 +1,10 @@
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import noAvatar from "../../assets/images/noAvatar.jpeg";
 import moment from "moment";
 
 export default function AboutSeller({ seller }: { seller: Seller }) {
+  const sellerInitials =
+    seller.name.split(" ")[0][0] + seller.name.split(" ")[1][0];
   return (
     <div className="bg-light-grey-clr w-full px-[4vw] mb-12">
       <div className="contEl mx-auto py-5">
@@ -18,13 +19,21 @@ export default function AboutSeller({ seller }: { seller: Seller }) {
           />
           <div role="tabpanel" className="tab-content py-10">
             <div className="flex gap-3 items-center">
-              <div className="w-[60px] aspect-square rounded-full overflow-hidden">
-                <img
-                  src={seller?.avatar || noAvatar}
-                  alt="Seller Image"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {seller.avatar ? (
+                <div className="w-15 aspect-square rounded-full overflow-hidden">
+                  <img
+                    src={seller.avatar}
+                    alt="Seller Image"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="avatar avatar-placeholder">
+                  <div className="bg-dark-green-clr text-white w-15 rounded-full">
+                    <p>{sellerInitials}</p>
+                  </div>
+                </div>
+              )}
               <div>
                 <h3 className="text-2xl font-semibold">{seller?.name}</h3>
                 <p className="text-sm">Large quantity tomato producer</p>

@@ -11,7 +11,7 @@ export default function Recent() {
   const recent = localRecents ? JSON.parse(localRecents) : [];
   const { user } = useContext(UserContext);
 
-  const { isLoading, data: products } = useGetRecentProducts(recent);
+  const { isFetching, data: products } = useGetRecentProducts(recent);
   return (
     <>
       <PageTitle title={`${user?.name} | Recent Items`} />
@@ -27,9 +27,9 @@ export default function Recent() {
       </div>
 
       {/* Products List */}
-      {isLoading ? (
+      {isFetching ? (
         <ProductsLoader type="list" count={5} />
-      ) : products && products?.length < 1 ? (
+      ) : !products || products?.length < 1 ? (
         <EmptyProducts text="You have no recent products yet" />
       ) : (
         products?.map((product, idx) => (

@@ -43,7 +43,7 @@ export const useGetRecentProducts = (slugs: string[]) => {
   return useQuery({
     queryKey: ["Recent Products", slugs],
     queryFn: getRecentProducts,
-    enabled: !!slugs?.length,
+    enabled: !!(slugs?.length > 0),
   });
 };
 

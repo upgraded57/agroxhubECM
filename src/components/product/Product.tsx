@@ -16,9 +16,9 @@ export default function Product({ product }: { product: Product }) {
   return (
     <Link
       to={`/products/${product?.slug}`}
-      className="w-full rounded-xl p-2 hover:shadow-md pb-3 mb-4 product-link"
+      className="w-full rounded-lg border-[1px] p-2 border-transparent hover:shadow hover:border-light-grey-clr pb-3 mb-4 product-link"
     >
-      <div className="w-full h-[128px] rounded-b-none bg-gray-200 rounded-lg overflow-hidden">
+      <div className="w-full h-[128px] rounded-b-none bg-gray-200 rounded overflow-hidden">
         <img
           src={product.images.length > 0 ? product.images[0] : tempImg}
           alt={product?.name}

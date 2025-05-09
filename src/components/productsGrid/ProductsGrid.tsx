@@ -23,7 +23,7 @@ export default function ProductsGrid({
 
   const randomProducts = getRandomItems(products || []);
   return (
-    <div className="contEl mb-12">
+    <div className={`contEl mb-12 ${!products.length && "hidden"}`}>
       <div className="flex items-center justify-between">
         <h3 className=" h-100">{header}</h3>
         {moreLink && products?.length > 0 && (

@@ -5,10 +5,11 @@ import AboutSeller from "../../components/aboutseller/AboutSeller";
 import BeASeller from "../../components/beaseller/BeASeller";
 import { useEffect } from "react";
 import { useGetSimilarProducts, useGetSingleProduct } from "../../api/product";
-import Loader from "../../components/loader/Loader";
 import ProductsGrid from "../../components/productsGrid/ProductsGrid";
 import { useGetSellerMostPurchasedProducts } from "../../api/seller";
 import PageTitle from "../../utils/pageTitle";
+import LoadingProduct from "../../components/loader/LoadingProduct";
+import ProductNotFound from "../../components/emptyStates/ProductNotFound";
 
 export default function Product() {
   const navigate = useNavigate();
@@ -35,27 +36,35 @@ export default function Product() {
 
   // document.title = `Buy ${product.name} on Agroxhub`;
 
-  if (isLoading) return <Loader />;
-
   return (
     <>
       <PageTitle
         title={product ? `Buy ${product?.name} on Agroxhub` : "Agroxhub"}
       />
       <Search />
-      {product && <ProductDetail product={product} />}
+
+      {isLoading ? (
+        <LoadingProduct />
+      ) : product ? (
+        <ProductDetail product={product} />
+      ) : (
+        <ProductNotFound type="single" />
+      )}
       {product && <AboutSeller seller={product?.seller} />}
+
       <ProductsGrid
         header="More Products from Seller"
         isLoading={isLoadingSellerProducts}
         products={sellerProducts ? sellerProducts : []}
         moreLink={`/seller/${sellerId}/products`}
       />
+
       <ProductsGrid
         header="You may also like"
         isLoading={isLoadingSimilarProducts}
         products={similarProducts ? similarProducts : []}
       />
+
       <BeASeller />
     </>
   );

@@ -8,9 +8,9 @@ import { useGetProducts } from "../../api/product";
 import ProductsLoader from "../../components/productsLoader/ProductsLoader";
 import { useSearchParams } from "react-router-dom";
 import ProductsFilter from "../../components/productsFilter/ProductsFilter";
-import EmptyProducts from "../../components/emptyStates/EmptyProducts";
 import ResetScroll from "../../components/resetScroll/ResetScroll";
 import PageTitle from "../../utils/pageTitle";
+import ProductNotFound from "../../components/emptyStates/ProductNotFound";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,7 +63,7 @@ export default function Products() {
                 htmlFor="filterDrawer"
                 className="drawer-button lg:hidden w-max"
               >
-                <div className="btn btn-sm bg-white">
+                <div className="btn btn-sm bg-white mb-4">
                   <p className="text-sm font-normal">Filters</p>
                   <MdOutlineFilterAlt className="text-2xl" />
                 </div>
@@ -103,11 +103,7 @@ export default function Products() {
                 </div>
               </div>
             ) : (
-              <EmptyProducts
-                text={
-                  "We could not find any product matching your search. Try using a different search term"
-                }
-              />
+              <ProductNotFound type="multiple" />
             )}
           </div>
           <div className="drawer-side">

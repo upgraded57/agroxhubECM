@@ -131,7 +131,7 @@ body {
   }
 }
 
-.filter {
+.products-filter {
   min-height: calc(100vh - 80px) !important;
 }
 
